@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+SC:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap');
+
+body {
+    background-color: black;
+    color: aliceblue;
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+}
+
+.alumni-sans-sc{
+    font-family: "Alumni Sans SC", sans-serif;
+    font-optical-sizing: auto;
+
+}
+.cherry-bomb-one-regular {
+    font-family: "Cherry Bomb One", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.lexend {
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.snowflake {
+  position: fixed;
+  color: white;
+  font-size: 12px;
+  pointer-events: none;
+  animation: fall 2s linear forwards;
+  z-index: 1000;
+}
+
+@keyframes fall {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100px) scale(0.5);
+  }
+}
+
