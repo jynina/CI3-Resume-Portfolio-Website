@@ -40,5 +40,14 @@ class FrontendController extends CI_Controller{
 		$this->load->view('template/footer');
     }
 
+    public function inbox_admin()
+    {
+        $this->load->view('template/header');
+		$this->load->view('template/admin_nav');
+        $this->load->view('admin/inbox');
+		$this->load->view('template/footer');
+
+    }
+
 }
 ?>

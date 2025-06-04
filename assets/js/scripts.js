@@ -19,25 +19,17 @@ $(document).ready(function () {
     $('.nav-link').removeClass('active');
     $(this).addClass('active');
   
-});
+  });
 
   $('.btn-submit-contact').on('click', function(){
 
     var formData = new FormData();
-
 
     formData.append("contact_name", $('#inputName').val());
     formData.append("contact_email", $('#inputEmail').val());
     formData.append("contact_subject", $('#inputSubject').val());
     formData.append("contact_message", $('#inputMessage').val());
 
-    // var formData =
-    // {
-    //   contact_name:  $('#inputName').val(),
-    //   contact_email: $('#inputEmail').val(),
-    //   contact_subject: $('#inputSubject').val(),
-    //   contact_message: $('#inputMessage').val()
-    // }
     console.log(formData);
 
     $.ajax({
@@ -48,9 +40,23 @@ $(document).ready(function () {
       contentType: false,
       success: function(){
         toastr.success('Info has been sent', 'Nice');
+      },
+      error: function(){
+        toastr.error('May mali', 'Irror')
       }
     })
     
   })
 
+  //Inbox fetching
+  fetch(base_url + 'fetch_inbox')
+    .then(function(response){
+      var data = response.json()
+      return data;
+    })
+    .catch(function(err){
+      console.log(err);
+    });
+  
+  let inbox_string = ``
 });

@@ -3,6 +3,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class MainController extends CI_Controller{
 
+    public function fetch_inbox(){
+        return $this->Main_Model->fetch_inbox();
+        
+    }
+
+    //working
     public function insert_contact(){
         $contact_data = array
         (
