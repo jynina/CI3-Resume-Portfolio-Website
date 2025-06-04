@@ -3,9 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Main_Model extends CI_Model{
 
-    function insert_data($data, $table_name ,$log_data){
+    public function insert_data($data, $table_name)
+    {
         $this->db->insert($table_name, $data);
-        return;
+        if ($this->db->affected_rows() > 0) {
+            return $this->db->insert_id();
+        } else {
+            return false;
+        }
     }
 
     function fetch_inbox(){

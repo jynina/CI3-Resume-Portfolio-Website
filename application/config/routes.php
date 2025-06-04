@@ -14,3 +14,5 @@ $route['inbox_admin'] = 'FrontendController/inbox_admin';
 
 $route['insert_contact'] = 'MainController/insert_contact';
 $route['fetch_inbox'] = 'MainController/fetch_inbox';
+$route['upload_image'] = 'MainController/upload_image';
+$route['test_image'] = 'MainController/test_insert';

@@ -20,7 +20,7 @@ class MainController extends CI_Controller {
             'contact_message' => $this->input->post('contact_message')
         );
 
-        $log_data = array(); // Add log details if needed
+        $log_data = array(); 
 
         $this->Main_Model->insert_data($contact_data, 'tbl_contact', $log_data);
 
@@ -28,6 +28,7 @@ class MainController extends CI_Controller {
     }
 
     public function contact_send_email($data) {
+        //not sure if working
         $mail = new PHPMailer(true);
 
         try {
@@ -61,4 +62,41 @@ class MainController extends CI_Controller {
             echo `Mailer Error: {$mail->ErrorInfo}`;
         }
     }
+
+    public function upload_image()
+    {
+        // Config for upload
+        $config['upload_path']   = './uploads/';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif|webp';
+        $config['encrypt_name']  = TRUE;  // rename file to avoid conflicts
+
+        // Load upload library with config
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload('file')) {
+            // Upload failed
+            echo json_encode(['error' => $this->upload->display_errors()]);
+        } else {
+            // Upload success
+            $upload_data = $this->upload->data();
+
+            // Prepare data to insert into DB
+            $insert = [
+                'file_name' => $upload_data['file_name'],
+                'file_path' => 'uploads/' . $upload_data['file_name'],
+                'file_type' => $upload_data['file_type'],
+            ];
+
+            // Insert data and get inserted ID
+            $insert_id = $this->Main_Model->insert_data($insert, 'tbl_files');
+
+            if ($insert_id) {
+                echo json_encode(['success' => 'File uploaded and saved', 'id' => $insert_id]);
+            } else {
+                echo json_encode(['error' => 'Failed to save to database']);
+            }
+        }
+    }
+
+
 }
