@@ -1,77 +1,64 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class MainController extends CI_Controller{
 
-    public function fetch_inbox(){
+require_once APPPATH . '../vendor/autoload.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+class MainController extends CI_Controller {
+
+    public function fetch_inbox() {
         return $this->Main_Model->fetch_inbox();
-        
     }
 
-    //working
-    public function insert_contact(){
-        $contact_data = array
-        (
-            'contact_name' => $this->input->post('contact_name'),
-            'contact_email' => $this->input->post('contact_email'),
+    public function insert_contact() {
+        $contact_data = array(
+            'contact_name'    => $this->input->post('contact_name'),
+            'contact_email'   => $this->input->post('contact_email'),
             'contact_subject' => $this->input->post('contact_subject'),
             'contact_message' => $this->input->post('contact_message')
         );
 
-        $log_data = array
-        (
+        $log_data = array(); // Add log details if needed
 
-        );
+        $this->Main_Model->insert_data($contact_data, 'tbl_contact', $log_data);
 
-        $insert_contact = new Main_Model;
-        $insert_contact->insert_data($contact_data,'tbl_contact', $log_data);
-        
-        
-        
-
+        $this->contact_send_email($contact_data);
     }
 
-    public function contact_send_email($contact_data){
-            // PHPMailer object
-            $mail = $this->phpmailer_lib->load();
-    
+    public function contact_send_email($data) {
+        $mail = new PHPMailer(true);
+
+        try {
             // SMTP configuration
             $mail->isSMTP();
-            $mail->Host     = 'smtp.example.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'user@example.com';
-            $mail->Password = '********';
-            $mail->SMTPSecure = 'ssl';
-            $mail->Port     = 465;
-    
-            $mail->setFrom('info@example.com', 'CodexWorld');
-            $mail->addReplyTo('info@example.com', 'CodexWorld');
-    
-            // Add a recipient
-            $mail->addAddress('vocoho1899@cigidea.com');
-    
-            // Add cc or bcc 
-            $mail->addCC('cc@example.com');
-            $mail->addBCC('bcc@example.com');
-    
-            // Email subject
-            $mail->Subject = 'Send Email via SMTP using PHPMailer in CodeIgniter';
-    
-            // Set email format to HTML
+            $mail->Host       = 'smtp.office365.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'kwenn.testing@outlook.com';
+            $mail->Password   = 'your_outlook_password_or_app_password';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port       = 587;
+
+            // Email headers
+            $mail->setFrom('kwenn.testing@outlook.com', 'Contact Form');
+            $mail->addAddress('kwenn.gacelos@outlook.com'); // where the message goes
+            $mail->addReplyTo($data['contact_email'], $data['contact_name']);
+
+            // Email body
             $mail->isHTML(true);
-    
-            // Email body content
-            $mailContent = "<h1>Send HTML Email using SMTP in CodeIgniter</h1>
-                <p>This is a test email sending using SMTP mail server with PHPMailer.</p>";
-            $mail->Body = $mailContent;
-    
-            // Send email
-            if(!$mail->send()){
-                echo 'Message could not be sent.';
-                echo 'Mailer Error: ' . $mail->ErrorInfo;
-            }else{
-                echo 'Message has been sent';
-            }
+            $mail->Subject = $data['contact_subject'];
+            $mail->Body    = "
+                <h3>New Contact Form Message</h3>
+                <p><strong>Name:</strong> {$data['contact_name']}</p>
+                <p><strong>Email:</strong> {$data['contact_email']}</p>
+                <p><strong>Message:</strong><br>{$data['contact_message']}</p>
+            ";
+
+            $mail->send();
+            echo 'Message sent successfully!';
+        } catch (Exception $e) {
+            echo `Mailer Error: {$mail->ErrorInfo}`;
+        }
     }
 }
-?>
