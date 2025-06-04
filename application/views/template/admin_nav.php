@@ -10,13 +10,14 @@
                 </button>
                 <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
                     <div class="navbar-nav mx-auto">
-                        <a class="snow-button nav-link active nav-logs" aria-current="page" href="#">Logs</a>
-                        <a class="snow-button nav-link nav-about" href="<?= base_url() ?>about_admin">About</a>
-                        <a class="snow-button nav-link nav-education" href="<?= base_url() ?>educationgit_admin">Education</a>
-                        <a class="snow-button nav-link nav-skills" href="<?= base_url() ?>skills_admin">Skills</a>
+                        <a class="snow-button nav-link nav-logs" aria-current="page" href="#">Logs</a>
+                        <a class="snow-button nav-link nav-about" href="<?= base_url() ?>index.php/about_admin">About</a>
+                        <a class="snow-button nav-link nav-education" href="<?= base_url() ?>index.php/education_admin">Education</a>
+                        <a class="snow-button nav-link nav-skills" href="<?= base_url() ?>index.php/skills_admin">Skills</a>
                         <a class="snow-button nav-link nav-experience" href="#">Experience</a>
-                        <a class="snow-button nav-link nav-contactt" href="#">Contact</a>
+                        <a class="snow-button nav-link nav-contactt" href="<?= base_url() ?>index.php/contact_admin">Contact</a>
                         <a class="snow-button nav-link nav-index" href="#">Inbox</a>
+                        
                     </div>
                 </div>
             </div>
