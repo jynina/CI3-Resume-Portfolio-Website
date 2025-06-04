@@ -2,6 +2,23 @@ base_url = $('#base_url').val()
 
 $(document).ready(function () {
 
+  //Inbox fetching
+
+  async function fetchData(){
+    try
+    {
+      const response = await fetch(base_url + 'fetch_inbox');
+      if(!response.ok)
+      {
+        throw new Error('HTPP error! Status: ' + response.status)
+      }
+    }
+    catch (error)
+    {
+
+    }
+  }
+
   $('.snow-button').on('mousemove', function (e) {
     let $snowflake = $('<div class="snowflake">❅</div>');
     $snowflake.css({
@@ -31,6 +48,7 @@ $(document).ready(function () {
     formData.append("contact_message", $('#inputMessage').val());
 
     console.log(formData);
+    console.log('')
 
     $.ajax({
       url: base_url + 'index.php/insert_contact',
@@ -45,18 +63,7 @@ $(document).ready(function () {
         toastr.error('May mali', 'Irror')
       }
     })
-    
   })
 
-  //Inbox fetching
-  fetch(base_url + 'fetch_inbox')
-    .then(function(response){
-      var data = response.json()
-      return data;
-    })
-    .catch(function(err){
-      console.log(err);
-    });
-  
   let inbox_string = ``
 });

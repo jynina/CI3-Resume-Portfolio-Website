@@ -1,7 +1,31 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 class MainController extends CI_Controller{
+
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->database();
+
+        require 'vendor/autoload.php';
+        // PHPMailer object
+            $mail = $this->phpmailer_lib->load();
+    
+            // SMTP configuration
+            $mail->isSMTP();
+            $mail->Host     = 'smtp.example.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'user@example.com';
+            $mail->Password = 'secret';
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port     = 465;
+
+    }
 
     public function fetch_inbox(){
         return $this->Main_Model->fetch_inbox();
@@ -25,53 +49,37 @@ class MainController extends CI_Controller{
 
         $insert_contact = new Main_Model;
         $insert_contact->insert_data($contact_data,'tbl_contact', $log_data);
-        
-        
-        
 
+        $mail = $this->phpmailer_lib->load();
+
+        $mail->setFrom($this->input->post('contact_email'), $this->input->post('contact_name'));
+        $mail->addReplyTo('info@example.com', 'CodexWorld');
+
+        // Add a recipient
+        $mail->addAddress('vocoho1899@cigidea.com');
+
+
+        // Email subject
+        $mail->Subject = $this->input->post('contact_subject');
+
+
+        // Email body content
+        $mailContent = $this->input->post('contact_message');
+        $mail->Body = $mailContent;
+
+        // Send email
+        if(!$mail->send()){
+            echo 'Message could not be sent.';
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        }else{
+            echo 'Message has been sent';
+        }
+    
     }
 
-    public function contact_send_email($contact_data){
-            // PHPMailer object
-            $mail = $this->phpmailer_lib->load();
-    
-            // SMTP configuration
-            $mail->isSMTP();
-            $mail->Host     = 'smtp.example.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'user@example.com';
-            $mail->Password = '********';
-            $mail->SMTPSecure = 'ssl';
-            $mail->Port     = 465;
-    
-            $mail->setFrom('info@example.com', 'CodexWorld');
-            $mail->addReplyTo('info@example.com', 'CodexWorld');
-    
-            // Add a recipient
-            $mail->addAddress('vocoho1899@cigidea.com');
-    
-            // Add cc or bcc 
-            $mail->addCC('cc@example.com');
-            $mail->addBCC('bcc@example.com');
-    
-            // Email subject
-            $mail->Subject = 'Send Email via SMTP using PHPMailer in CodeIgniter';
-    
-            // Set email format to HTML
-            $mail->isHTML(true);
-    
-            // Email body content
-            $mailContent = "<h1>Send HTML Email using SMTP in CodeIgniter</h1>
-                <p>This is a test email sending using SMTP mail server with PHPMailer.</p>";
-            $mail->Body = $mailContent;
-    
-            // Send email
-            if(!$mail->send()){
-                echo 'Message could not be sent.';
-                echo 'Mailer Error: ' . $mail->ErrorInfo;
-            }else{
-                echo 'Message has been sent';
-            }
+    public function contact_send_email($data){
+        
+            
     }
 }
 ?>
