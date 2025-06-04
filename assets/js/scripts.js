@@ -1,4 +1,5 @@
 base_url = $('#base_url').val()
+Dropzone.autoDiscover = false;
 
 $(document).ready(function () {
 
@@ -66,4 +67,33 @@ $(document).ready(function () {
   })
 
   let inbox_string = ``
+
+
+const myDropzone = new Dropzone("#myDropzone", {
+  url: base_url + 'index.php/upload_image', 
+  paramName: "file", // your CI controller/method URL
+  autoProcessQueue: false,  // only upload on submit
+  acceptedFiles: 'image/*',
+  maxFiles: 1, // only 1 profile picture
+});
+
+
+
+document.getElementById("btn-submit-profile").addEventListener("click", function(e) {
+  e.preventDefault();
+  if (myDropzone.getQueuedFiles().length > 0) {
+    myDropzone.processQueue();
+  } else {
+    alert("Please select an image.");
+  }
+});
+
+myDropzone.on("success", function(file, response) {
+  alert("Upload successful!");
+  myDropzone.removeAllFiles(); // clear dropzone
+});
+
+myDropzone.on("error", function(file, errorMessage) {
+  alert("Upload failed: " + errorMessage);
+});
 });

@@ -1,5 +1,9 @@
 <div class="container w-50 mt-5">
     <div>
+        <form id="myDropzone" class="dropzone"></form>
+        <button id="btn-submit-profile">Upload Profile Picture</button>
+        </form>
+
         <form>
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
@@ -11,5 +15,6 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        
     </div>
 </div>
