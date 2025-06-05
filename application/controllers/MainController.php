@@ -59,27 +59,46 @@ class MainController extends CI_Controller {
         }
     }
 
+    function insert_educ(){
+        $data = array (
+            'institution_name' => $this->input->post('institution_name'),
+            'education_level' => $this->input->post('education_level'),
+            'acad_year' => $this->input->post('acad_year'),
+            'institution_desc' => $this->input->post('institution_desc')
+        );
+
+        $log_data = array(); 
+        $this->Main_Model->insert_data($data,'tbl_education', $log_data); 
+
+          
+    }
+
     function upload_image()
     {
         $ds = "/";
         $storeFolder = 'upload';
-
-        if (!empty($_FILES))
-        {
-            $tempFile = $_FILES['file']['tmp_name'];
+        foreach($_FILES['file']['tmp_name'] as $index => $tmpName){
+            if (!empty($_FILES))
+            {
+            $tempFile = $_FILES['file']['tmp_name'][$index];
             $targetPath = $storeFolder . $ds;
-            $targetFile = $targetPath.$_FILES['file']['name'];
-
+            $targetFile = $targetPath.$_FILES['file']['name'][$index];
+            
+            if( !empty( $tmpName ) && is_uploaded_file( $tmpName ) ){
 
             move_uploaded_file($tempFile, $targetFile);
 
             $insert_data = array(
-                "file_name" => $_FILES['file']['name'],
-                "file_path" => $targetPath . $_FILES['file']['name'],
-                "file_type" => $_FILES['file']['type']
+                "file_name" => $_FILES['file']['name'][$index],
+                "file_path" => $targetPath . $_FILES['file']['name'][$index],
+                "file_type" => $_FILES['file']['type'][$index]
             );
 
+            
+
             $this->Main_Model->insert_data($insert_data, 'tbl_files');
+            } 
+            }
         }
     }
 

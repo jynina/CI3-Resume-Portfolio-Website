@@ -17,6 +17,7 @@ $route['get_info'] = 'FrontendController/get_admin_info';
 
 
 $route['insert_contact'] = 'MainController/insert_contact';
+$route['insert_educ'] = 'MainController/insert_educ';
 $route['insert_about'] = 'MainController/insert_about';
 $route['fetch_inbox'] = 'MainController/fetch_inbox';
 $route['upload_image'] = 'MainController/upload_image';

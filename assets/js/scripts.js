@@ -2,13 +2,30 @@ var base_url = $('#base_url').val()
 Dropzone.autoDiscover = false;
 
 $(document).ready(function () {
-var base_url = $('#base_url').val()
+var base_url = $('#base_url').val();
+Dropzone.autoDiscover = false;
 
-var myDropzone = new Dropzone("#myDropzone", {    
+if($('#myDropzoneProfile').length)
+{
+  var myDropzone = new Dropzone("#myDropzoneProfile", {    
   url: base_url + "index.php/upload_image", 
   addRemoveLinks: true,
   autoProcessQueue: false,
 });
+
+
+}
+
+if($('#myDropzoneMultiple').length)
+{
+  var myDropzone = new Dropzone("#myDropzoneMultiple", {    
+  url: base_url + "index.php/upload_image", 
+  addRemoveLinks: true,
+  autoProcessQueue: false,
+  uploadMultiple: true
+});
+
+}
 
 $('#btn-submit-profile').click(function(){           
   myDropzone.processQueue();
@@ -77,9 +94,24 @@ $('#btn-submit-profile').click(function(){
     }, 2000);
   });
 
+
   $(document).on('click', '.nav-link', function () {
     $('.nav-link').removeClass('active');
     $(this).addClass('active');
+  
+  });
+
+  $(document).on('click', '.btn-submit-educ', function () {
+
+    var formData = new FormData();
+
+    formData.append('institution_name', $('#inputInstitution').val());
+    formData.append('education_level', $('#inputLevel').val());
+    formData.append('acad_year', $('#inputAcadYear').val());
+    formData.append('institution_desc', $('#inputEducDescription').val());
+    console.log(formData);
+
+    post_send_data('index.php/insert_educ', formData)
   
   });
 
@@ -192,9 +224,7 @@ $('#btn-submit-profile').click(function(){
     post_send_data('index.php/insert_about', formData);
   })
 
-  $('.nav-about').on('click', function(){
-    
-  });
+
 
 
  
