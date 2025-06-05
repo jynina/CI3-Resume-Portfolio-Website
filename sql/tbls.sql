@@ -31,12 +31,35 @@ CREATE TABLE `tbl_contact` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-/*Data for the table `tbl_contact` */
+/*Table structure for table `tbl_education` */
 
-insert  into `tbl_contact`(`id`,`contact_name`,`contact_email`,`contact_subject`,`contact_message`,`created_at`,`status`) values 
-(1,'test','test@email.com','test','test','2025-06-04 17:52:23',1),
-(2,'test','test@email.com','test','test','2025-06-04 18:59:29',1),
-(3,'test','test@email.com','test','test','2025-06-04 18:59:35',1);
+DROP TABLE IF EXISTS `tbl_education`;
+
+CREATE TABLE `tbl_education` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `institution_name` varchar(255) DEFAULT NULL,
+  `education_level` varchar(90) DEFAULT NULL,
+  `acad_year` varchar(20) DEFAULT NULL,
+  `institution_desc` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `status` int(11) DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Table structure for table `tbl_exp` */
+
+DROP TABLE IF EXISTS `tbl_exp`;
+
+CREATE TABLE `tbl_exp` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` int(11) DEFAULT 1,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `professional_title` varchar(60) DEFAULT NULL,
+  `company_name` varchar(60) DEFAULT NULL,
+  `prof_year` varchar(60) DEFAULT NULL,
+  `company_desc` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Table structure for table `tbl_files` */
 
@@ -49,12 +72,7 @@ CREATE TABLE `tbl_files` (
   `file_type` varchar(50) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-/*Data for the table `tbl_files` */
-
-insert  into `tbl_files`(`id`,`file_name`,`file_path`,`file_type`,`created_at`) values 
-(1,'test.jpg','uploads/test.jpg','image/jpeg','2025-06-04 19:44:02');
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Table structure for table `tbl_personal_info` */
 
@@ -69,7 +87,34 @@ CREATE TABLE `tbl_personal_info` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-/*Data for the table `tbl_personal_info` */
+/*Table structure for table `tbl_projects` */
+
+DROP TABLE IF EXISTS `tbl_projects`;
+
+CREATE TABLE `tbl_projects` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` int(11) DEFAULT 1,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `project_name` varchar(255) DEFAULT NULL,
+  `project_role` varchar(255) DEFAULT NULL,
+  `project_tech` varchar(255) DEFAULT NULL,
+  `project_desc` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+/*Table structure for table `tbl_skills` */
+
+DROP TABLE IF EXISTS `tbl_skills`;
+
+CREATE TABLE `tbl_skills` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `skill_name` varchar(60) DEFAULT NULL,
+  `skill_progress` varchar(10) DEFAULT NULL,
+  `skill_desc` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `status` int(11) DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

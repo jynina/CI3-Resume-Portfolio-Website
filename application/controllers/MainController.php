@@ -7,24 +7,117 @@ use PHPMailer\PHPMailer\Exception;
 
 class MainController extends CI_Controller {
 
-    public function fetch_inbox() {
+    //fetching
+    public function fetch_inbox() 
+    {
         return $this->Main_Model->fetch_inbox();
     }
+    //reusable cod kasi ampanget kapag repetitive
+    private function handle_insert($fields, $table_name)
+    {
+        $data =[];
+        foreach ($fields as $field)
+        {
+            $data[$field] = $this->input->post($field);
+        }
 
-    public function insert_contact() {
-        $contact_data = array(
-            'contact_name'    => $this->input->post('contact_name'),
-            'contact_email'   => $this->input->post('contact_email'),
-            'contact_subject' => $this->input->post('contact_subject'),
-            'contact_message' => $this->input->post('contact_message')
-        );
+        $this->Main_Model->insert_data($data, $table_name, []);
+        return $data;
+    }
 
-        $log_data = array(); 
+    //insertion
 
-        $this->Main_Model->insert_data($contact_data, 'tbl_contact', $log_data);
+    public function insert_contact() 
+    {
+        $fields = ['contact_name', 'contact_email', 'contact_subject', 'contact_message'];
+        $contact_data = $this->handle_insert($fields, 'tbl_contact');
 
         $this->contact_send_email($contact_data);
     }
+
+    public function insert_about()
+    {
+        $fields = ['name', 'professional_title', 'introduction'];
+        $this->handle_insert($fields, 'tbl_personal_info');
+    }   
+
+    public function insert_educ()
+    {
+        $fields = ['institution_name', 'education_level', 'acad_year', 'institution_desc'];
+        $this->handle_insert($fields, 'tbl_education');
+    }
+
+    function insert_skills()
+    {
+        $fields = ["skill_name", "skill_progress", "skill_desc"];
+        $this->handle_insert($fields, 'tbl_skills');
+    }
+
+    function insert_projects()
+    {
+        $fields = ["project_name", "project_role", "project_tech", "project_desc"];
+        $this->handle_insert($fields, 'tbl_projects');
+    }
+
+    function insert_exp()
+    {
+        $fields = ["professional_title", "company_name", "prof_year", "company_desc"];
+        $this->handle_insert($fields, 'tbl_exp');
+    } 
+
+    //dropzone upload to db
+    function upload_image()
+    {
+        $ds = "/";
+        $storeFolder = 'upload';
+        if (isset($_FILES['file']['name']) &&
+    is_array($_FILES['file']['name']) &&
+    count($_FILES['file']['name']) > 1) {
+            foreach($_FILES['file']['tmp_name'] as $index => $tmpName){
+                if (!empty($_FILES))
+                {
+                $tempFile = $_FILES['file']['tmp_name'][$index];
+                $targetPath = $storeFolder . $ds;
+                $targetFile = $targetPath.$_FILES['file']['name'][$index];
+                
+                if( !empty( $tmpName ) && is_uploaded_file( $tmpName ) ){
+
+                move_uploaded_file($tempFile, $targetFile);
+
+                $insert_data = array(
+                    "file_name" => $_FILES['file']['name'][$index],
+                    "file_path" => $targetPath . $_FILES['file']['name'][$index],
+                    "file_type" => $_FILES['file']['type'][$index]
+                );
+
+                $this->Main_Model->insert_data($insert_data, 'tbl_files', []);
+                } 
+                }
+            }
+        }
+        else 
+        {
+            if (!empty($_FILES))
+                {
+                $tempFile = $_FILES['file']['tmp_name'];
+                $targetPath = $storeFolder . $ds;
+                $targetFile = $targetPath.$_FILES['file']['name'];
+
+                move_uploaded_file($tempFile, $targetFile);
+
+                $insert_data = array(
+                    "file_name" => $_FILES['file']['name'],
+                    "file_path" => $targetPath . $_FILES['file']['name'],
+                    "file_type" => $_FILES['file']['type']
+                );
+
+                $this->Main_Model->insert_data($insert_data, 'tbl_files', []);
+                
+                }
+        }
+    }
+
+    //email
 
     public function contact_send_email($data) {
         //not sure if working
@@ -59,59 +152,6 @@ class MainController extends CI_Controller {
         }
     }
 
-    function insert_educ(){
-        $data = array (
-            'institution_name' => $this->input->post('institution_name'),
-            'education_level' => $this->input->post('education_level'),
-            'acad_year' => $this->input->post('acad_year'),
-            'institution_desc' => $this->input->post('institution_desc')
-        );
-
-        $log_data = array(); 
-        $this->Main_Model->insert_data($data,'tbl_education', $log_data); 
-
-          
-    }
-
-    function upload_image()
-    {
-        $ds = "/";
-        $storeFolder = 'upload';
-        foreach($_FILES['file']['tmp_name'] as $index => $tmpName){
-            if (!empty($_FILES))
-            {
-            $tempFile = $_FILES['file']['tmp_name'][$index];
-            $targetPath = $storeFolder . $ds;
-            $targetFile = $targetPath.$_FILES['file']['name'][$index];
-            
-            if( !empty( $tmpName ) && is_uploaded_file( $tmpName ) ){
-
-            move_uploaded_file($tempFile, $targetFile);
-
-            $insert_data = array(
-                "file_name" => $_FILES['file']['name'][$index],
-                "file_path" => $targetPath . $_FILES['file']['name'][$index],
-                "file_type" => $_FILES['file']['type'][$index]
-            );
-
-            $this->Main_Model->insert_data($insert_data, 'tbl_files');
-            } 
-            }
-        }
-    }
-
-    function insert_about()
-    {
-        $data = array(
-            'name'    => $this->input->post('name'),
-            'professional_title'   => $this->input->post('professional_title'),
-            'introduction' => $this->input->post('introduction')
-        );
-
-        $log_data = array(); 
-
-        $this->Main_Model->insert_data($data, 'tbl_personal_info', $log_data);
-
-    }
+   
 
 }

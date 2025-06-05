@@ -1,35 +1,42 @@
-$(document).ready(function () {
-
 //constants
-var base_url = $('#base_url').val();
 Dropzone.autoDiscover = false;
 
-//HELPERS
-  function post_send_data(url, data){
-    console.log(base_url + '' + url);
+
+
+$(document).ready(function () {
+var orig_base_url = $("#base_url").val();
+  
+  function ApiHelper(base_url)
+  {
+    this.base_url = base_url;
+
+  }
+  //HELPERS
+  ApiHelper.prototype.post = function(url, data)
+  {
     $.ajax({
-      url: base_url + '' + url,
-      method: 'POST',
-      data: data,
-      processData: false,
-      contentType: false,
-      success: function(){
-        toastr.success('Info has been sent', 'Nice');
-      },
-      error: function(){
-        toastr.error('May mali', 'Irror')
-      }
-    });
+        url: this.base_url +  url,
+        method: 'POST',
+        data: data,
+        processData: false,
+        contentType: false,
+        success: function(){
+          toastr.success('Info has been sent', 'Nice');
+        },
+        error: function(){
+          toastr.error('May mali', 'Irror')
+        }
+      });
   }
 
-//API & LIBRARIES
+ var api = new ApiHelper($("#base_url").val());
 
 //DropZone
 
   if($('#myDropzoneProfile').length)
   {
     var myDropzone = new Dropzone("#myDropzoneProfile", {    
-    url: base_url + "index.php/upload_image", 
+    url: orig_base_url + "index.php/upload_image", 
     addRemoveLinks: true,
     autoProcessQueue: false,
   });
@@ -40,7 +47,7 @@ Dropzone.autoDiscover = false;
   if($('#myDropzoneMultiple').length)
   {
     var myDropzone = new Dropzone("#myDropzoneMultiple", {    
-    url: base_url + "index.php/upload_image", 
+    url: orig_base_url + "index.php/upload_image", 
     addRemoveLinks: true,
     autoProcessQueue: false,
     uploadMultiple: true
@@ -57,90 +64,13 @@ Dropzone.autoDiscover = false;
   });
 
 
-  //add buttons
+  //submit buttons dropzone
 
-  $('.btn-add-skills').on('click', function(){
-    let div_skills =
-    `
-    <div class="bg-dark p-5 my-3 rounded"> 
-        <form>
-            <div class="mb-3">
-                <label for="name" class="form-label">Skill</label>
-                <input type="email" class="form-control" id="inputSkillName">
-            </div>
-            <div class="mb-3">
-                <label for="name" class="form-label">Progress</label>
-                <input type="email" class="form-control" id="inputSkillProgress">
-            </div>
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Brief Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
-      `
-    $(".div-skills-forms").append(div_skills);
+  $('#btn-submit-profile').click(function(){           
+  myDropzone.processQueue();
   });
 
-  $('.btn-add-exp').on('click', function(){
-    let div_experience =
-    `
-    <div class="bg-dark p-5 my-3 rounded"> 
-            <form>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Professional Title</label>
-                    <input type="email" class="form-control" id="inputCompanyTitle">
-                </div>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Company Name</label>
-                    <input type="email" class="form-control" id="inputCompanyName">
-                </div>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Years</label>
-                    <input type="email" class="form-control" id="inputCompanyYears">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Brief Description</label>
-                    <textarea class="form-control" id="inputCompanyDesc" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    `
-    $(".div-exp-forms").append(div_experience);
-  });
-
-  $('.btn-add-education').on('click', function(){
-    let div_education =
-    `
-    <div class="bg-dark p-5 my-3 rounded"> 
-        <form>
-            <div class="mb-3">
-                <label for="name" class="form-label">Institution</label>
-                <input type="email" class="form-control" id="inputInstitution">
-            </div>
-            <div class="mb-3">
-                <label for="name" class="form-label">Course/Education Level</label>
-                <input type="email" class="form-control" id="inputLevel">
-            </div>
-            <div class="mb-3">
-                <label for="name" class="form-label">Academic Year</label>
-                <input type="email" class="form-control" id="inputAcadYear">
-            </div>
-
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Brief Description <span class="text-secondary">(Optional)</span></label>
-                <textarea class="form-control" id="inputEducDescription" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
-    `
-    $(".div-education-forms").append(div_education);
-  })
-
-  //submit buttons
+  //submit buttons forms
 
   $('.btn-submit-contact').on('click', function(){
 
@@ -153,12 +83,8 @@ Dropzone.autoDiscover = false;
 
     console.log(formData);
 
-    post_send_data('index.php/insert_contact', formData);
+    api.post('index.php/insert_contact', formData);
     
-  });
-
-  $('#btn-submit-profile').click(function(){           
-  myDropzone.processQueue();
   });
 
   $('.btn-submit-about').on('click', function(){
@@ -171,7 +97,7 @@ Dropzone.autoDiscover = false;
 
     console.log(formData)
 
-    post_send_data('index.php/insert_about', formData);
+    api.post('index.php/insert_about', formData);
   })
 
   $('.btn-submit-educ').on('click', function () {
@@ -184,41 +110,75 @@ Dropzone.autoDiscover = false;
     formData.append('institution_desc', $('#inputEducDescription').val());
     console.log(formData);
 
-    post_send_data('index.php/insert_educ', formData)
+    api.post('index.php/insert_educ', formData)
   
   });
 
+  $('.btn-submit-skills').on('click', function () {
+    var formData = new FormData();
+
+    formData.append("skill_name", $("#inputSkillName").val());
+    formData.append("skill_progress", $("#inputSkillProgress").val());
+    formData.append("skill_desc", $("#inputSkillDescription").val());
+
+    api.post('index.php/insert_skills', formData);
+
+  });
+
+  $('.btn-submit-exp').on('click', function () {
+    var formData = new FormData();
+
+    formData.append("professional_title", $("#inputCompanyTitle").val());
+    formData.append("company_name", $("#inputCompanyName").val());
+    formData.append("prof_year", $("#inputCompanyYears").val());
+    formData.append("company_desc", $("#inputCompanyDesc").val());
+
+    api.post('index.php/insert_exp', formData);
+  });
+
+  $('.btn-submit-projects').on('click', function () {
+    var formData = new FormData();
+
+    formData.append("project_name", $("#inputProjectName").val());
+    formData.append("project_role", $("#inputRole").val());
+    formData.append("project_tech", $("#inputTechnologies").val());
+    formData.append("project_desc", $("#inputProjectDescription").val());
+
+    api.post('index.php/insert_projects', formData);
+  });
+
+
   //Experimenting
-  $.ajax({
-      url: base_url + 'index.php/get_info',
-      method: 'POST',
-      dataType: 'json',
-      success: function(info){
-        toastr.success('EYYY','ey ka muna');
-        console.log(info);
-        console.log(info.name);
-        $('#inputName').attr('placeholder', '');
-        $('#inputTitle').attr('placeholder', '');
-        $('#inputDesc').attr('placeholder', '');
-      }
+  // $.ajax({
+  //     url: base_url + 'index.php/get_info',
+  //     method: 'POST',
+  //     dataType: 'json',
+  //     success: function(info){
+  //       toastr.success('EYYY','ey ka muna');
+  //       console.log(info);
+  //       console.log(info.name);
+  //       $('#inputName').attr('placeholder', '');
+  //       $('#inputTitle').attr('placeholder', '');
+  //       $('#inputDesc').attr('placeholder', '');
+  //     }
 
-  })
+  // })
 
-  async function fetchData(){
-  try
-  {
-    const response = await fetch(base_url + 'fetch_inbox');
-    console.log(response);
-    if(!response.ok)
-    {
-      throw new Error('HTPP error! Status: ' + response.status)
-    }
-  }
-  catch (error)
-  {
+  // async function fetchData(){
+  // try
+  // {
+  //   const response = await fetch(base_url + 'fetch_inbox');
+  //   console.log(response);
+  //   if(!response.ok)
+  //   {
+  //     throw new Error('HTPP error! Status: ' + response.status)
+  //   }
+  // }
+  // catch (error)
+  // {
 
-  }
-  }
+  // }
+  // }
 
   //Others
   $('.snow-button').on('mousemove', function (e) {

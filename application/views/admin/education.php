@@ -1,5 +1,4 @@
 <div class="container w-50 mt-5">
-    <button type="button" class="btn btn-danger mb-3 btn-add-education">Add another</button>
     <div class="div-education-forms">
         <div class="bg-dark p-5 my-3 rounded"> 
             <form class="mb-3 form-educ">
