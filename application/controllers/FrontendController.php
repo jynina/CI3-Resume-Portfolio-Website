@@ -13,6 +13,11 @@ class FrontendController extends CI_Controller{
 		$this->load->view('template/footer');
     }
 
+    public function get_admin_info(){
+        $data = $this->Main_Model->fetch_data("tbl_personal_info");
+        echo json_encode($data);
+    }
+
     public function education_admin()
     {
         $this->load->view('template/header');

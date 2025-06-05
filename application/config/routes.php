@@ -12,7 +12,10 @@ $route['skills_admin'] = 'FrontendController/skills_admin';
 $route['contact_admin'] = 'FrontendController/contact_admin';
 $route['inbox_admin'] = 'FrontendController/inbox_admin';
 
+$route['get_info'] = 'FrontendController/get_admin_info';
+
 $route['insert_contact'] = 'MainController/insert_contact';
+$route['insert_about'] = 'MainController/insert_about';
 $route['fetch_inbox'] = 'MainController/fetch_inbox';
 $route['upload_image'] = 'MainController/upload_image';
 $route['test_image'] = 'MainController/test_insert';

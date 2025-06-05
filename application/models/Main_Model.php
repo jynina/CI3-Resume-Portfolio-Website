@@ -16,6 +16,11 @@ class Main_Model extends CI_Model{
     function fetch_inbox(){
         return $this->db->query('SELECT * FROM tbl_contact WHERE status != 0 ORDER BY created_at DESC');
     }
+
+    function fetch_data($table_name)
+    {
+        return $this->db->query("SELECT * FROM " . $table_name . " WHERE status != 0 ORDER BY created_at DESC LIMIT 1");
+    }
 }
 
 ?>

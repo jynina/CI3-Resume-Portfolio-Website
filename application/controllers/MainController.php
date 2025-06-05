@@ -1,11 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-
 require_once APPPATH . '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -36,21 +31,18 @@ class MainController extends CI_Controller {
         $mail = new PHPMailer(true);
 
         try {
-            // SMTP configuration
             $mail->isSMTP();
             $mail->Host       = 'smtp.office365.com';
             $mail->SMTPAuth   = true;
             $mail->Username   = 'kwenn.testing@outlook.com';
-            $mail->Password   = 'your_outlook_password_or_app_password';
+            $mail->Password   = 'OutlookPass112';
             $mail->SMTPSecure = 'tls';
             $mail->Port       = 587;
 
-            // Email headers
             $mail->setFrom('kwenn.testing@outlook.com', 'Contact Form');
-            $mail->addAddress('kwenn.gacelos@outlook.com'); // where the message goes
+            $mail->addAddress('kwenn.gacelos@outlook.com');
             $mail->addReplyTo($data['contact_email'], $data['contact_name']);
 
-            // Email body
             $mail->isHTML(true);
             $mail->Subject = $data['contact_subject'];
             $mail->Body    = "
@@ -67,40 +59,33 @@ class MainController extends CI_Controller {
         }
     }
 
-    public function upload_image()
+    function upload_picture()
     {
-        // Config for upload
-        $config['upload_path']   = './uploads/';
-        $config['allowed_types'] = 'jpg|jpeg|png|gif|webp';
-        $config['encrypt_name']  = TRUE;  // rename file to avoid conflicts
+        $ds = DIRECTORY_SEPARATOR;
+        $storeFolder = 'upload';
 
-        // Load upload library with config
-        $this->load->library('upload', $config);
+        if (!empty($_FILES))
+        {
+            $tempFile = $_FILES['file']['tmp_name'];
+            $targetPath = dirname(__FILE__) . $ds . $storeFolder . $ds;
+            $targetFile = $targetPath.$_FILES['file']['name'];
 
-        if (!$this->upload->do_upload('file')) {
-            // Upload failed
-            echo json_encode(['error' => $this->upload->display_errors()]);
-        } else {
-            // Upload success
-            $upload_data = $this->upload->data();
-
-            // Prepare data to insert into DB
-            $insert = [
-                'file_name' => $upload_data['file_name'],
-                'file_path' => 'uploads/' . $upload_data['file_name'],
-                'file_type' => $upload_data['file_type'],
-            ];
-
-            // Insert data and get inserted ID
-            $insert_id = $this->Main_Model->insert_data($insert, 'tbl_files');
-
-            if ($insert_id) {
-                echo json_encode(['success' => 'File uploaded and saved', 'id' => $insert_id]);
-            } else {
-                echo json_encode(['error' => 'Failed to save to database']);
-            }
+            move_uploaded_file($tempFile, $targetFile);
         }
     }
 
+    function insert_about()
+    {
+        $data = array(
+            'name'    => $this->input->post('name'),
+            'professional_title'   => $this->input->post('professional_title'),
+            'introduction' => $this->input->post('introduction')
+        );
+
+        $log_data = array(); 
+
+        $this->Main_Model->insert_data($data, 'tbl_personal_info', $log_data);
+
+    }
 
 }
