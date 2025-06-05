@@ -14,8 +14,9 @@
                         <a class="snow-button nav-link nav-about" href="<?= base_url() ?>index.php/about_admin">About</a>
                         <a class="snow-button nav-link nav-education" href="<?= base_url() ?>index.php/education_admin">Education</a>
                         <a class="snow-button nav-link nav-skills" href="<?= base_url() ?>index.php/skills_admin">Skills</a>
-                        <a class="snow-button nav-link nav-experience" href="#">Experience</a>
-                        <a class="snow-button nav-link nav-contactt" href="<?= base_url() ?>index.php/contact_admin">Contact</a>
+                        <a class="snow-button nav-link nav-experience" href="<?= base_url() ?>index.php/experience_admin">Experience</a>
+                        <a class="snow-button nav-link nav-projects" href="<?= base_url() ?>index.php/projects_admin">Projects</a>
+                        <a class="snow-button nav-link nav-contact" href="<?= base_url() ?>index.php/contact_admin">Contact</a>
                         <a class="snow-button nav-link nav-index" href="<?= base_url() ?>index.php/inbox_admin">Inbox</a>
                         
                     </div>

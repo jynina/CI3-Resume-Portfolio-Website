@@ -54,5 +54,13 @@ class FrontendController extends CI_Controller{
 
     }
 
+    public function experience_admin()
+    {
+       $this->load->view('template/header');
+		$this->load->view('template/admin_nav');
+        $this->load->view('admin/experience');
+		$this->load->view('template/footer'); 
+    }
+
 }
 ?>

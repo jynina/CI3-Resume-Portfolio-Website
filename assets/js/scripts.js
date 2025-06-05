@@ -1,14 +1,27 @@
 var base_url = $('#base_url').val()
+Dropzone.autoDiscover = false;
+
 $(document).ready(function () {
 var base_url = $('#base_url').val()
 
+var myDropzone = new Dropzone("#myDropzone", {    
+  url: base_url + "index.php/upload_image", 
+  addRemoveLinks: true,
+  autoProcessQueue: false,
+});
+
+$('#btn-submit-profile').click(function(){           
+  myDropzone.processQueue();
+});
+
   $.ajax({
       url: base_url + 'index.php/get_info',
-      method: 'GET',
+      method: 'POST',
       dataType: 'json',
       success: function(info){
         toastr.success('EYYY','ey ka muna');
         console.log(info);
+        console.log(info.name);
         $('#inputName').attr('placeholder', '');
         $('#inputTitle').attr('placeholder', '');
         $('#inputDesc').attr('placeholder', '');
@@ -85,6 +98,87 @@ var base_url = $('#base_url').val()
     
   });
 
+  $('.btn-add-skills').on('click', function(){
+    let div_skills =
+    `
+    <div class="bg-dark p-5 my-3 rounded"> 
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Skill</label>
+                <input type="email" class="form-control" id="inputSkillName">
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Progress</label>
+                <input type="email" class="form-control" id="inputSkillProgress">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Brief Description</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      `
+    $(".div-skills-forms").append(div_skills);
+  })
+
+  $('.btn-add-exp').on('click', function(){
+    let div_experience =
+    `
+    <div class="bg-dark p-5 my-3 rounded"> 
+            <form>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Professional Title</label>
+                    <input type="email" class="form-control" id="inputCompanyTitle">
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Company Name</label>
+                    <input type="email" class="form-control" id="inputCompanyName">
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Years</label>
+                    <input type="email" class="form-control" id="inputCompanyYears">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Brief Description</label>
+                    <textarea class="form-control" id="inputCompanyDesc" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    `
+    $(".div-exp-forms").append(div_experience);
+  })
+
+  $('.btn-add-education').on('click', function(){
+    let div_education =
+    `
+    <div class="bg-dark p-5 my-3 rounded"> 
+        <form>
+            <div class="mb-3">
+                <label for="name" class="form-label">Institution</label>
+                <input type="email" class="form-control" id="inputInstitution">
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Course/Education Level</label>
+                <input type="email" class="form-control" id="inputLevel">
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Academic Year</label>
+                <input type="email" class="form-control" id="inputAcadYear">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Brief Description <span class="text-secondary">(Optional)</span></label>
+                <textarea class="form-control" id="inputEducDescription" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    `
+    $(".div-education-forms").append(div_education);
+  })
+
   $('.btn-submit-about').on('click', function(){
 
     var formData = new FormData();
@@ -100,8 +194,9 @@ var base_url = $('#base_url').val()
 
   $('.nav-about').on('click', function(){
     
-  })
+  });
 
-  let inbox_string = ``;
+
+ 
 
 });

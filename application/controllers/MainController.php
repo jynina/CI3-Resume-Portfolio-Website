@@ -59,18 +59,27 @@ class MainController extends CI_Controller {
         }
     }
 
-    function upload_picture()
+    function upload_image()
     {
-        $ds = DIRECTORY_SEPARATOR;
+        $ds = "/";
         $storeFolder = 'upload';
 
         if (!empty($_FILES))
         {
             $tempFile = $_FILES['file']['tmp_name'];
-            $targetPath = dirname(__FILE__) . $ds . $storeFolder . $ds;
+            $targetPath = $storeFolder . $ds;
             $targetFile = $targetPath.$_FILES['file']['name'];
 
+
             move_uploaded_file($tempFile, $targetFile);
+
+            $insert_data = array(
+                "file_name" => $_FILES['file']['name'],
+                "file_path" => $targetPath . $_FILES['file']['name'],
+                "file_type" => $_FILES['file']['type']
+            );
+
+            $this->Main_Model->insert_data($insert_data, 'tbl_files');
         }
     }
 
