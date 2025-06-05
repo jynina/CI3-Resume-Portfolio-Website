@@ -94,8 +94,6 @@ class MainController extends CI_Controller {
                 "file_type" => $_FILES['file']['type'][$index]
             );
 
-            
-
             $this->Main_Model->insert_data($insert_data, 'tbl_files');
             } 
             }
