@@ -65,6 +65,8 @@ class MainController extends CI_Controller {
 
     public function upload_image()
     {
+        var_dump($_FILES);
+        die();
         // Config for upload
         $config['upload_path']   = './uploads/';
         $config['allowed_types'] = 'jpg|jpeg|png|gif|webp';
@@ -86,7 +88,7 @@ class MainController extends CI_Controller {
                 'file_path' => 'uploads/' . $upload_data['file_name'],
                 'file_type' => $upload_data['file_type'],
             ];
-
+            
             // Insert data and get inserted ID
             $insert_id = $this->Main_Model->insert_data($insert, 'tbl_files');
 

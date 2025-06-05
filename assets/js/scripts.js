@@ -83,7 +83,7 @@ document.getElementById("btn-submit-profile").addEventListener("click", function
 
 myDropzone.on("success", function(file, response) {
   alert("Upload successful!");
-  myDropzone.removeAllFiles(); // clear dropzone
+  myDropzone.removeAllFiles(); 
 });
 
 myDropzone.on("error", function(file, errorMessage) {
