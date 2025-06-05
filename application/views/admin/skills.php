@@ -1,15 +1,22 @@
 <div class="container w-50 mt-5">
-    <div>
-        <form>
-            <div class="mb-3">
-                <label for="name" class="form-label">Skills</label>
-                <input type="email" class="form-control" id="inputName" placeholder="Kwenn">
-            </div>
-            <div class="mb-3">
-                <label for="exampleFormControlTextarea1" class="form-label">Brief Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+    <button type="button" class="btn btn-danger mb-3 btn-add-skills">Add another</button>
+    <div class="div-skills-forms">
+        <div class="bg-dark p-5 my-3 rounded"> 
+            <form>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Skill</label>
+                    <input type="email" class="form-control" id="inputSkillName">
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Progress</label>
+                    <input type="email" class="form-control" id="inputSkillProgress">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Brief Description</label>
+                    <textarea class="form-control" id="inputSkillDescription" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
     </div>
 </div>
