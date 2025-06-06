@@ -17,8 +17,7 @@
                         <a class="snow-button nav-link nav-experience" href="<?= base_url() ?>index.php/experience_admin">Experience</a>
                         <a class="snow-button nav-link nav-projects" href="<?= base_url() ?>index.php/projects_admin">Projects</a>
                         <a class="snow-button nav-link nav-contact" href="<?= base_url() ?>index.php/contact_admin">Contact</a>
-                        <a class="snow-button nav-link nav-index" href="<?= base_url() ?>index.php/inbox_admin">Inbox</a>
-                        
+                        <a class="snow-button nav-link nav-index" href="<?= base_url() ?>index.php/inbox_admin">Inbox</a> 
                     </div>
                 </div>
             </div>

@@ -12,6 +12,12 @@ class MainController extends CI_Controller {
     {
         return $this->Main_Model->fetch_inbox();
     }
+
+    public function fetch_data(){
+        $data = $this->Main_Model->fetch_data('tbl_education');
+        echo json_encode($data);
+    }
+
     //reusable cod kasi ampanget kapag repetitive
     private function handle_insert($fields, $table_name)
     {
@@ -71,8 +77,9 @@ class MainController extends CI_Controller {
         $ds = "/";
         $storeFolder = 'upload';
         if (isset($_FILES['file']['name']) &&
-    is_array($_FILES['file']['name']) &&
-    count($_FILES['file']['name']) > 1) {
+            is_array($_FILES['file']['name']) &&
+            count($_FILES['file']['name']) > 1) 
+            {
             foreach($_FILES['file']['tmp_name'] as $index => $tmpName){
                 if (!empty($_FILES))
                 {

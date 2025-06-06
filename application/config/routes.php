@@ -25,5 +25,6 @@ $route['insert_skills'] = 'MainController/insert_skills';
 $route['insert_projects'] = 'MainController/insert_projects';
 $route['insert_exp'] = 'MainController/insert_exp';
 
-
+//fetching
+$route['get_data_educ'] = 'MainController/fetch_data';
 $route['fetch_inbox'] = 'MainController/fetch_inbox';

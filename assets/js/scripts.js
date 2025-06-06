@@ -1,8 +1,6 @@
 //constants
 Dropzone.autoDiscover = false;
 
-
-
 $(document).ready(function () {
 var orig_base_url = $("#base_url").val();
   
@@ -50,9 +48,16 @@ var orig_base_url = $("#base_url").val();
     url: orig_base_url + "index.php/upload_image", 
     addRemoveLinks: true,
     autoProcessQueue: false,
-    uploadMultiple: true
+    uploadMultiple: true,
+    success: function()
+    {
+      toastr.success('Check mo parin network tho','ANG GALING MONG MAGCODE');
+    },
+    error: function()
+    {
+      toastr.error('Tignan mo ulit code mo pls', 'BOBO MO MAGCODE')
+    }
   });
-
   }
 
   //navigation links
@@ -61,12 +66,54 @@ var orig_base_url = $("#base_url").val();
     $('.nav-link').removeClass('active');
     $(this).addClass('active');
   
-  });
+  }); //improve
+
+  // $('.nav-education').on('click', function (){
+
+    $.ajax({
+      url: orig_base_url + 'index.php/get_data_educ',
+      method: 'GET',
+      dataType: 'json',
+      success: function(data) {
+        toastr.success(data,'success')
+          let html = ``;
+          data.forEach(function(edu){
+            html += `<div class="log-row border border-white rounded my-3">
+            <div class="row my-3">
+                <div class="col-6 mx-3">
+                    <p>${edu.institution_name}</p>
+                </div>
+                <div class="col-3">
+                    <p>${edu.education_level}</p>
+                </div>
+                <div class="col-2">
+                    <p>${edu.acad_year}</p>
+                </div>
+                <div class="col-11 mx-3" style="text-align: justify;">
+                    <p>
+                    ${edu.institution_desc}
+                    </p>
+                </div>
+                <div class="col-11 mx-3">
+                    award images
+                </div>
+            </div>
+          </div>`
+          })
+          $(".logs-educ").append(html)
+          
+        },
+        error: function (status, error)
+        {
+          toastr.error(status, error);
+        }
+    })
+  // })
 
 
   //submit buttons dropzone
 
-  $('#btn-submit-profile').click(function(){           
+  $('#btn-submit-img-profile').click(function(){           
   myDropzone.processQueue();
   });
 
