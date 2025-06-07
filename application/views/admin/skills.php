@@ -1,4 +1,4 @@
-<div class="container w-50 mt-5">
+<div class="container-parent container w-50 mt-5" data-page="<?= $page?>">
     <div class="div-skills-forms">
         <div class="bg-dark p-5 my-3 rounded"> 
             <form>
@@ -16,6 +16,8 @@
                 </div>
                 <button type="button" class="btn btn-primary btn btn-submit-skills">Submit</button>
             </form>
+            <div class="div-logs">
+            </div>
         </div>
     </div>
 </div>

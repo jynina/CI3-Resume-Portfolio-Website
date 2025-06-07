@@ -16,5 +16,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="<?= base_url()?>assets/js/scripts.js"></script>
 </head>
-<body>
+<body  data-page="<?= $page?>">
 <input type="text" value="<?= base_url()?>" id="base_url" hidden>

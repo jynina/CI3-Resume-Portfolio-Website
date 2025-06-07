@@ -6,7 +6,7 @@ class FrontendController extends CI_Controller{
     
     public function about_admin()
     {
-        $this->load->view('template/header');
+        $this->load->view('template/header', ['page' => 'about']);
 		$this->load->view('template/admin_nav');
 		// $this->load->view('welcome_message');
 		$this->load->view('admin/about');
@@ -20,7 +20,7 @@ class FrontendController extends CI_Controller{
 
     public function education_admin()
     {
-        $this->load->view('template/header');
+        $this->load->view('template/header', ['page' => 'education']);
 		$this->load->view('template/admin_nav');
 		// $this->load->view('welcome_message');
 		$this->load->view('admin/education');
@@ -29,7 +29,7 @@ class FrontendController extends CI_Controller{
 
     public function skills_admin()
     {
-        $this->load->view('template/header');
+        $this->load->view('template/header', ['page' => 'skills']);
 		$this->load->view('template/admin_nav');
 		// $this->load->view('welcome_message');
 		$this->load->view('admin/skills');
@@ -47,7 +47,7 @@ class FrontendController extends CI_Controller{
 
     public function inbox_admin()
     {
-        $this->load->view('template/header');
+        $this->load->view('template/header', ['page' => 'contact']);
 		$this->load->view('template/admin_nav');
         $this->load->view('admin/inbox');
 		$this->load->view('template/footer');
@@ -56,7 +56,7 @@ class FrontendController extends CI_Controller{
 
     public function experience_admin()
     {
-        $this->load->view('template/header');
+        $this->load->view('template/header', ['page' => 'exp']);
 		$this->load->view('template/admin_nav');
         $this->load->view('admin/experience');
 		$this->load->view('template/footer'); 
@@ -64,7 +64,7 @@ class FrontendController extends CI_Controller{
 
     public function projects_admin()
     {
-        $this->load->view('template/header');
+        $this->load->view('template/header', ['page' => 'projects']);
 		$this->load->view('template/admin_nav');
         $this->load->view('admin/projects');
 		$this->load->view('template/footer');

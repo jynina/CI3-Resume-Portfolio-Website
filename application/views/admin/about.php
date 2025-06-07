@@ -1,4 +1,4 @@
-<div class="container w-50 mt-5">
+<div class="container-parent container w-50 mt-5" data-page="<?= $page?>">
     <div>
         <div class="row container d-flex my-3 p-1">
             <div class="col-9 mb-3">

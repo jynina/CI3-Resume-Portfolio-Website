@@ -70,37 +70,145 @@ var orig_base_url = $("#base_url").val();
 
   // $('.nav-education').on('click', function (){
 
+  var fetch_url = $('.container-parent').attr('data-page');
+    console.log(fetch_url)
+
     $.ajax({
       url: orig_base_url + 'index.php/get_data_educ',
       method: 'GET',
+      data: { table: fetch_url},
       dataType: 'json',
       success: function(data) {
         toastr.success(data,'success')
           let html = ``;
-          data.forEach(function(edu){
-            html += `<div class="log-row border border-white rounded my-3">
-            <div class="row my-3">
-                <div class="col-6 mx-3">
-                    <p>${edu.institution_name}</p>
+          data.forEach(function(row){
+            if (fetch_url == 'education'){
+              html += `<div class="log-row border border-white rounded my-3">
+                          <div class="row my-3">
+                              <div class="col-6 mx-3">
+                                  <p>${row.institution_name}</p>
+                              </div>
+                              <div class="col-3">
+                                  <p>${row.education_level}</p>
+                              </div>
+                              <div class="col-2">
+                                  <p>${row.acad_year}</p>
+                              </div>
+                              <div class="col-11 mx-3" style="text-align: justify;">
+                                  <p>
+                                  ${row.institution_desc}
+                                  </p>
+                              </div>
+                              <div class="col-11 mx-3">
+                                  award images
+                              </div>
+                          </div>
+                        </div>`
+            }
+            else if (fetch_url == 'skills'){
+              html +=
+              `
+              <div class="log-row border border-white rounded my-3">
+                    <div class="row my-3">
+                        <div class="col-6 mx-3">
+                            <p>${row.skill_name}</p>
+                        </div>
+                        <div class="col-3">
+                            <p>${row.skill_progress}</p>
+                        </div>
+                        <div class="col-2">
+                            <p>${row.created_at}</p>
+                        </div>
+                        <div class="col-11 mx-3" style="text-align: justify;">
+                            <p>
+                            ${row.skill_desc}
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-3">
-                    <p>${edu.education_level}</p>
+              `
+            }
+            else if (fetch_url == 'projects') {
+              html +=
+              `
+              <div class="log-row border border-white rounded my-3">
+                          <div class="row my-3">
+                              <div class="col-6 mx-3">
+                                  <p>${row.project_name}</p>
+                              </div>
+                              <div class="col-3">
+                                  <p>${row.project_role}</p>
+                              </div>
+                              <div class="col-11 mx-3" style="text-align: justify;"">
+                                  <p>${row.project_tech}</p>
+                              </div>
+                              <div class="col-11 mx-3" style="text-align: justify;">
+                                  <p>
+                                  ${row.project_desc}
+                                  </p>
+                              </div>
+                            <div class="col-11 mx-3">
+                                project images
+                            </div>
+                        </div>
+                      </div>
+              `
+            }
+            else if (fetch_url == 'exp') {
+              html +=
+              `
+              <div class="log-row border border-white rounded my-3">
+                          <div class="row my-3">
+                              <div class="col-6 mx-3">
+                                  <p>${row.professional_title}</p>
+                              </div>
+                              <div class="col-3">
+                                  <p>${row.company_name}</p>
+                              </div>
+                              <div class="col-2">
+                                  <p>${row.prof_year}</p>
+                              </div>
+                              <div class="col-11 mx-3" style="text-align: justify;">
+                                  <p>
+                                  ${row.company_desc}
+                                  </p>
+                              </div>
+                          </div>
+                        </div>
+              `
+            }
+            else if (fetch_url == 'contact')
+            {
+              html +=
+              `
+             <div class="accordion-item">
+            <h2 class="accordion-header">
+            <button class="accordion-button px-5" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne">
+                <div class="row w-100">
+                    <div class="col-4 col-md-4 my-2 text-truncate">
+                        <span>${row.contact_name}</span>
+                    </div>
+                    <div class="col-6 col-md-4 my-2 text-truncate">
+                        <span class="fw-bold d-flex">${row.contact_subject}</span>
+                    </div>
+                    <div class="col-2 col-md-4 my-2">
+                        <span>${row.created_at}</span>
+                    </div>
                 </div>
-                <div class="col-2">
-                    <p>${edu.acad_year}</p>
-                </div>
-                <div class="col-11 mx-3" style="text-align: justify;">
-                    <p>
-                    ${edu.institution_desc}
-                    </p>
-                </div>
-                <div class="col-11 mx-3">
-                    award images
-                </div>
+            </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+            <div class="accordion-body p-4">
+                <span class="fw-italic text-secondary">${row.contact_email}</span></br></br>
+                <span class="fw-bold">${row.contact_subject}</span>
+                <span> - ${row.contact_message}</span>
             </div>
-          </div>`
+            </div>
+        </div>
+              `
+            }
           })
-          $(".logs-educ").append(html)
+          $(".div-logs").append(html)
           
         },
         error: function (status, error)

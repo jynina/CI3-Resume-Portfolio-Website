@@ -14,7 +14,8 @@ class MainController extends CI_Controller {
     }
 
     public function fetch_data(){
-        $data = $this->Main_Model->fetch_data('tbl_education');
+        $name = $this->input->get('table');
+        $data = $this->Main_Model->fetch_data('tbl_' . $name);
         echo json_encode($data);
     }
 

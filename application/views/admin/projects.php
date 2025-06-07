@@ -1,4 +1,4 @@
-<div class="container w-50 mt-5">
+<div class="container-parent container w-50 mt-5" data-page="<?= $page?>">
     <div class="div-education-forms">
         <div class="bg-dark p-5 my-3 rounded"> 
             <form class="mb-3 form-project">
@@ -23,6 +23,9 @@
             </form>
                 <form action="<?= base_url()?>index.php/upload_image" id="myDropzoneMultiple" class="dropzone"></form>
                 <button class="btn btn-primary mt-4" id="btn-submit-profile">Upload Profile Picture</button>
+            <div class="div-logs">
+            
+            </div>
         </div>
     </div>
 </div>
