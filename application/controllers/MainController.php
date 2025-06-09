@@ -19,7 +19,7 @@ class MainController extends CI_Controller {
         echo json_encode($data);
     }
 
-    //reusable cod kasi ampanget kapag repetitive
+    //reusable 
     private function handle_insert($fields, $table_name)
     {
         $data =[];
@@ -33,7 +33,6 @@ class MainController extends CI_Controller {
     }
 
     //insertion
-
     public function insert_contact() 
     {
         $fields = ['contact_name', 'contact_email', 'contact_subject', 'contact_message'];
@@ -75,6 +74,7 @@ class MainController extends CI_Controller {
     //dropzone upload to db
     function upload_image()
     {
+        $origin = $this->input->post('origin');
         $ds = "/";
         $storeFolder = 'upload';
         if (isset($_FILES['file']['name']) &&
@@ -95,7 +95,8 @@ class MainController extends CI_Controller {
                 $insert_data = array(
                     "file_name" => $_FILES['file']['name'][$index],
                     "file_path" => $targetPath . $_FILES['file']['name'][$index],
-                    "file_type" => $_FILES['file']['type'][$index]
+                    "file_type" => $_FILES['file']['type'][$index],
+                    "origin" => $origin
                 );
 
                 $this->Main_Model->insert_data($insert_data, 'tbl_files', []);
@@ -116,7 +117,8 @@ class MainController extends CI_Controller {
                 $insert_data = array(
                     "file_name" => $_FILES['file']['name'],
                     "file_path" => $targetPath . $_FILES['file']['name'],
-                    "file_type" => $_FILES['file']['type']
+                    "file_type" => $_FILES['file']['type'],
+                    "origin" => $origin
                 );
 
                 $this->Main_Model->insert_data($insert_data, 'tbl_files', []);

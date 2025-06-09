@@ -11,11 +11,10 @@
             </div>
             <div class="col ps-5 me-1 pt-5 justify-content-end" >
                 <form action="<?= base_url()?>index.php/upload_image" id="myDropzoneProfile" class="dropzone col"></form>
-                <button class="btn btn-primary mt-4 btn-image-upload" id="btn-submit-img-profile">Upload Profile Picture</button>
             </div>  
         </div>
         <div class="">
-            <button type="button" class="btn btn-primary btn-submit-about">Submit</button>
+            <button type="button" class="btn btn-primary btn-submit-about" id="btn-submit-about">Submit</button>
         </div>
         
     </div>

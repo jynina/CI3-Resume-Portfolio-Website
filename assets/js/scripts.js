@@ -2,6 +2,9 @@
 Dropzone.autoDiscover = false;
 
 $(document).ready(function () {
+
+var fetch_url = $('.container-parent').attr('data-page');
+console.log(fetch_url)
 var orig_base_url = $("#base_url").val();
   
   function ApiHelper(base_url)
@@ -37,6 +40,11 @@ var orig_base_url = $("#base_url").val();
     url: orig_base_url + "index.php/upload_image", 
     addRemoveLinks: true,
     autoProcessQueue: false,
+    init: function () {
+      this.on("sending", function (file, xhr, formData) {
+        formData.append("origin", fetch_url);
+        });
+      }
   });
 
 
@@ -49,6 +57,11 @@ var orig_base_url = $("#base_url").val();
     addRemoveLinks: true,
     autoProcessQueue: false,
     uploadMultiple: true,
+    init: function () {
+      this.on("sending", function (file, xhr, formData) {
+        formData.append("origin", fetch_url);
+      });
+    },
     success: function()
     {
       toastr.success('Check mo parin network tho','ANG GALING MONG MAGCODE');
@@ -70,8 +83,7 @@ var orig_base_url = $("#base_url").val();
 
   // $('.nav-education').on('click', function (){
 
-  var fetch_url = $('.container-parent').attr('data-page');
-    console.log(fetch_url)
+  
 
     $.ajax({
       url: orig_base_url + 'index.php/get_data_educ',
@@ -221,7 +233,7 @@ var orig_base_url = $("#base_url").val();
 
   //submit buttons dropzone
 
-  $('#btn-submit-img-profile').click(function(){           
+  $('#btn-submit-about').click(function(){           
   myDropzone.processQueue();
   });
 
