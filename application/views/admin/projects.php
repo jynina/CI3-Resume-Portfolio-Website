@@ -21,7 +21,7 @@
                 </div>
                 <button type="button" class="btn btn-primary btn-submit-projects">Submit</button>
             </form>
-                <form action="<?= base_url()?>index.php/upload_image" id="myDropzoneMultiple" class="dropzone"></form>
+                <form action="<?= base_url()?>upload_image" id="myDropzoneMultiple" class="dropzone"></form>
                 <button class="btn btn-primary mt-4" id="btn-submit-profile">Upload Profile Picture</button>
             <div class="div-logs">
             
