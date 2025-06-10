@@ -3,6 +3,7 @@ Dropzone.autoDiscover = false;
 
 $(document).ready(function () {
 
+AOS.init();
 var fetch_url = $('.container-parent').attr('data-page');
 console.log(fetch_url)
 var orig_base_url = $("#base_url").val();
@@ -12,6 +13,7 @@ var orig_base_url = $("#base_url").val();
     this.base_url = base_url;
 
   }
+
   //HELPERS
   ApiHelper.prototype.post = function(url, data)
   {
@@ -37,7 +39,7 @@ var orig_base_url = $("#base_url").val();
   if($('#myDropzoneProfile').length)
   {
     var myDropzone = new Dropzone("#myDropzoneProfile", {    
-    url: orig_base_url + "index.php/upload_image", 
+    url: orig_base_url + "upload_image", 
     addRemoveLinks: true,
     autoProcessQueue: false,
     init: function () {
@@ -53,7 +55,7 @@ var orig_base_url = $("#base_url").val();
   if($('#myDropzoneMultiple').length)
   {
     var myDropzone = new Dropzone("#myDropzoneMultiple", {    
-    url: orig_base_url + "index.php/upload_image", 
+    url: orig_base_url + "upload_image", 
     addRemoveLinks: true,
     autoProcessQueue: false,
     uploadMultiple: true,
@@ -81,12 +83,12 @@ var orig_base_url = $("#base_url").val();
   
   }); //improve
 
-  // $('.nav-education').on('click', function (){
+  $('.nav-education').on('click', function (){//remove this
 
   
-
+  
     $.ajax({
-      url: orig_base_url + 'index.php/get_data_educ',
+      url: orig_base_url + 'get_data',
       method: 'GET',
       data: { table: fetch_url},
       dataType: 'json',
@@ -228,7 +230,7 @@ var orig_base_url = $("#base_url").val();
           toastr.error(status, error);
         }
     })
-  // })
+  })
 
 
   //submit buttons dropzone
@@ -250,7 +252,7 @@ var orig_base_url = $("#base_url").val();
 
     console.log(formData);
 
-    api.post('index.php/insert_contact', formData);
+    api.post('insert_contact', formData);
     
   });
 
@@ -264,7 +266,7 @@ var orig_base_url = $("#base_url").val();
 
     console.log(formData)
 
-    api.post('index.php/insert_about', formData);
+    api.post('insert_about', formData);
   })
 
   $('.btn-submit-educ').on('click', function () {
@@ -277,19 +279,25 @@ var orig_base_url = $("#base_url").val();
     formData.append('institution_desc', $('#inputEducDescription').val());
     console.log(formData);
 
-    api.post('index.php/insert_educ', formData)
+    api.post('insert_educ', formData)
   
   });
 
   $('.btn-submit-skills').on('click', function () {
     var formData = new FormData();
+    $inputSkill = parseInt($("#inputSkillProgress").val());
 
-    formData.append("skill_name", $("#inputSkillName").val());
-    formData.append("skill_progress", $("#inputSkillProgress").val());
-    formData.append("skill_desc", $("#inputSkillDescription").val());
 
-    api.post('index.php/insert_skills', formData);
-
+    if(typeof $inputSkill === 'string' || $inputSkill < 0 )
+    {
+      toastr.error("Check your inputs","Error");
+    }
+    else{
+      formData.append("skill_name", $("#inputSkillName").val());
+      formData.append("skill_progress", $inputSkill);
+      formData.append("skill_desc", $("#inputSkillDescription").val());
+      api.post('insert_skills', formData);
+    }
   });
 
   $('.btn-submit-exp').on('click', function () {
@@ -300,18 +308,27 @@ var orig_base_url = $("#base_url").val();
     formData.append("prof_year", $("#inputCompanyYears").val());
     formData.append("company_desc", $("#inputCompanyDesc").val());
 
-    api.post('index.php/insert_exp', formData);
+    api.post('insert_exp', formData);
   });
 
   $('.btn-submit-projects').on('click', function () {
-    var formData = new FormData();
 
-    formData.append("project_name", $("#inputProjectName").val());
-    formData.append("project_role", $("#inputRole").val());
-    formData.append("project_tech", $("#inputTechnologies").val());
-    formData.append("project_desc", $("#inputProjectDescription").val());
+    if(myDropzone.files.length === 0){
+      toastr.error("Please input all of the fields", "Incomplete fields");
+    }
+    else
+    {
+      myDropzone.processQueue();
 
-    api.post('index.php/insert_projects', formData);
+       var formData = new FormData();
+
+      formData.append("project_name", $("#inputProjectName").val());
+      formData.append("project_role", $("#inputRole").val());
+      formData.append("project_tech", $("#inputTechnologies").val());
+      formData.append("project_desc", $("#inputProjectDescription").val());
+
+      api.post('insert_projects', formData);
+    }
   });
 
 
@@ -361,6 +378,6 @@ var orig_base_url = $("#base_url").val();
     }, 2000);
   });
 
- 
+
 
 });

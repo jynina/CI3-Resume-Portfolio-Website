@@ -3,6 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class FrontendController extends CI_Controller{
 
+    public function index()
+    {
+         $this->load->view('template/header');
+        $this->load->view('welcome');
+        $this->load->view('template/footer');
+    }
+
     
     public function about_admin()
     {

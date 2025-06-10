@@ -2,6 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap');
 
+
+
+
 .dropzone{
   
 }
@@ -53,3 +56,66 @@ body {
   }
 }
 
+.circle {
+  position: relative !important;
+  justify-content: center !important;
+  align-content: center !important;
+  width: 200px;
+  height:200px;
+  border-radius:50%;
+}
+
+.circle::before{
+  content: '';
+  position:absolute;
+  inset: 5px;
+  border-radius:50%;
+  background: #222;
+  opacity: 0.8;
+}
+
+.circle::after{
+  content: '';
+  position:absolute;
+  width: 120px;
+  height: 120px;
+  background: #333;
+  border-radius:50%;
+  margin-left: 2.5em;
+  
+}
+
+.circle .number,
+.circle h4{
+  text-align: center;
+  position: relative;
+  color: #fff;
+  z-index: 10;
+  line-height: 1em;
+  font-size: 1.5em;
+}
+
+.context-title{
+  color:cadetblue !important;
+}
+
+.context-subtitle{
+  color:cornflowerblue;
+}
+
+.section-spacing{
+  margin-top: 200px !important;
+  margin-bottom: 200px !important;
+}
+
+.circle-spacing{
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.education-item{
+  margin-top: 150px;
+  margin-bottom: 150px;
+}

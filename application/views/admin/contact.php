@@ -1,4 +1,4 @@
-<div class="container w-50 mt-5">
+<div class="container mt-5">
         <h1 class="text-center mb-5">Contact</h1>
     <div>
         <form method="POST" action="<?= base_url()?>index.php/" id="form-contact">

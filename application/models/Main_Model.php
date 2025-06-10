@@ -19,7 +19,7 @@ class Main_Model extends CI_Model{
 
     function fetch_data($table_name)
     {
-        $sql = $this->db->get($table_name);
+        $sql = $this->db->query('SELECT * FROM '. $table_name .' WHERE status != 0 ORDER BY created_at DESC');
         return $sql->result();
     }
 }

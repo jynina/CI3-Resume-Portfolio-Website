@@ -1,4 +1,4 @@
-<div class="container-parent container w-50 mt-5" data-page="<?= $page?>">
+<div class="container-parent container mt-5" data-page="<?= $page?>">
     <div class="div-exp-forms">
         <div class="bg-dark p-5 my-3 rounded"> 
             <form>
@@ -18,7 +18,9 @@
                     <label for="exampleFormControlTextarea1" class="form-label">Brief Description</label>
                     <textarea class="form-control" id="inputCompanyDesc" rows="3"></textarea>
                 </div>
+                <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-primary btn-submit-exp">Submit</button>
+                </div>
             </form>
             <div class="div-logs">
             
