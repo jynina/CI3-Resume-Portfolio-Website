@@ -1,4 +1,4 @@
-<div class="container" style="margin-top:200px;">
+<div class="container" id="client-page" style="margin-top:200px;">
     <!-- <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
@@ -39,7 +39,20 @@
     </ul>
     <hr>
   </div> -->
-  <div class="row">
+
+  
+    <div class="d-flex div-about-me justify-content-end section-spacing">
+        <div data-aos="fade-left"  data-aos-duration="500" class="text-end w-50 me-5">
+            <h1 data-aos="fade-left" data-aos-duration="1000" class="context-title">Hi, I'm Testing</h1>
+            <h3 data-aos="fade-left" data-aos-duration="1500" class="context-subtitle">Professional Title</h3>
+            <p data-aos="fade-left" data-aos-duration="2000">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+        </div>
+        <img src="upload/pedro.png" alt="" data-aos="zoom-in"> 
+    </div>
+    <hr>
+    <div class="div-skills d-xl-flex d-lg-flex d-sm-inline my-5 pb-5 justify-content-center section-spacing">
+        <div class="row">
+        
     <div class="skill-container d-flex col text-center">
       <div class="circular-progress">
           <span data-progressvalue = "60" class="progress-value justify-content-center">0%</span>
@@ -59,53 +72,8 @@
       <div class="circular-progress">
           <span data-progressvalue = "60" class="progress-value justify-content-center">0%</span>
       </div>
-  </div>
-</div>
   
-    <div class="d-flex div-about-me justify-content-end section-spacing">
-        <div data-aos="fade-left"  data-aos-duration="500" class="text-end w-50 me-5">
-            <h1 data-aos="fade-left" data-aos-duration="1000" class="context-title">Hi, I'm Testing</h1>
-            <h3 data-aos="fade-left" data-aos-duration="1500" class="context-subtitle">Professional Title</h3>
-            <p data-aos="fade-left" data-aos-duration="2000">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-        </div>
-        <img src="upload/pedro.png" alt="" data-aos="zoom-in"> 
-    </div>
-    <hr>
-    <div class="div-skills d-xl-flex d-lg-flex d-sm-inline my-5 pb-5 justify-content-center section-spacing">
-        <div class="row">
-          
-            <!-- <div class="circle circle-spacing" data-degree="84" data-color="#43ac5d" data-aos="zoom-in" data-aos-duration="400">
-                <h2 class="number">84<span>%</span></h2>
-                <h4>HTML</h4>
-            </div>
-            <div class="circle circle-spacing" data-degree="78" data-color="#43ac5d" data-aos="zoom-in" data-aos-duration="600">
-                <h2 class="number">78<span>%</span></h2>
-                <h4>HTML</h4>
-            </div>
-            <div class="circle circle-spacing" data-degree="95" data-color="#43ac5d" data-aos="zoom-in" data-aos-duration="800">
-                <h2 class="number">95<span>%</span></h2>
-                <h4>HTML</h4>
-            </div>
-            <div class="circle circle-spacing" data-degree="95" data-color="#43ac5d" data-aos="zoom-in" data-aos-duration="1000">
-                <h2 class="number">95<span>%</span></h2>
-                <h4>HTML</h4>
-            </div>
-             <div class="circle circle-spacing" data-degree="84" data-color="#43ac5d" data-aos="zoom-in" data-aos-duration="1200">
-                <h2 class="number">84<span>%</span></h2>
-                <h4>HTML</h4>
-            </div>
-            <div class="circle circle-spacing" data-degree="78" data-color="#43ac5d" data-aos="zoom-in" data-aos-duration="1400">
-                <h2 class="number">78<span>%</span></h2>
-                <h4>HTML</h4>
-            </div>
-            <div class="circle circle-spacing" data-degree="95" data-color="#43ac5d" data-aos="zoom-in" data-aos-duration="1600">
-                <h2 class="number">95<span>%</span></h2>
-                <h4>HTML</h4>
-            </div>
-            <div class="circle circle-spacing" data-degree="95" data-color="#43ac5d" data-aos="zoom-in" data-aos-duration="1800">
-                <h2 class="number">95<span>%</span></h2>
-                <h4>HTML</h4>
-            </div> -->
+</div>
         </div>
     </div>
     <hr>

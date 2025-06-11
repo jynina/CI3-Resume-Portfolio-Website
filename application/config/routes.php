@@ -26,4 +26,5 @@ $route['insert_exp'] = 'MainController/insert_exp';
 
 //fetching
 $route['get_data'] = 'MainController/fetch_data';
+$route['get_all_data'] = 'MainController/fetch_all_data';
 $route['fetch_inbox'] = 'MainController/fetch_inbox';

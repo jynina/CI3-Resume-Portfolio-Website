@@ -2,22 +2,7 @@
 Dropzone.autoDiscover = false;
 
 $(document).ready(function () {
-let circle = document.querySelectorAll('.circle');
-    circle.forEach(function(progress){
-        let degree = 0;
-        var targetDegree = parseInt(progress.getAttribute('data-degree'));
-        let color = progress.getAttribute('data-color');
-        let number = progress.querySelector('.number');
 
-        var interval = setInterval(function(){
-            degree += 1;
-            if (degree > degree){
-                clearInterval();
-                return;
-            }
-            progress.style.background = `conic-gradient(${color} ${degree}%, #222, 0%)`;
-        })
-    })
 AOS.init();
 var fetch_url = $('.container-parent').attr('data-page');
 console.log(fetch_url)
@@ -106,7 +91,7 @@ var orig_base_url = $("#base_url").val();
 
   // })
 
-  $('.nav-education').on('click', function (){//remove this
+  if ($('#admin-page').length > 0) {
     $.ajax({
       url: orig_base_url + 'get_data',
       method: 'GET',
@@ -250,9 +235,20 @@ var orig_base_url = $("#base_url").val();
         {
           toastr.error(status, error);
         }
-    })
-  })
+    })  
+  }
 
+  if ($('#client-page').length > 0) {
+    $.ajax({
+      url: orig_base_url + 'get_all_data',
+      method: 'GET',
+      dataType: 'json',
+      success: function (data) {
+
+      }
+
+    })
+  }
 
   //submit buttons dropzone
 
