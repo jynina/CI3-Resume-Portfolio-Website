@@ -3,14 +3,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap');
 
 
-
-
-.dropzone{
-  
+hr{
+  color:cadetblue;
+  width: 2px;
 }
 
 body {
-    background-color: black;
+    background-color: rgb(0, 0, 0);
     color: aliceblue;
     font-family: "Lexend", sans-serif;
     font-optical-sizing: auto;
@@ -56,44 +55,6 @@ body {
   }
 }
 
-.circle {
-  position: relative !important;
-  justify-content: center !important;
-  align-content: center !important;
-  width: 200px;
-  height:200px;
-  border-radius:50%;
-}
-
-.circle::before{
-  content: '';
-  position:absolute;
-  inset: 5px;
-  border-radius:50%;
-  background: #222;
-  opacity: 0.8;
-}
-
-.circle::after{
-  content: '';
-  position:absolute;
-  width: 120px;
-  height: 120px;
-  background: #333;
-  border-radius:50%;
-  margin-left: 2.5em;
-  
-}
-
-.circle .number,
-.circle h4{
-  text-align: center;
-  position: relative;
-  color: #fff;
-  z-index: 10;
-  line-height: 1em;
-  font-size: 1.5em;
-}
 
 .context-title{
   color:cadetblue !important;
@@ -118,4 +79,36 @@ body {
 .education-item{
   margin-top: 150px;
   margin-bottom: 150px;
+}
+
+.circular-progress{
+  position: relative;
+  height: 250px;
+  width: 250px;
+  border-radius: 50%;
+  background: conic-gradient(rgb(186, 248, 248), 3.6deg, #ededed 0deg);  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circular-progress::before{
+  content: "";
+  position:absolute;
+  height: 210px;
+  width: 210px;
+  border-radius: 50%;
+  background-color: rgb(0, 0, 0);
+}
+
+.progress-value{
+  position: relative;
+  font-size: 50px;
+  font-weight: 600;
+  color: rgb(186, 248, 248);
+}
+
+.progress-name{
+  position: relative;
+
 }

@@ -19,6 +19,11 @@ class MainController extends CI_Controller {
         echo json_encode($data);
     }
 
+    public function fetch_all_data(){
+        $data = $this->Main_Model->fetch_all_data();
+        echo json_encode($data);
+    }
+
     //reusable 
     private function handle_insert($fields, $table_name)
     {

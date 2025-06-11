@@ -22,6 +22,11 @@ class Main_Model extends CI_Model{
         $sql = $this->db->query('SELECT * FROM '. $table_name .' WHERE status != 0 ORDER BY created_at DESC');
         return $sql->result();
     }
+
+    function fetch_all_data()
+    {
+        $sql = $this->db->query();
+    }
 }
 
 ?>
