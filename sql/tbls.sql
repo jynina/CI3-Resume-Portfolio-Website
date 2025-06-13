@@ -43,7 +43,7 @@ CREATE TABLE `tbl_education` (
   `institution_desc` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `status` int(11) DEFAULT 1,
-  `is_active` int(11) DEFAULT 0,
+  `is_active` int(11) default 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -59,7 +59,7 @@ CREATE TABLE `tbl_exp` (
   `company_name` varchar(60) DEFAULT NULL,
   `prof_year` varchar(60) DEFAULT NULL,
   `company_desc` varchar(255) DEFAULT NULL,
-  `is_active` int(11) DEFAULT 0,
+  `is_active` int(11) default 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -74,7 +74,7 @@ CREATE TABLE `tbl_files` (
   `file_type` varchar(50) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `origin` varchar(60) DEFAULT NULL,
-  `is_active` int(11) DEFAULT 0,
+  `is_active` int(11) default 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -104,7 +104,7 @@ CREATE TABLE `tbl_projects` (
   `project_role` varchar(255) DEFAULT NULL,
   `project_tech` varchar(255) DEFAULT NULL,
   `project_desc` varchar(255) DEFAULT NULL,
-  `is_active` int(11) DEFAULT 0,
+  `is_active` int(11) default 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -119,7 +119,7 @@ CREATE TABLE `tbl_skills` (
   `skill_desc` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
   `status` int(11) DEFAULT 1,
-  `is_active` int(11) DEFAULT 0,
+  `is_active` int(11) default 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

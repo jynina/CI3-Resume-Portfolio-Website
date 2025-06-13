@@ -10,10 +10,9 @@ class FrontendController extends CI_Controller{
         $this->load->view('template/footer');
     }
 
-    
     public function about_admin()
     {
-        $this->load->view('template/header', ['page' => 'about']);
+        $this->load->view('template/header', ['page' => 'personal_info']);
 		$this->load->view('template/admin_nav');
 		// $this->load->view('welcome_message');
 		$this->load->view('admin/about');
@@ -76,6 +75,13 @@ class FrontendController extends CI_Controller{
         $this->load->view('admin/projects');
 		$this->load->view('template/footer');
 
+    }
+
+    public function welcome_contact()
+    {
+        $this->load->view('template/header');
+        $this->load->view('welcome_contact');
+		$this->load->view('template/footer');
     }
 
 }

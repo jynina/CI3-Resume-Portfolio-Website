@@ -34,6 +34,10 @@ body {
     font-style: normal;
 }
 
+.active{
+  background-color: rgb(200, 216, 185);
+  color: black;
+}
 
 .snowflake {
   position: fixed;
@@ -83,8 +87,8 @@ body {
 
 .circular-progress{
   position: relative;
-  height: 250px;
-  width: 250px;
+  height: 230px;
+  width: 230px;
   border-radius: 50%;
   background: conic-gradient(rgb(186, 248, 248), 3.6deg, #ededed 0deg);  
   display: flex;
@@ -95,8 +99,8 @@ body {
 .circular-progress::before{
   content: "";
   position:absolute;
-  height: 210px;
-  width: 210px;
+  height: 220px;
+  width: 220px;
   border-radius: 50%;
   background-color: rgb(0, 0, 0);
 }
@@ -108,7 +112,11 @@ body {
   color: rgb(186, 248, 248);
 }
 
-.progress-name{
+.skill-name{
   position: relative;
-
+  font-size: 30px;
+  font-weight: 600;
+  color: rgb(186, 248, 248);
 }
+
+

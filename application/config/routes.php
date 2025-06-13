@@ -14,6 +14,7 @@ $route['inbox_admin'] = 'FrontendController/inbox_admin';
 $route['projects_admin'] = 'FrontendController/projects_admin';
 $route['experience_admin'] = 'FrontendController/experience_admin';
 $route['get_info'] = 'FrontendController/get_admin_info';
+$route['welcome_contact'] = 'FrontendController/welcome_contact';
 
 //insert to database
 $route['upload_image'] = 'MainController/upload_image';

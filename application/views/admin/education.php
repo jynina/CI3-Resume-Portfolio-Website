@@ -26,7 +26,7 @@
         </div>
     </div>
     <div class="div-logs container">
-        <!-- <div class="log-row border border-white rounded my-3">
+        <!-- <div class="log-row border border-white rounded active my-3">
             <div class="row my-3">
                 <div class="col-6 mx-3">
                     <p>Ebenezer Christian Academy</p>

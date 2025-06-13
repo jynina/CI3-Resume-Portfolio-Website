@@ -81,16 +81,8 @@ var orig_base_url = $("#base_url").val();
     $('.nav-link').removeClass('active');
     $(this).addClass('active');
   
-  }); //improve
-
-
-  // $.ajax({
-  //   url: orig_base_url + 'get_all_data',
-  //   method: 'GET',
-  //   dataType: 'json'
-
-  // })
-
+  }); //
+  
   if ($('#admin-page').length > 0) {
     $.ajax({
       url: orig_base_url + 'get_data',
@@ -101,8 +93,14 @@ var orig_base_url = $("#base_url").val();
         toastr.success(data,'success')
           let html = ``;
           data.forEach(function(row){
+            if(fetch_url == 'personal_info'){
+              $('#inputName').val(row.name);
+              $('#inputTitle').val(row.professional_title);
+              $('#inputDesc').val(row.introduction);
+
+            }
             if (fetch_url == 'education'){
-              html += `<div class="log-row border border-white rounded my-3">
+              html += `<div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
                           <div class="row my-3">
                               <div class="col-6 mx-3">
                                   <p>${row.institution_name}</p>
@@ -118,11 +116,24 @@ var orig_base_url = $("#base_url").val();
                                   ${row.institution_desc}
                                   </p>
                               </div>
-                              <div class="col-11 mx-3">
-                                  award images
+                            <div class="col-11 mx-3 log-buttons" style="text-align: end;">
+                                  <button type="button" class='btn btn-danger btn-delete'>
+                                  Delete
+                                  </button>
                               </div>
                           </div>
                         </div>`
+                        console.log(row.is_active)
+                        //not working yet
+              if(row.is_active == 1){
+                console.log((row.is_active == 1));
+                $('.log-row').addClass('active');
+                console.log($('.log-row').length > 0);
+                htmlbutton = `<button type="button" class='btn btn-danger btn-delete'>
+                                  Delete
+                                </button>`
+                $('.log-buttons').append(htmlbutton);
+              }
             }
             else if (fetch_url == 'skills'){
               html +=
@@ -228,7 +239,6 @@ var orig_base_url = $("#base_url").val();
             }
           })
           $(".div-logs").append(html)
-          $(".div-education").append(fronthtml)
           
         },
         error: function (status, error)
@@ -244,7 +254,98 @@ var orig_base_url = $("#base_url").val();
       method: 'GET',
       dataType: 'json',
       success: function (data) {
+        toastr.success('Ngaleng', 'Data successfully loaded')
+        var personal_info = data.personal_info[0];
+        var skills = data.skills;
+        var education = data.education;
+        var experience = data.experience;
+        var project = data.projects;
 
+        $('.div-about-me').append(`
+        <div data-aos="fade-left"  data-aos-duration="500" class="text-end w-50 me-5">
+          <h1 data-aos="fade-left" data-aos-duration="1000" class="context-title">Hi, I'm ${personal_info.name}</h1>
+          <h3 data-aos="fade-left" data-aos-duration="1500" class="context-subtitle">${personal_info.professional_title}</h3>
+          <p data-aos="fade-left" data-aos-duration="2000">${personal_info.introduction}</p>
+          </div>
+          <img src="upload/pedro.png" alt="" data-aos="zoom-in"> 
+        `);
+        console.log('test')
+
+        skills.forEach(skill => {
+          console.log(skill.skill_name);
+        
+          $('.div-skills').append(
+            `
+        <div class="skill-container d-flex col-4 text-center my-5">
+          <div class="circular-progress">
+            <div class="d-block">
+              <span class="skill-name">${skill.skill_name}</span>
+              <br>
+              <span data-progressvalue = "${skill.skill_progress}" class="progress-value justify-content-center">0%</span>
+              </div>
+          </div>
+        </div>
+        `);
+        //animation
+         $('.skill-container').each(function () {
+          const container = $(this);
+          const circularProgress = container.find(".circular-progress");
+          const progressValue = container.find(".progress-value");
+
+          let progressStartValue = 0;
+          const progressEndValue = parseInt(progressValue.attr('data-progressvalue'));
+          const speed = 20;
+
+          const progress = setInterval(() => {
+              progressStartValue++;
+
+              progressValue.text(`${progressStartValue}%`);
+              circularProgress.css('background', `conic-gradient(rgb(186, 248, 248) ${progressStartValue * 3.6}deg, #ededed 0deg)`);
+
+              if (progressStartValue >= progressEndValue) {
+                  clearInterval(progress);
+              }
+            }, speed);
+          });
+        })
+        education.forEach(edu => {
+          $('.div-education').append(
+            `
+            <div class="education-item">
+              <h2 class="context-title" data-aos="fade-up" data-aos-duration="800">${edu.institution_name}</h2>
+              <h3 class="context-subtitle" data-aos="fade-up" data-aos-duration="1000"${edu.education_level}</h3>
+              <h5 data-aos="fade-up" data-aos-duration="1200">${edu.acad_year}</h5>
+            </div>
+            `
+          )
+        })
+        experience.forEach(exp => {
+          $('.div-experience').append(
+            `
+            <div class="experience-item" data-aos="fade-up">
+              <h2 class="context-title" data-aos="fade-up" data-aos-duration="1000">${exp.professional_title}</h2>
+              <h3 class="context-subtitle" data-aos="fade-up" data-aos-duration="1200">${exp.company_name}</h3>
+              <h5 data-aos="fade-up" data-aos-duration="1400">${exp.prof_year}</h5>
+              <p data-aos="fade-up" data-aos-duration="1800"> ${exp.company_desc}</p>
+          </div>
+            `
+          );
+        });
+        project.forEach(proj => {
+          $('.div-projects').append(
+            `
+            <div class="col-6">
+              <h2 class="context-title">${proj.project_name}</h2>
+              <h3 class="context-subtitle">${proj.project_role}</h3>
+              <h5>${proj.project_tech}</h5>
+              <p>${proj.project_desc}</p>
+            </div>
+            `
+          );
+        });
+      },
+      error: function (status) {
+        toastr.error(status,'Something is wrong')
       }
 
     })
@@ -347,39 +448,6 @@ var orig_base_url = $("#base_url").val();
       api.post('insert_projects', formData);
     }
   });
-
-
-  //Experimenting
-  // $.ajax({
-  //     url: base_url + 'index.php/get_info',
-  //     method: 'POST',
-  //     dataType: 'json',
-  //     success: function(info){
-  //       toastr.success('EYYY','ey ka muna');
-  //       console.log(info);
-  //       console.log(info.name);
-  //       $('#inputName').attr('placeholder', '');
-  //       $('#inputTitle').attr('placeholder', '');
-  //       $('#inputDesc').attr('placeholder', '');
-  //     }
-
-  // })
-
-  // async function fetchData(){
-  // try
-  // {
-  //   const response = await fetch(base_url + 'fetch_inbox');
-  //   console.log(response);
-  //   if(!response.ok)
-  //   {
-  //     throw new Error('HTPP error! Status: ' + response.status)
-  //   }
-  // }
-  // catch (error)
-  // {
-
-  // }
-  // }
 
   //Others
   $('.snow-button').on('mousemove', function (e) {
