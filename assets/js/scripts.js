@@ -61,7 +61,9 @@ var orig_base_url = $("#base_url").val();
     uploadMultiple: true,
     init: function () {
       this.on("sending", function (file, xhr, formData) {
+        console.log("foreign_id to send:", this.options.params.foreign_id);
         formData.append("origin", fetch_url);
+        formData.append("foreign_id", this.options.params.foreign_id);
       });
     },
     success: function()
@@ -492,11 +494,6 @@ var orig_base_url = $("#base_url").val();
   
 
 
-  //submit buttons dropzone
-
-  $('#btn-submit-about').click(function(){           
-  myDropzone.processQueue();
-  });
 
   //submit buttons forms
 
@@ -577,8 +574,6 @@ var orig_base_url = $("#base_url").val();
     }
     else
     {
-      myDropzone.processQueue();
-
        var formData = new FormData();
 
       formData.append("project_name", $("#inputProjectName").val());
@@ -586,7 +581,23 @@ var orig_base_url = $("#base_url").val();
       formData.append("project_tech", $("#inputTechnologies").val());
       formData.append("project_desc", $("#inputProjectDescription").val());
 
-      api.post('insert_projects', formData);
+      $.ajax({
+        url: orig_base_url + 'insert_projects',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(res){
+          let response = JSON.parse(res);
+          let new_id = response.new_id; // Return this from PHP
+          let origin = 'projects';
+      
+          // Save this info for Dropzone later
+          myDropzone.options.params = { foreign_id: new_id, origin: origin };
+      
+          myDropzone.processQueue();
+        }
+      });
     }
   });
 

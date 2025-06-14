@@ -7,8 +7,7 @@ use PHPMailer\PHPMailer\Exception;
 class MainController extends CI_Controller {
 
     //fetching
-    public function fetch_inbox() 
-    {
+    public function fetch_inbox() {
         return $this->Main_Model->fetch_inbox();
     }
 
@@ -70,8 +69,7 @@ class MainController extends CI_Controller {
     }
 
     //reusable 
-    private function handle_insert($fields, $table_name)
-    {
+    private function handle_insert($fields, $table_name){
         $data =[];
         foreach ($fields as $field)
         {
@@ -80,6 +78,21 @@ class MainController extends CI_Controller {
 
         $this->Main_Model->insert_data($data, $table_name, []);
         return $data;
+    }
+
+    private function handle_insert_with_id($fields, $table_name)
+    {
+    $data = [];
+    foreach ($fields as $field) {
+        $data[$field] = $this->input->post($field);
+    }
+
+    $insert_id = $this->Main_Model->insert_data($data, $table_name, []);
+    if ($insert_id !== false) {
+        $data['id'] = $insert_id; // Attach it if needed later
+    }
+
+    return $data;
     }
 
     //insertion
@@ -112,8 +125,12 @@ class MainController extends CI_Controller {
     function insert_projects()
     {
         $fields = ["project_name", "project_role", "project_tech", "project_desc"];
-        $this->handle_insert($fields, 'tbl_projects');
+        $insertedData = $this->handle_insert_with_id($fields, 'tbl_projects');
+        $insert_id = isset($insertedData['id']) ? $insertedData['id'] : 0;
+
+        echo json_encode(['new_id' => $insert_id]);
     }
+    
 
     function insert_exp()
     {
@@ -122,60 +139,60 @@ class MainController extends CI_Controller {
     } 
 
     //dropzone upload to db
-    function upload_image()
-    {
+    function upload_image(){
         $origin = $this->input->post('origin');
-        $ds = "/";
+        $foreign_id = $this->input->post('foreign_id');
+        $ds = DIRECTORY_SEPARATOR;
         $storeFolder = 'upload';
-        if (isset($_FILES['file']['name']) &&
-            is_array($_FILES['file']['name']) &&
-            count($_FILES['file']['name']) > 1) 
-            {
-            foreach($_FILES['file']['tmp_name'] as $index => $tmpName){
-                if (!empty($_FILES))
-                {
-                $tempFile = $_FILES['file']['tmp_name'][$index];
-                $targetPath = $storeFolder . $ds;
-                $targetFile = $targetPath.$_FILES['file']['name'][$index];
-                
-                if( !empty( $tmpName ) && is_uploaded_file( $tmpName ) ){
 
-                move_uploaded_file($tempFile, $targetFile);
+    
+        if (!is_dir($storeFolder)) {
+            mkdir($storeFolder, 0755, true);
+        }
 
-                $insert_data = array(
-                    "file_name" => $_FILES['file']['name'][$index],
-                    "file_path" => $targetPath . $_FILES['file']['name'][$index],
-                    "file_type" => $_FILES['file']['type'][$index],
-                    "origin" => $origin
-                );
+        if (isset($_FILES['file']['name'])) {
+            // Check if multiple files
+            $isMultiple = is_array($_FILES['file']['name']);
 
-                $this->Main_Model->insert_data($insert_data, 'tbl_files', []);
-                } 
+            if ($isMultiple && count($_FILES['file']['name']) > 1) {
+                foreach ($_FILES['file']['tmp_name'] as $index => $tmpName) {
+                    if (!empty($tmpName) && is_uploaded_file($tmpName)) {
+                        $filename = basename($_FILES['file']['name'][$index]);
+                        $targetFile = $storeFolder . $ds . $filename;
+
+                        if (move_uploaded_file($tmpName, $targetFile)) {
+                            $insert_data = array(
+                                "file_name" => $filename,
+                                "file_path" => $targetFile,
+                                "file_type" => $_FILES['file']['type'][$index],
+                                "origin" => $origin,
+                                "foreign_id" => $foreign_id
+                            );
+                            $this->Main_Model->insert_data($insert_data, 'tbl_files', []);
+                        }
+                    }
+                }
+            } else {
+                // Single file
+                $tmpName = $_FILES['file']['tmp_name'];
+                if (!empty($tmpName) && is_uploaded_file($tmpName)) {
+                    $filename = basename($_FILES['file']['name']);
+                    $targetFile = $storeFolder . $ds . $filename;
+
+                    if (move_uploaded_file($tmpName, $targetFile)) {
+                        $insert_data = array(
+                            "file_name" => $filename,
+                            "file_path" => $targetFile,
+                            "file_type" => $_FILES['file']['type'],
+                            "origin" => $origin,
+                            "foreign_id" => $foreign_id
+                        );
+                        $this->Main_Model->insert_data($insert_data, 'tbl_files', []);
+                    }
                 }
             }
         }
-        else 
-        {
-            if (!empty($_FILES))
-                {
-                $tempFile = $_FILES['file']['tmp_name'];
-                $targetPath = $storeFolder . $ds;
-                $targetFile = $targetPath.$_FILES['file']['name'];
-
-                move_uploaded_file($tempFile, $targetFile);
-
-                $insert_data = array(
-                    "file_name" => $_FILES['file']['name'],
-                    "file_path" => $targetPath . $_FILES['file']['name'],
-                    "file_type" => $_FILES['file']['type'],
-                    "origin" => $origin
-                );
-
-                $this->Main_Model->insert_data($insert_data, 'tbl_files', []);
-                
-                }
-        }
-    }
+    } 
 
     //email
 
