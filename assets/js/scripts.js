@@ -147,7 +147,7 @@ var orig_base_url = $("#base_url").val();
                             <p>${row.skill_progress}</p>
                         </div>
                         <div class="col-2 skill-createdat">
-                            <p>${row.created_at}</p>
+                            <p>${row.updated_at}</p>
                         </div>
                         <div class="col-11 mx-3 skill-desc" style="text-align: justify;">
                             <p>
@@ -460,48 +460,34 @@ var orig_base_url = $("#base_url").val();
     let parentRow = button.closest('.log-row');
 
     if (fetch_url === 'education') {
-      $('#editInstitution').val(parentRow.find('.institution-name p').text().trim());
-      $('#editLevel').val(parentRow.find('.educ-level p').text().trim());
-      $('#editAcadYear').val(parentRow.find('.acad-year p').text().trim());
-      $('#editEducDescription').val(parentRow.find('.institution-desc p').text().trim());
+      $('#editInstitution').val(parentRow.find('.institution-name').text().trim());
+      $('#editLevel').val(parentRow.find('.educ-level').text().trim());
+      $('#editAcadYear').val(parentRow.find('.acad-year').text().trim());
+      $('#editEducDescription').val(parentRow.find('.institution-desc').text().trim());
 
       $('.btn-submit-educ').data('id', item_id); // Save the ID for submission
     }
+    else if (fetch_url == 'skills') {
+      $('#editSkillName').val(parentRow.find('.skill-name').text().trim());
+      $('#editSkillProgress').val(parentRow.find('.skill-progress').text().trim());
+      $('#editSkillDescription').val(parentRow.find('.skill-desc').text().trim());
+    }
+    else if (fetch_url == 'projects') {
 
-    // Add similar blocks for 'skills', 'projects', 'exp' if you want a shared modal or different modals
+    }
+    else if (fetch_url == 'exp') {
+      $('#editCompanyTitle').val(parentRow.find('.exp-title').text().trim());
+      $('#editCompanyName').val(parentRow.find('.company-name').text().trim());
+      $('#editCompanyYears').val(parentRow.find('.prof-year').text().trim());
+      $('#editCompanyDesc').val(parentRow.find('.company-desc').text().trim());
+    }
+
   });
   
-  $(document).on('click', '.btn-submit-educ', function () {
+  $(document).on('click', '.btn-edit-submit-educ', function () {
     let id = $(this).data('id');
 
-    const updatedData = {
-      id: id,
-      table: fetch_url,
-      institution_name: $('#editInstitution').val(),
-      education_level: $('#editLevel').val(),
-      acad_year: $('#editAcadYear').val(),
-      institution_desc: $('#editEducDescription').val()
-    };
 
-    $.ajax({
-      url: orig_base_url + 'update_data',
-      method: 'POST',
-      data: updatedData,
-      dataType: 'json',
-      success: function (res) {
-        if (res.status === 'success') {
-          toastr.success(res.message);
-          $('#editModal').modal('hide');
-          $('.div-logs').empty();
-          loadTableData(fetch_url);
-        } else {
-          toastr.warning(res.message);
-        }
-      },
-      error: function () {
-        toastr.error('Something went wrong.');
-      }
-    });
   });
   
 

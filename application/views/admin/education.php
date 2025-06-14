@@ -85,7 +85,7 @@
                     <textarea class="form-control" id="editEducDescription" rows="3" value=""></textarea>
                 </div>
                 <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary btn-submit-educ">Submit</button>
+                <button type="button" class="btn btn-primary btn-edit-submit-educ">Submit</button>
                 </div>
             </form>
       </div>
