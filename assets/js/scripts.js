@@ -8,14 +8,14 @@ var fetch_url = $('.container-parent').attr('data-page');
 console.log(fetch_url)
 var orig_base_url = $("#base_url").val();
   
-  function ApiHelper(base_url)
+  function ApiHelperInput(base_url)
   {
     this.base_url = base_url;
 
   }
 
   //HELPERS
-  ApiHelper.prototype.post = function(url, data)
+  ApiHelperInput.prototype.post = function(url, data)
   {
     $.ajax({
         url: this.base_url +  url,
@@ -32,7 +32,7 @@ var orig_base_url = $("#base_url").val();
       });
   }
 
- var api = new ApiHelper($("#base_url").val());
+  var api = new ApiHelperInput($("#base_url").val());
 
 //DropZone
 
@@ -83,7 +83,11 @@ var orig_base_url = $("#base_url").val();
   
   }); //
   
-  if ($('#admin-page').length > 0) {
+  if ($('#admin-page').length > 0){
+    loadTableData(fetch_url);
+  }
+
+  function loadTableData(fetch_url) {
     $.ajax({
       url: orig_base_url + 'get_data',
       method: 'GET',
@@ -102,58 +106,65 @@ var orig_base_url = $("#base_url").val();
             if (fetch_url == 'education'){
               html += `<div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
                           <div class="row my-3">
-                              <div class="col-6 mx-3">
+                              <div class="col-6 mx-3 institution-name">
                                   <p>${row.institution_name}</p>
                               </div>
-                              <div class="col-3">
+                              <div class="col-3 educ-level">
                                   <p>${row.education_level}</p>
                               </div>
-                              <div class="col-2">
+                              <div class="col-2 acad-year">
                                   <p>${row.acad_year}</p>
                               </div>
-                              <div class="col-11 mx-3" style="text-align: justify;">
+                              <div class="col-11 mx-3 institution-desc" style="text-align: justify;">
                                   <p>
                                   ${row.institution_desc}
                                   </p>
                               </div>
                             <div class="col-11 mx-3 log-buttons" style="text-align: end;">
-                                  <button type="button" class='btn btn-danger btn-delete'>
+                            <button type="button" class='btn btn-secondary btn-edit' data-id= ${row.id} data-bs-toggle="modal" data-bs-target="#editModal">
+                              Edit
+                              </button>
+                                  <button type="button" class='btn btn-danger btn-delete' data-id= ${row.id}>
                                   Delete
+                                  </button>
+                                  <button type="button" class='btn btn-success btn-activate' data-id= ${row.id}>
+                                    Activate
                                   </button>
                               </div>
                           </div>
                         </div>`
-                        console.log(row.is_active)
-                        //not working yet
-              if(row.is_active == 1){
-                console.log((row.is_active == 1));
-                $('.log-row').addClass('active');
-                console.log($('.log-row').length > 0);
-                htmlbutton = `<button type="button" class='btn btn-danger btn-delete'>
-                                  Delete
-                                </button>`
-                $('.log-buttons').append(htmlbutton);
-              }
+                        
             }
             else if (fetch_url == 'skills'){
               html +=
               `
-              <div class="log-row border border-white rounded my-3">
+              <div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
                     <div class="row my-3">
-                        <div class="col-6 mx-3">
+                        <div class="col-6 mx-3 skill-name">
                             <p>${row.skill_name}</p>
                         </div>
-                        <div class="col-3">
+                        <div class="col-3 skill-progress">
                             <p>${row.skill_progress}</p>
                         </div>
-                        <div class="col-2">
+                        <div class="col-2 skill-createdat">
                             <p>${row.created_at}</p>
                         </div>
-                        <div class="col-11 mx-3" style="text-align: justify;">
+                        <div class="col-11 mx-3 skill-desc" style="text-align: justify;">
                             <p>
                             ${row.skill_desc}
                             </p>
                         </div>
+                        <div class="col-11 mx-3 log-buttons" style="text-align: end;">
+                        <button type="button" class='btn btn-secondary btn-edit' data-id= ${row.id} data-bs-toggle="modal" data-bs-target="#editModal">
+                          Edit
+                          </button>
+                                  <button type="button" class='btn btn-danger btn-delete' data-id= ${row.id}>
+                                  Delete
+                                  </button>
+                                  <button type="button" class='btn btn-success btn-activate' data-id= ${row.id}>
+                                    Activate
+                                  </button>
+                              </div>
                     </div>
                 </div>
               `
@@ -161,25 +172,36 @@ var orig_base_url = $("#base_url").val();
             else if (fetch_url == 'projects') {
               html +=
               `
-              <div class="log-row border border-white rounded my-3">
+              <div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
                           <div class="row my-3">
-                              <div class="col-6 mx-3">
+                              <div class="col-6 mx-3 proj-name">
                                   <p>${row.project_name}</p>
                               </div>
-                              <div class="col-3">
+                              <div class="col-3 proj-role">
                                   <p>${row.project_role}</p>
                               </div>
-                              <div class="col-11 mx-3" style="text-align: justify;"">
+                              <div class="col-11 mx-3 proj-tech" style="text-align: justify;"">
                                   <p>${row.project_tech}</p>
                               </div>
-                              <div class="col-11 mx-3" style="text-align: justify;">
+                              <div class="col-11 mx-3 proj-desc" style="text-align: justify;">
                                   <p>
                                   ${row.project_desc}
                                   </p>
                               </div>
-                            <div class="col-11 mx-3">
+                            <div class="col-11 mx-3 proj-images">
                                 project images
                             </div>
+                            <div class="col-11 mx-3 log-buttons" style="text-align: end;">
+                            <button type="button" class='btn btn-secondary btn-edit' data-id= ${row.id} data-bs-toggle="modal" data-bs-target="#editModal">
+                              Edit
+                              </button>
+                                  <button type="button" class='btn btn-danger btn-delete' data-id= ${row.id}>
+                                  Delete
+                                  </button>
+                                  <button type="button" class='btn btn-success btn-activate' data-id= ${row.id}>
+                                    Activate
+                                  </button>
+                              </div>
                         </div>
                       </div>
               `
@@ -187,21 +209,32 @@ var orig_base_url = $("#base_url").val();
             else if (fetch_url == 'exp') {
               html +=
               `
-              <div class="log-row border border-white rounded my-3">
+              <div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
                           <div class="row my-3">
-                              <div class="col-6 mx-3">
+                              <div class="col-6 mx-3 exp-title">
                                   <p>${row.professional_title}</p>
                               </div>
-                              <div class="col-3">
+                              <div class="col-3 company-name">
                                   <p>${row.company_name}</p>
                               </div>
-                              <div class="col-2">
+                              <div class="col-2 prof-year">
                                   <p>${row.prof_year}</p>
                               </div>
-                              <div class="col-11 mx-3" style="text-align: justify;">
+                              <div class="col-11 mx-3 company-desc" style="text-align: justify;">
                                   <p>
                                   ${row.company_desc}
                                   </p>
+                              </div>
+                              <div class="col-11 mx-3 log-buttons" style="text-align: end;">
+                              <button type="button" class='btn btn-secondary btn-edit' data-id= ${row.id} data-bs-toggle="modal" data-bs-target="#editModal">
+                                Edit
+                                </button>
+                                  <button type="button" class='btn btn-danger btn-delete' data-id= ${row.id}>
+                                  Delete
+                                  </button>
+                                  <button type="button" class='btn btn-success btn-activate' data-id= ${row.id}>
+                                    Activate
+                                  </button>
                               </div>
                           </div>
                         </div>
@@ -213,7 +246,7 @@ var orig_base_url = $("#base_url").val();
               `
              <div class="accordion-item">
             <h2 class="accordion-header">
-            <button class="accordion-button px-5" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne">
+            <button class="accordion-button px-5" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" >
                 <div class="row w-100">
                     <div class="col-4 col-md-4 my-2 text-truncate">
                         <span>${row.contact_name}</span>
@@ -240,6 +273,12 @@ var orig_base_url = $("#base_url").val();
           })
           $(".div-logs").append(html)
           
+        $('.log-row').each(function () {
+          const isActive = $(this).data('isactive');
+          if (isActive == 1) {
+            $(this).addClass('active');
+          }
+          });
         },
         error: function (status, error)
         {
@@ -350,6 +389,122 @@ var orig_base_url = $("#base_url").val();
 
     })
   }
+
+  //log-row buttonw
+
+  $(document).on('click', '.btn-delete', function () {
+    let button = $(this);
+    let item_id = button.data('id');
+    let parentRow = button.closest('.log-row');
+
+    if (!confirm('Are you sure you want to delete this item?')) return;
+
+    $.ajax({
+      url: orig_base_url + 'update_status',
+      method: 'POST',
+      data: {
+        id: item_id,
+        table: fetch_url
+      },
+      dataType: 'json',
+      success: function (res) {
+        if (res.status === 'success') {
+          toastr.success(res.message);
+          parentRow.remove();
+        } else {
+          toastr.warning(res.message);
+        }
+      },
+      error: function () {
+        toastr.error('Something went wrong.');
+      }
+    });
+  });
+
+  $(document).on('click', '.btn-activate', function () {
+    let button = $(this);
+    let item_id = button.data('id');
+    let parentRow = button.closest('.log-row');
+    let currentStatus = parseInt(parentRow.attr('data-isactive')); 
+    let newStatus = currentStatus === 1 ? 0 : 1;    
+
+    $.ajax({
+      url: orig_base_url + 'update_active',
+      method: 'POST',
+      data: {
+        id: item_id,
+        table: fetch_url,
+        is_active: newStatus 
+      },
+      dataType: 'json',
+      success: function (res) {
+        if (res.status === 'success') {
+          parentRow.attr('data-isactive', newStatus);
+
+          parentRow.toggleClass('active', newStatus === 1);
+
+          toastr.success(res.message);
+        } else {
+          toastr.warning(res.message);
+        }
+      },
+      error: function () {
+        toastr.error('Something went wrong.');
+      }
+    });
+  });
+
+  $(document).on('click', '.btn-edit', function () {
+    let button = $(this);
+    let item_id = button.data('id');
+    let parentRow = button.closest('.log-row');
+
+    if (fetch_url === 'education') {
+      $('#editInstitution').val(parentRow.find('.institution-name p').text().trim());
+      $('#editLevel').val(parentRow.find('.educ-level p').text().trim());
+      $('#editAcadYear').val(parentRow.find('.acad-year p').text().trim());
+      $('#editEducDescription').val(parentRow.find('.institution-desc p').text().trim());
+
+      $('.btn-submit-educ').data('id', item_id); // Save the ID for submission
+    }
+
+    // Add similar blocks for 'skills', 'projects', 'exp' if you want a shared modal or different modals
+  });
+  
+  $(document).on('click', '.btn-submit-educ', function () {
+    let id = $(this).data('id');
+
+    const updatedData = {
+      id: id,
+      table: fetch_url,
+      institution_name: $('#editInstitution').val(),
+      education_level: $('#editLevel').val(),
+      acad_year: $('#editAcadYear').val(),
+      institution_desc: $('#editEducDescription').val()
+    };
+
+    $.ajax({
+      url: orig_base_url + 'update_data',
+      method: 'POST',
+      data: updatedData,
+      dataType: 'json',
+      success: function (res) {
+        if (res.status === 'success') {
+          toastr.success(res.message);
+          $('#editModal').modal('hide');
+          $('.div-logs').empty();
+          loadTableData(fetch_url);
+        } else {
+          toastr.warning(res.message);
+        }
+      },
+      error: function () {
+        toastr.error('Something went wrong.');
+      }
+    });
+  });
+  
+
 
   //submit buttons dropzone
 

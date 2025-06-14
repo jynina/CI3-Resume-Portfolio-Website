@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-require_once APPPATH . '../vendor/autoload.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -24,6 +23,52 @@ class MainController extends CI_Controller {
         echo json_encode($data);
     }
 
+    public function update_active(){
+        $id = $this->input->post('id');
+        $table = $this->input->post('table');
+        $is_active = $this->input->post('is_active');
+
+        $result = $this->Main_Model->update_active('tbl_' . $table, $id, $is_active);
+    
+        if ($result) {
+            echo json_encode(['status' => 'success', 'message' => 'Status updated']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Update failed']);
+        }
+        
+    }
+
+    public function update_status(){
+        $id = $this->input->post('id');
+        $table = $this->input->post('table');
+        
+        $result = $this->Main_Model->update_status('tbl_' . $table, $id);
+
+        if ($result) {
+            echo json_encode(['status' => 'success', 'message' => 'Status updated']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Update failed']);
+        }
+    }
+
+    public function update_data() {
+        $table = $this->input->post('table');
+        $id = $this->input->post('id');
+        $data = $this->input->post();
+    
+        unset($data['table']);
+        unset($data['id']);
+    
+        $this->db->where('id', $id);
+        $updated = $this->db->update("tbl_{$table}", $data);
+    
+        if ($updated) {
+            echo json_encode(['status' => 'success', 'message' => 'Updated successfully.']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Failed to update.']);
+        }
+    }
+
     //reusable 
     private function handle_insert($fields, $table_name)
     {
@@ -43,7 +88,7 @@ class MainController extends CI_Controller {
         $fields = ['contact_name', 'contact_email', 'contact_subject', 'contact_message'];
         $contact_data = $this->handle_insert($fields, 'tbl_contact');
 
-        $this->contact_send_email($contact_data);
+        // $this->contact_send_email($contact_data);
     }
 
     public function insert_about()

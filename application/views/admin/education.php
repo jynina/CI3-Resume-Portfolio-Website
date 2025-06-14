@@ -26,26 +26,69 @@
         </div>
     </div>
     <div class="div-logs container">
-        <!-- <div class="log-row border border-white rounded active my-3">
+        <div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
             <div class="row my-3">
                 <div class="col-6 mx-3">
-                    <p>Ebenezer Christian Academy</p>
+                    <p>${row.institution_name}</p>
                 </div>
                 <div class="col-3">
-                    <p>Highschool</p>
+                    <p>${row.education_level}</p>
                 </div>
                 <div class="col-2">
-                    <p>2015-2020</p>
+                    <p>${row.acad_year}</p>
                 </div>
                 <div class="col-11 mx-3" style="text-align: justify;">
                     <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    ${row.institution_desc}
                     </p>
                 </div>
-                <div class="col-11 mx-3">
-                    award images
+            <div class="col-11 mx-3 log-buttons" style="text-align: end;">
+                <button type="button" class='btn btn-secondary btn-edit' data-id= ${row.id} data-bs-toggle="modal" data-bs-target="#editModal">
+                    Edit
+                    </button>
+                    <button type="button" class='btn btn-danger btn-delete' data-id= ${row.id}>
+                    Delete
+                    </button>
+                    <button type="button" class='btn btn-success btn-activate' data-id= ${row.id}>
+                    Activate
+                    </button>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
+</div>
+
+<div class="modal fade text-dark" id="editModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form class="mb-3 form-educ">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Institution</label>
+                    <input type="text" class="form-control" id="editInstitution" required>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Course/Education Level</label>
+                    <input type="text" class="form-control" id="editLevel" required>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Academic Year</label>
+                    <input type="text" class="form-control" id="editAcadYear" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">Brief Description <span class="text-secondary">(Optional)</span></label>
+                    <textarea class="form-control" id="editEducDescription" rows="3" value=""></textarea>
+                </div>
+                <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary btn-submit-educ">Submit</button>
+                </div>
+            </form>
+      </div>
+    </div>
+  </div>
 </div>
