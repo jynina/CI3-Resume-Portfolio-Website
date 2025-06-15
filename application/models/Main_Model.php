@@ -35,6 +35,26 @@ class Main_Model extends CI_Model{
         ];
     }
 
+    function update_active($table, $id, $is_active = 1){
+        $this->db->where('id', $id);
+        return $this->db->update($table, ['is_active' => $is_active]);
+    }
+
+    function update_status($table, $id){
+        return $this->db->where('id', $id)->update($table, ['status' => 0]);
+    }
+
+    public function update_data($table, $id, $data)
+    {
+
+    if (!$table || !$id || empty($data)) {
+        return false;
+    }
+
+    $this->db->where('id', $id);
+    return $this->db->update("tbl_$table", $data);
+    }
+
 }
 
 ?>
