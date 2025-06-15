@@ -86,10 +86,14 @@ var orig_base_url = $("#base_url").val();
   }); //
   
   if ($('#admin-page').length > 0){
-    loadTableData(fetch_url);
+    loadTableDataAdmin(fetch_url);
   }
 
-  function loadTableData(fetch_url) {
+  if ($('#client-page').length > 0) {
+    loadTableDataClient();
+  }
+
+  function loadTableDataAdmin(fetch_url) {
     $.ajax({
       url: orig_base_url + 'get_data',
       method: 'GET',
@@ -289,7 +293,7 @@ var orig_base_url = $("#base_url").val();
     })  
   }
 
-  if ($('#client-page').length > 0) {
+  function loadTableDataClient(){
     $.ajax({
       url: orig_base_url + 'get_all_data',
       method: 'GET',
@@ -320,7 +324,7 @@ var orig_base_url = $("#base_url").val();
         <div class="skill-container d-flex col-4 text-center my-5">
           <div class="circular-progress">
             <div class="d-block">
-              <span class="skill-name">${skill.skill_name}</span>
+              <span class="progress-skill-name">${skill.skill_name}</span>
               <br>
               <span data-progressvalue = "${skill.skill_progress}" class="progress-value justify-content-center">0%</span>
               </div>
@@ -475,7 +479,7 @@ var orig_base_url = $("#base_url").val();
       $('#editSkillDescription').val(parentRow.find('.skill-desc').text().trim());
     }
     else if (fetch_url == 'projects') {
-
+      $
     }
     else if (fetch_url == 'exp') {
       $('#editCompanyTitle').val(parentRow.find('.exp-title').text().trim());

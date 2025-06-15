@@ -39,25 +39,27 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form>
-                <div class="row">
-                <div class="mb-3 col">
-                    <label for="name" class="form-label">Skill</label>
-                    <input type="text" class="form-control" id="editSkillName" required>
-                </div>
-                <div class="mb-3 col"> 
-                    <label for="name" class="form-label">Progress </label>
-                    <input type="number" class="form-control" id="editSkillProgress" min='0' max='100' required>
-                </div>
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Brief Description</label>
-                    <textarea class="form-control" id="editSkillDescription" rows="3"></textarea>
-                </div>
-                <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary btn btn-edit-submit-skills">Submit</button>
-                </div>
+        <form class="mb-3 form-project">
+            <div class="mb-3">
+                <label for="name" class="form-label">Project Name</label>
+                <input type="text" class="form-control" id="editProjectName">
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Role</label>
+                <input type="text" class="form-control" id="editRole">
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Technologies</label>
+                <input type="text" class="form-control" id="editTechnologies">
+            </div>
+
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Brief Description <span class="text-secondary">(Optional)</span></label>
+                <textarea class="form-control" id="editProjectDescription" rows="3"></textarea>
+            </div>
             </form>
+            <label for="exampleFormControlTextarea1" class="form-label">Project Screenshots</label>
+            <form action="<?= base_url()?>upload_image" id="myDropzoneMultiple" class="dropzone"></form>
       </div>
     </div>
   </div>

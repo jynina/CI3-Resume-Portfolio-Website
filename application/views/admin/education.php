@@ -23,10 +23,8 @@
                 <button type="button" class="btn btn-primary btn-submit-educ">Submit</button>
                 </div>
             </form>
-        </div>
-    </div>
-    <div class="div-logs container">
-        <div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
+            <div class="div-logs container">
+        <!-- <div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
             <div class="row my-3">
                 <div class="col-6 mx-3">
                     <p>${row.institution_name}</p>
@@ -54,7 +52,10 @@
                     </button>
                 </div>
             </div>
+        </div> -->
+    </div>
         </div>
+        
     </div>
 </div>
 
