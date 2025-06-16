@@ -46,7 +46,7 @@ var orig_base_url = $("#base_url").val();
       this.on("sending", function (file, xhr, formData) {
         formData.append("origin", fetch_url);
         });
-      this.on("removedFile")//edit this for edit modal remove
+      this.on("removedFile")//edit this for edit modal removepul
       }
   });
 
