@@ -46,6 +46,7 @@ var orig_base_url = $("#base_url").val();
       this.on("sending", function (file, xhr, formData) {
         formData.append("origin", fetch_url);
         });
+      this.on("removedFile")//edit this for edit modal remove
       }
   });
 
@@ -77,6 +78,16 @@ var orig_base_url = $("#base_url").val();
   });
   }
 
+  uploadedFiles.forEach(file => {
+    const mockFile = { name: file.name, size: file.size };
+
+    dropzoneInstance.emit("addedfile", mockFile);
+    dropzoneInstance.emit("thumbnail", mockFile, file.url);
+    dropzoneInstance.emit("complete", mockFile);
+
+    dropzoneInstance.files.push(mockFile);
+  });
+
   //navigation links
   
   $('.nav-link').on('click', function () {
@@ -107,6 +118,11 @@ var orig_base_url = $("#base_url").val();
               $('#inputName').val(row.name);
               $('#inputTitle').val(row.professional_title);
               $('#inputDesc').val(row.introduction);
+              // $.get(`${orig_base_urlbase_url}get_project_files?project_id=${item_id}`, function (data) {
+              //   const uploadedFiles = JSON.parse(data);
+              //   preloadImages(uploadedFiles);
+              // }); 
+              // iba pa to
 
             }
             if (fetch_url == 'education'){
@@ -474,6 +490,7 @@ var orig_base_url = $("#base_url").val();
     let parentRow = button.closest('.log-row');
 
     if (fetch_url === 'education') {
+      $('#hiddenID').val(item_id);
       $('#editInstitution').val(parentRow.find('.institution-name').text().trim());
       $('#editLevel').val(parentRow.find('.educ-level').text().trim());
       $('#editAcadYear').val(parentRow.find('.acad-year').text().trim());
@@ -487,6 +504,12 @@ var orig_base_url = $("#base_url").val();
       $('#editSkillDescription').val(parentRow.find('.skill-desc').text().trim());
     }
     else if (fetch_url == 'projects') {
+
+      $.get(`${orig_base_urlbase_url}get_project_files?project_id=${item_id}`, function (data) {
+        const uploadedFiles = JSON.parse(data);
+        preloadImages(uploadedFiles);
+      });
+
       $
     }
     else if (fetch_url == 'exp') {
@@ -499,8 +522,17 @@ var orig_base_url = $("#base_url").val();
   });
   
   $(document).on('click', '.btn-edit-submit-educ', function () {
-    let id = $(this).data('id');
+    
+    var formData = new FormData();
 
+    formData.append('id', $('#hiddenID').val());
+    formData.append('institution_name', $('#editInstitution').val());
+    formData.append('education_level', $('#editLevel').val());
+    formData.append('acad_year', $('#editAcadYear').val());
+    formData.append('institution_desc', $('#editEducDescription').val());
+    console.log(formData);
+
+    api.post('update_educ', formData)
 
   });
   

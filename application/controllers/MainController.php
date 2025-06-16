@@ -57,8 +57,8 @@ class MainController extends CI_Controller {
         }
     }
 
-    private function update_data() {
-        $id = $this->input->post($id_field);
+    private function handle_update($fields, $table_name) {
+        $id = $this->input->post('id');
         $data = [];
     
         foreach ($fields as $field) {
@@ -94,7 +94,7 @@ class MainController extends CI_Controller {
 
     $insert_id = $this->Main_Model->insert_data($data, $table_name, []);
     if ($insert_id !== false) {
-        $data['id'] = $insert_id; // Attach it if needed later
+        $data['id'] = $insert_id;
     }
 
     return $data;

@@ -68,6 +68,7 @@
       </div>
       <div class="modal-body">
       <form class="mb-3 form-educ">
+        <input type="text" id="hiddenID" readonly >
                 <div class="mb-3">
                     <label for="name" class="form-label">Institution</label>
                     <input type="text" class="form-control" id="editInstitution" required>

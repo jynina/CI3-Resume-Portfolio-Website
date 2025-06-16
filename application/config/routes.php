@@ -27,6 +27,7 @@ $route['insert_exp'] = 'MainController/insert_exp';
 $route['update_active'] = 'MainController/update_active';
 $route['update_status'] = 'MainController/update_status';
 
+$route['update_educ'] = 'MainController/update_educ';
 //fetching
 $route['get_data'] = 'MainController/fetch_data';
 $route['get_all_data'] = 'MainController/fetch_all_data';
