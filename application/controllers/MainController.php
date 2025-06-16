@@ -151,51 +151,35 @@ class MainController extends CI_Controller {
     } 
 
     //dropzone upload to db
-    function upload_image(){
+    public function upload_image()
+    {
         $origin = $this->input->post('origin');
         $foreign_id = $this->input->post('foreign_id');
         $ds = DIRECTORY_SEPARATOR;
         $storeFolder = 'upload';
 
-    
         if (!is_dir($storeFolder)) {
             mkdir($storeFolder, 0755, true);
         }
 
         if (isset($_FILES['file']['name'])) {
-            // Check if multiple files
-            $isMultiple = is_array($_FILES['file']['name']);
+            // Force to always treat as multiple files for consistency
+            $fileCount = is_array($_FILES['file']['name']) ? count($_FILES['file']['name']) : 1;
 
-            if ($isMultiple && count($_FILES['file']['name']) > 1) {
-                foreach ($_FILES['file']['tmp_name'] as $index => $tmpName) {
-                    if (!empty($tmpName) && is_uploaded_file($tmpName)) {
-                        $filename = basename($_FILES['file']['name'][$index]);
-                        $targetFile = $storeFolder . $ds . $filename;
+            for ($i = 0; $i < $fileCount; $i++) {
+                $name = is_array($_FILES['file']['name']) ? $_FILES['file']['name'][$i] : $_FILES['file']['name'];
+                $tmpName = is_array($_FILES['file']['tmp_name']) ? $_FILES['file']['tmp_name'][$i] : $_FILES['file']['tmp_name'];
+                $type = is_array($_FILES['file']['type']) ? $_FILES['file']['type'][$i] : $_FILES['file']['type'];
 
-                        if (move_uploaded_file($tmpName, $targetFile)) {
-                            $insert_data = array(
-                                "file_name" => $filename,
-                                "file_path" => $targetFile,
-                                "file_type" => $_FILES['file']['type'][$index],
-                                "origin" => $origin,
-                                "foreign_id" => $foreign_id
-                            );
-                            $this->Main_Model->insert_data($insert_data, 'tbl_files', []);
-                        }
-                    }
-                }
-            } else {
-                // Single file
-                $tmpName = $_FILES['file']['tmp_name'];
                 if (!empty($tmpName) && is_uploaded_file($tmpName)) {
-                    $filename = basename($_FILES['file']['name']);
+                    $filename = basename($name);
                     $targetFile = $storeFolder . $ds . $filename;
 
                     if (move_uploaded_file($tmpName, $targetFile)) {
                         $insert_data = array(
                             "file_name" => $filename,
                             "file_path" => $targetFile,
-                            "file_type" => $_FILES['file']['type'],
+                            "file_type" => $type,
                             "origin" => $origin,
                             "foreign_id" => $foreign_id
                         );
@@ -204,7 +188,7 @@ class MainController extends CI_Controller {
                 }
             }
         }
-    } 
+    }
 
     //email
 
