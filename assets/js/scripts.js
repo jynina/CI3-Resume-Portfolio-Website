@@ -176,42 +176,50 @@ var orig_base_url = $("#base_url").val();
               `
             }
             else if (fetch_url == 'projects') {
-              html +=
-              `
-              <div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
-                          <div class="row my-3">
-                              <div class="col-6 mx-3 proj-name">
-                                  <p>${row.project_name}</p>
-                              </div>
-                              <div class="col-3 proj-role">
-                                  <p>${row.project_role}</p>
-                              </div>
-                              <div class="col-11 mx-3 proj-tech" style="text-align: justify;"">
-                                  <p>${row.project_tech}</p>
-                              </div>
-                              <div class="col-11 mx-3 proj-desc" style="text-align: justify;">
-                                  <p>
-                                  ${row.project_desc}
-                                  </p>
-                              </div>
-                            <div class="col-11 mx-3 proj-images">
-                                project images
-                            </div>
-                            <div class="col-11 mx-3 log-buttons" style="text-align: end;">
-                            <button type="button" class='btn btn-secondary btn-edit' data-id= ${row.id} data-bs-toggle="modal" data-bs-target="#editModal">
-                              Edit
-                              </button>
-                                  <button type="button" class='btn btn-danger btn-delete' data-id= ${row.id}>
-                                  Delete
-                                  </button>
-                                  <button type="button" class='btn btn-success btn-activate' data-id= ${row.id}>
-                                    Activate
-                                  </button>
-                              </div>
-                        </div>
-                      </div>
-              `
+              let imageHTML = '';
+              console.log(row);
+              if (row.images && row.images.length > 0) {
+                imageHTML = row.images.map(img => `
+                  <img src="${img.file_path}" alt="project image" style="width: 100px; height: auto;" />
+                `).join('');
+              } else {
+                imageHTML = '<p>No images</p>';
+              }
+
+              html += `
+                <div class="log-row border border-white rounded my-3" data-id=${row.id} data-isactive=${row.is_active}>
+                  <div class="row my-3">
+                    <div class="col-6 mx-3 proj-name">
+                      <p>${row.project_name}</p>
+                    </div>
+                    <div class="col-3 proj-role">
+                      <p>${row.project_role}</p>
+                    </div>
+                    <div class="col-11 mx-3 proj-tech" style="text-align: justify;">
+                      <p>${row.project_tech}</p>
+                    </div>
+                    <div class="col-11 mx-3 proj-desc" style="text-align: justify;">
+                      <p>${row.project_desc}</p>
+                    </div>
+                    <div class="col-11 mx-3 proj-images d-flex flex-wrap gap-2">
+                      ${imageHTML}
+                    </div>
+                    <div class="col-11 mx-3 log-buttons" style="text-align: end;">
+                      <button type="button" class='btn btn-secondary btn-edit' data-id=${row.id} data-bs-toggle="modal" data-bs-target="#editModal">
+                        Edit
+                      </button>
+                      <button type="button" class='btn btn-danger btn-delete' data-id=${row.id}>
+                        Delete
+                      </button>
+                      <button type="button" class='btn btn-success btn-activate' data-id=${row.id}>
+                        Activate
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              `;
             }
+            
             else if (fetch_url == 'exp') {
               html +=
               `

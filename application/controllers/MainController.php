@@ -14,6 +14,13 @@ class MainController extends CI_Controller {
     public function fetch_data(){
         $name = $this->input->get('table');
         $data = $this->Main_Model->fetch_data('tbl_' . $name);
+
+        if ($name == 'projects') {
+            foreach ($data as &$project) {
+                $project->images = $this->Main_Model->get_files($name, $project->id);
+            }
+        }
+        
         echo json_encode($data);
     }
 
@@ -50,22 +57,20 @@ class MainController extends CI_Controller {
         }
     }
 
-    public function update_data() {
-        $table = $this->input->post('table');
-        $id = $this->input->post('id');
-        $data = $this->input->post();
+    private function update_data() {
+        $id = $this->input->post($id_field);
+        $data = [];
     
-        unset($data['table']);
-        unset($data['id']);
-    
-        $this->db->where('id', $id);
-        $updated = $this->db->update("tbl_{$table}", $data);
-    
-        if ($updated) {
-            echo json_encode(['status' => 'success', 'message' => 'Updated successfully.']);
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Failed to update.']);
+        foreach ($fields as $field) {
+            $data[$field] = $this->input->post($field);
         }
+    
+        if ($id) {
+            $this->Main_Model->update_data($table_name, $id, $data);
+        }
+    
+        return $data;
+    
     }
 
     //reusable 
@@ -115,6 +120,13 @@ class MainController extends CI_Controller {
         $fields = ['institution_name', 'education_level', 'acad_year', 'institution_desc'];
         $this->handle_insert($fields, 'tbl_education');
     }
+
+    public function update_educ()
+    {
+        $fields = ['institution_name', 'education_level', 'acad_year', 'institution_desc'];
+        $this->handle_update($fields, 'tbl_education');
+    }
+
 
     function insert_skills()
     {

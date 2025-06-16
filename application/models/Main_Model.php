@@ -52,7 +52,16 @@ class Main_Model extends CI_Model{
     }
 
     $this->db->where('id', $id);
-    return $this->db->update("tbl_$table", $data);
+    return $this->db->update("$table", $data);
+    }
+
+    public function get_files($origin, $foreign_id)
+    {
+    return $this->db
+                ->where('origin', $origin)
+                ->where('foreign_id', $foreign_id)
+                ->get('tbl_files')
+                ->result();
     }
 
 }
