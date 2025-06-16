@@ -21,6 +21,11 @@
 	<script src="<?= base_url()?>assets/js/scripts.js"></script>
 	<script src="<?= base_url()?>assets/js/animation.js"></script>
 	<script src="<?= base_url()?>assets/js/loading-bar.min.js"></script>
+	<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+	<script src=" https://cdn.jsdelivr.net/npm/fullpage.js@4.0.36/dist/fullpage.min.js "></script>
+	<link href=" https://cdn.jsdelivr.net/npm/fullpage.js@4.0.36/dist/fullpage.min.css " rel="stylesheet">
 </head>
 <body>
 <input type="text" value="<?= base_url()?>" id="base_url" hidden>
+
+ 

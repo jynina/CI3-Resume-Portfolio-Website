@@ -44,12 +44,15 @@ class Main_Model extends CI_Model{
         return $this->db->where('id', $id)->update($table, ['status' => 0]);
     }
 
-    public function update_data($table, $id, $data)
+    function update_data($data, $table, $id)
     {
+    // if (!$table || !$id || empty($data)) {
+    //     return false;
+    // }
 
-    if (!$table || !$id || empty($data)) {
-        return false;
-    }
+    // $this->db->where('id', $id);
+    // return $this->db->update($table, $data)->result();
+
 
     $this->db->where('id', $id);
     return $this->db->update($table, $data);
@@ -62,6 +65,10 @@ class Main_Model extends CI_Model{
                 ->where('foreign_id', $foreign_id)
                 ->get('tbl_files')
                 ->result();
+    $sql = "UPDATE $table SET institution_name = ?, education_level = ?, acad_year = ?, institution_desc = ? WHERE id = ? ";
+    $result = $this->db->query($sql, array($data['institution_name'], $data['education_level'], $data['acad_year'], $data['institution_desc'], $id));
+    return $result;
+
     }
 
 }
