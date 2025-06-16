@@ -43,8 +43,7 @@ class Main_Model extends CI_Model{
     function update_status($table, $id){
         return $this->db->where('id', $id)->update($table, ['status' => 0]);
     }
-
-    function update_data($data, $table, $id)
+    
     function update_data($data, $table, $id)
     {
     // if (!$table || !$id || empty($data)) {
