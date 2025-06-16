@@ -113,15 +113,19 @@ var orig_base_url = $("#base_url").val();
               html += `<div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
                           <div class="row my-3">
                               <div class="col-6 mx-3 institution-name">
+                                <label class="fw-bold">Institution Name</label>
                                   <p>${row.institution_name}</p>
                               </div>
                               <div class="col-3 educ-level">
+                                <label class="fw-bold">Education Level</label>
                                   <p>${row.education_level}</p>
                               </div>
                               <div class="col-2 acad-year">
+                              <label class="fw-bold">Academic Year</label>
                                   <p>${row.acad_year}</p>
                               </div>
                               <div class="col-11 mx-3 institution-desc" style="text-align: justify;">
+                              <label class="fw-bold">Institution Description</label>
                                   <p>
                                   ${row.institution_desc}
                                   </p>
@@ -139,7 +143,6 @@ var orig_base_url = $("#base_url").val();
                               </div>
                           </div>
                         </div>`
-                        
             }
             else if (fetch_url == 'skills'){
               html +=
@@ -147,15 +150,19 @@ var orig_base_url = $("#base_url").val();
               <div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
                     <div class="row my-3">
                         <div class="col-6 mx-3 skill-name">
+                            <label class="fw-bold">Skill Name</label>
                             <p>${row.skill_name}</p>
                         </div>
                         <div class="col-3 skill-progress">
+                            <label class="fw-bold">Skill Progress</label>
                             <p>${row.skill_progress}</p>
                         </div>
                         <div class="col-2 skill-createdat">
-                            <p>${row.updated_at}</p>
+                          <label class="fw-bold">Date Created</label>
+                            <p>${row.created_at}</p>
                         </div>
                         <div class="col-11 mx-3 skill-desc" style="text-align: justify;">
+                          <label class="fw-bold">Skill Description</label>
                             <p>
                             ${row.skill_desc}
                             </p>
@@ -176,26 +183,32 @@ var orig_base_url = $("#base_url").val();
               `
             }
             else if (fetch_url == 'projects') {
+            
               html +=
               `
               <div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
                           <div class="row my-3">
                               <div class="col-6 mx-3 proj-name">
+                              <label class="fw-bold">Project Name</label>
                                   <p>${row.project_name}</p>
                               </div>
                               <div class="col-3 proj-role">
+                              <label class="fw-bold">Project Role</label>
                                   <p>${row.project_role}</p>
                               </div>
                               <div class="col-11 mx-3 proj-tech" style="text-align: justify;"">
+                              <label class="fw-bold">Tech Used</label>
                                   <p>${row.project_tech}</p>
                               </div>
                               <div class="col-11 mx-3 proj-desc" style="text-align: justify;">
+                              <label class="fw-bold">Project Description</label>
                                   <p>
                                   ${row.project_desc}
                                   </p>
                               </div>
                             <div class="col-11 mx-3 proj-images">
-                                project images
+                                <label class="fw-bold">Project Images</label>
+                                
                             </div>
                             <div class="col-11 mx-3 log-buttons" style="text-align: end;">
                             <button type="button" class='btn btn-secondary btn-edit' data-id= ${row.id} data-bs-toggle="modal" data-bs-target="#editModal">
@@ -211,6 +224,11 @@ var orig_base_url = $("#base_url").val();
                         </div>
                       </div>
               `
+              
+               console.log(row)
+              //  row.file_path.forEach(path => {
+              //   console.log(path);
+              //  })
             }
             else if (fetch_url == 'exp') {
               html +=
@@ -218,15 +236,19 @@ var orig_base_url = $("#base_url").val();
               <div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
                           <div class="row my-3">
                               <div class="col-6 mx-3 exp-title">
+                              <label class="fw-bold">Professional Title</label>
                                   <p>${row.professional_title}</p>
                               </div>
                               <div class="col-3 company-name">
+                              <label class="fw-bold">Company Name</label>
                                   <p>${row.company_name}</p>
                               </div>
                               <div class="col-2 prof-year">
+                              <label class="fw-bold">Professional Year</label>
                                   <p>${row.prof_year}</p>
                               </div>
                               <div class="col-11 mx-3 company-desc" style="text-align: justify;">
+                              <label class="fw-bold">Company Description</label>
                                   <p>
                                   ${row.company_desc}
                                   </p>
@@ -244,7 +266,7 @@ var orig_base_url = $("#base_url").val();
                               </div>
                           </div>
                         </div>
-              `
+              ` 
             }
             else if (fetch_url == 'contact')
             {
@@ -275,6 +297,7 @@ var orig_base_url = $("#base_url").val();
             </div>
         </div>
               `
+              
             }
           })
           $(".div-logs").append(html)
@@ -305,14 +328,15 @@ var orig_base_url = $("#base_url").val();
         var education = data.education;
         var experience = data.experience;
         var project = data.projects;
+        var images = data.files;
 
         $('.div-about-me').append(`
-        <div data-aos="fade-left"  data-aos-duration="500" class="text-end w-50 me-5">
+        <div " class="text-end w-50 me-5">
           <h1 data-aos="fade-left" data-aos-duration="1000" class="context-title">Hi, I'm ${personal_info.name}</h1>
           <h3 data-aos="fade-left" data-aos-duration="1500" class="context-subtitle">${personal_info.professional_title}</h3>
           <p data-aos="fade-left" data-aos-duration="2000">${personal_info.introduction}</p>
           </div>
-          <img src="upload/pedro.png" alt="" data-aos="zoom-in"> 
+          <img class="profile-img" src="upload/pedro.png" alt="" data-aos="zoom-in"> 
         `);
         console.log('test')
 
@@ -321,7 +345,7 @@ var orig_base_url = $("#base_url").val();
         
           $('.div-skills').append(
             `
-        <div class="skill-container d-flex col-4 text-center my-5">
+        <div class="skill-container d-flex col-4 text-center my-5" data-aos="zoom-in">
           <div class="circular-progress">
             <div class="d-block">
               <span class="progress-skill-name">${skill.skill_name}</span>
@@ -354,11 +378,12 @@ var orig_base_url = $("#base_url").val();
           });
         })
         education.forEach(edu => {
+          console.log(edu);
           $('.div-education').append(
             `
             <div class="education-item">
               <h2 class="context-title" data-aos="fade-up" data-aos-duration="800">${edu.institution_name}</h2>
-              <h3 class="context-subtitle" data-aos="fade-up" data-aos-duration="1000"${edu.education_level}</h3>
+              <h3 class="context-subtitle" data-aos="fade-up" data-aos-duration="1000">${edu.education_level}</h3>
               <h5 data-aos="fade-up" data-aos-duration="1200">${edu.acad_year}</h5>
             </div>
             `
@@ -377,16 +402,33 @@ var orig_base_url = $("#base_url").val();
           );
         });
         project.forEach(proj => {
+          let files = [];
           $('.div-projects').append(
             `
-            <div class="col-6">
-              <h2 class="context-title">${proj.project_name}</h2>
-              <h3 class="context-subtitle">${proj.project_role}</h3>
-              <h5>${proj.project_tech}</h5>
-              <p>${proj.project_desc}</p>
+            <div class="project-item col-6" data-aos="fade-up">
+              <h2 class="context-title" data-aos="fade-up" data-aos-duration="1000">${proj.project_name}</h2>
+              <h3 class="context-subtitle" data-aos="fade-up" data-aos-duration="1200">${proj.project_role}</h3>
+              <h5 class="context-tech" data-aos="fade-up" data-aos-duration="1400">${proj.project_tech}</h5>
+              <p class="context-desc" data-aos="fade-up" data-aos-duration="1800">${proj.project_desc}</p>
+              <div class="context-images"></div>
             </div>
             `
           );
+          images.forEach(file =>{
+            if (file.foreign_id == proj.id){
+              files = file
+              console.log(files)
+              
+
+              $('.proj-image-slides').append(
+                `
+                <li class="slide">
+                  <img src="${orig_base_url}${file.file_path}"  alt="">
+                </li>
+                `
+              )
+            }
+          })
         });
       },
       error: function (status) {
@@ -466,33 +508,45 @@ var orig_base_url = $("#base_url").val();
     let parentRow = button.closest('.log-row');
 
     if (fetch_url === 'education') {
-      $('#editInstitution').val(parentRow.find('.institution-name').text().trim());
-      $('#editLevel').val(parentRow.find('.educ-level').text().trim());
-      $('#editAcadYear').val(parentRow.find('.acad-year').text().trim());
-      $('#editEducDescription').val(parentRow.find('.institution-desc').text().trim());
-
-      $('.btn-submit-educ').data('id', item_id); // Save the ID for submission
+      $('#hiddenID').val(item_id);
+      $('#editInstitution').val(parentRow.find('.institution-name p').text().trim());
+      $('#editLevel').val(parentRow.find('.educ-level p').text().trim());
+      $('#editAcadYear').val(parentRow.find('.acad-year p').text().trim());
+      $('#editEducDescription').val(parentRow.find('.institution-desc p').text().trim());
+       // Save the ID for submission
     }
     else if (fetch_url == 'skills') {
-      $('#editSkillName').val(parentRow.find('.skill-name').text().trim());
-      $('#editSkillProgress').val(parentRow.find('.skill-progress').text().trim());
-      $('#editSkillDescription').val(parentRow.find('.skill-desc').text().trim());
+      $('#editSkillName').val(parentRow.find('.skill-name p').text().trim());
+      $('#editSkillProgress').val(parentRow.find('.skill-progress p').text().trim());
+      $('#editSkillDescription').val(parentRow.find('.skill-desc p').text().trim());
     }
     else if (fetch_url == 'projects') {
-      $
+      $('#editProjectName').val(parentRow.find('.proj-name p').text().trim());
+      $('#editRole').val(parentRow.find('.proj-role p').text().trim());
+      $('#editTechnologies').val(parentRow.find('.proj-tech p').text().trim());
+      $('#editProjectDescription').val(parentRow.find('.proj-desc p').text().trim());
     }
     else if (fetch_url == 'exp') {
-      $('#editCompanyTitle').val(parentRow.find('.exp-title').text().trim());
-      $('#editCompanyName').val(parentRow.find('.company-name').text().trim());
-      $('#editCompanyYears').val(parentRow.find('.prof-year').text().trim());
-      $('#editCompanyDesc').val(parentRow.find('.company-desc').text().trim());
+      $('#editCompanyTitle').val(parentRow.find('.exp-title p').text().trim());
+      $('#editCompanyName').val(parentRow.find('.company-name p').text().trim());
+      $('#editCompanyYears').val(parentRow.find('.prof-year p').text().trim());
+      $('#editCompanyDesc').val(parentRow.find('.company-desc p').text().trim());
     }
 
   });
   
   $(document).on('click', '.btn-edit-submit-educ', function () {
-    let id = $(this).data('id');
 
+    var formData = new FormData();
+
+    formData.append('id', $('#hiddenID').val());
+    formData.append('institution_name', $('#editInstitution').val());
+    formData.append('education_level', $('#editLevel').val());
+    formData.append('acad_year', $('#editAcadYear').val());
+    formData.append('institution_desc', $('#editEducDescription').val());
+
+    console.log(formData);
+    api.post('update_educ', formData)
 
   });
   

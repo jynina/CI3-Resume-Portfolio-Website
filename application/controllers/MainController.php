@@ -50,22 +50,31 @@ class MainController extends CI_Controller {
         }
     }
 
-    public function update_data() {
-        $table = $this->input->post('table');
-        $id = $this->input->post('id');
-        $data = $this->input->post();
-    
-        unset($data['table']);
-        unset($data['id']);
-    
-        $this->db->where('id', $id);
-        $updated = $this->db->update("tbl_{$table}", $data);
-    
-        if ($updated) {
-            echo json_encode(['status' => 'success', 'message' => 'Updated successfully.']);
-        } else {
-            echo json_encode(['status' => 'error', 'message' => 'Failed to update.']);
+    public function update_data($fields, $table_name, $id) {
+        $data =[];
+        foreach ($fields as $field)
+        {
+            $data[$field] = $this->input->post($field);
         }
+
+        $this->Main_Model->update_data($data, $table_name, $id);
+        
+
+        // $table = $this->input->post('table');
+        // $id = $this->input->post('id');
+        // $data = $this->input->post();
+    
+        // unset($data['table']);
+        // unset($data['id']);
+    
+        // $this->db->where('id', $id);
+        // $updated = $this->db->update("tbl_{$table}", $data);
+    
+        // if ($updated) {
+        //     echo json_encode(['status' => 'success', 'message' => 'Updated successfully.']);
+        // } else {
+        //     echo json_encode(['status' => 'error', 'message' => 'Failed to update.']);
+        // }
     }
 
     //reusable 
@@ -114,6 +123,21 @@ class MainController extends CI_Controller {
     {
         $fields = ['institution_name', 'education_level', 'acad_year', 'institution_desc'];
         $this->handle_insert($fields, 'tbl_education');
+    }
+
+    function update_educ()
+    {
+        $id = $this->input->post('id');
+        // $data = array (
+        //   'institution_name' => $this->input->post('institution_name'),
+        //   'education_level' => $this->input->post('education_level'),
+        //   'acad_year' => $this->input->post('acad_year'),
+        //   'institution_desc' => $this->input->post('institution_desc'),     
+        // );
+        // $this->Main_Model->update_data($data, 'tbl_education', $id);
+
+        $fields = ['institution_name', 'education_level', 'acad_year', 'institution_desc'];
+        $this->update_data($fields, 'tbl_education', $id);
     }
 
     function insert_skills()

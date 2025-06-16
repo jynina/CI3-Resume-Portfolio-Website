@@ -22,14 +22,17 @@
             </form>
                 <label for="exampleFormControlTextarea1" class="form-label">Project Screenshots</label>
                 <form action="<?= base_url()?>upload_image" id="myDropzoneMultiple" class="dropzone"></form>
-                <div class="div-logs">
                 <div class="d-flex justify-content-end">
                     <button type="button" class="btn btn-primary btn-submit-projects" id="btn-submit-projects">Submit</button>
                 </div>
+                <div class="div-logs">
+                
             </div>
         </div>
     </div>
 </div>
+
+
 
 <div class="modal fade text-dark" id="editModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
@@ -58,8 +61,11 @@
                 <textarea class="form-control" id="editProjectDescription" rows="3"></textarea>
             </div>
             </form>
-            <label for="exampleFormControlTextarea1" class="form-label">Project Screenshots</label>
-            <form action="<?= base_url()?>upload_image" id="myDropzoneMultiple" class="dropzone"></form>
+            <!-- <label for="exampleFormControlTextarea1" class="form-label">Project Screenshots</label>
+            <form action="<?= base_url()?>upload_image" id="myDropzoneMultiple" class="dropzone"></form> -->
+            <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-primary btn-edit-submit-projects" id="btn-submit-projects">Submit</button>
+                </div>
       </div>
     </div>
   </div>
