@@ -68,11 +68,7 @@
       </div>
       <div class="modal-body">
       <form class="mb-3 form-educ">
-<<<<<<< HEAD
-        <input type="text" id="hiddenID" readonly >
-=======
         <input type="text" val="" id="hiddenID" hidden>
->>>>>>> 2417f4db433e44a7dee24bbf5b9fdf57b46bb37a
                 <div class="mb-3">
                     <label for="name" class="form-label">Institution</label>
                     <input type="text" class="form-control" id="editInstitution" required>

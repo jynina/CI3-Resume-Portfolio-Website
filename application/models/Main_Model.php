@@ -45,6 +45,7 @@ class Main_Model extends CI_Model{
     }
 
     function update_data($data, $table, $id)
+    function update_data($data, $table, $id)
     {
     // if (!$table || !$id || empty($data)) {
     //     return false;
