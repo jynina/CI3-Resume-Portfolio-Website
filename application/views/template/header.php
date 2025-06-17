@@ -17,15 +17,38 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src=" https://cdn.jsdelivr.net/npm/animejs@4.0.2/lib/anime.umd.min.js "></script>
+	<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 	<script src="<?= base_url()?>assets/js/loading-bar.js"></script>
 	<script src="<?= base_url()?>assets/js/scripts.js"></script>
 	<script src="<?= base_url()?>assets/js/animation.js"></script>
 	<script src="<?= base_url()?>assets/js/loading-bar.min.js"></script>
+	<script src="<?= base_url()?>assets/js/NavOnScroll.js"></script>
+	<script src="<?= base_url()?>assets/js/NavOnScroll.min.js"></script>
 	<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 	<script src=" https://cdn.jsdelivr.net/npm/fullpage.js@4.0.36/dist/fullpage.min.js "></script>
 	<link href=" https://cdn.jsdelivr.net/npm/fullpage.js@4.0.36/dist/fullpage.min.css " rel="stylesheet">
 </head>
 <body>
 <input type="text" value="<?= base_url()?>" id="base_url" hidden>
+<script>
+
+	VANTA.FOG({
+    el: "#client-page",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    minHeight: 200.00,
+    minWidth: 200.00,
+    highlightColor: 0xbfe6ff,
+    midtoneColor: 0xdafffc,
+    lowlightColor: 0xa3daeb,
+    baseColor: 0xffffff,
+    blurFactor: 0.90,
+    speed: 4.40,
+    zoom: 1.50
+    })
+
+</script>
 
  

@@ -1,8 +1,14 @@
 
 
 $(document).ready(() => {
-
-    
+    hide_on_scroll({
+        nav_id               : '',      // you must specify this for plugin to work
+        nav_offset           : 200,     // after how much y-scroll, nav should hide onscroll down
+        nav_position         : 'top',   // you want to see nav bar at 'top' or 'bottom', default 'top'
+        hide_onscroll_mobile : false,   // disables hide-onscroll for mobile, you can set it to true
+        mobile_width         : 576
+    });
+        
     $('.skill-container').each(function () {
         const container = $(this);
         const circularProgress = container.find(".circular-progress");

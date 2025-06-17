@@ -115,26 +115,34 @@ class MainController extends CI_Controller {
         $this->handle_insert($fields, 'tbl_personal_info');
     }   
 
-    public function insert_educ()
+    public function handle_educ()
     {
         $fields = ['institution_name', 'education_level', 'acad_year', 'institution_desc'];
-        $this->handle_insert($fields, 'tbl_education');
+        if($this->input->post('id')){
+            $this->handle_update($fields, 'tbl_education');
+        }else{
+            $this->handle_insert($fields, 'tbl_education');
+        }
     }
 
-    public function update_educ()
-    {
-        $fields = ['institution_name', 'education_level', 'acad_year', 'institution_desc'];
-        $this->handle_update($fields, 'tbl_education');
-    }
+    // public function update_educ()
+    // {
+    //     $fields = ['institution_name', 'education_level', 'acad_year', 'institution_desc'];
+    //     $this->handle_update($fields, 'tbl_education');
+    // }
 
 
-    function insert_skills()
+    function handle_skills()
     {
         $fields = ["skill_name", "skill_progress", "skill_desc"];
-        $this->handle_insert($fields, 'tbl_skills');
+        if($this->input->post('id')){
+            $this->handle_update($fields, 'tbl_skills');
+        }else{
+            $this->handle_insert($fields, 'tbl_skills');
+        }
     }
 
-    function insert_projects()
+    function handle_projects()
     {
         $fields = ["project_name", "project_role", "project_tech", "project_desc"];
         $insertedData = $this->handle_insert_with_id($fields, 'tbl_projects');
@@ -144,10 +152,15 @@ class MainController extends CI_Controller {
     }
     
 
-    function insert_exp()
+    function update_exp()
     {
         $fields = ["professional_title", "company_name", "prof_year", "company_desc"];
-        $this->handle_insert($fields, 'tbl_exp');
+        if($this->input->post('id')){
+            $this->handle_update($fields, 'tbl_exp');
+        }else{
+            $this->handle_insert($fields, 'tbl_exp');
+        }
+
     } 
 
     //dropzone upload to db

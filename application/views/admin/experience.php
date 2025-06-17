@@ -36,27 +36,28 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Professional Title</label>
-                    <input type="text" class="form-control" id="editCompanyTitle">
-                </div>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Company Name</label>
-                    <input type="text" class="form-control" id="editCompanyName">
-                </div>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Years</label>
-                    <input type="text" class="form-control" id="editCompanyYears">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Brief Description</label>
-                    <textarea class="form-control" id="editCompanyDesc" rows="3"></textarea>
-                </div>
-                <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary btn-edit-submit-exp">Submit</button>
-                </div>
-            </form>
+        <form>
+            <input type="text" id="hiddenID" hidden>
+            <div class="mb-3">
+                <label for="name" class="form-label">Professional Title</label>
+                <input type="text" class="form-control" id="editCompanyTitle">
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Company Name</label>
+                <input type="text" class="form-control" id="editCompanyName">
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Years</label>
+                <input type="text" class="form-control" id="editCompanyYears">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Brief Description</label>
+                <textarea class="form-control" id="editCompanyDesc" rows="3"></textarea>
+            </div>
+            <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-primary btn-edit-submit-exp">Submit</button>
+            </div>
+        </form>
       </div>
     </div>
   </div>

@@ -24,6 +24,7 @@ var orig_base_url = $("#base_url").val();
         processData: false,
         contentType: false,
         success: function(){
+          // location.reload()
           toastr.success('Info has been sent', 'Nice');
         },
         error: function(){
@@ -66,6 +67,15 @@ var orig_base_url = $("#base_url").val();
         formData.append("origin", fetch_url);
         formData.append("foreign_id", this.options.params.foreign_id);
       });
+      uploadedFiles.forEach(file => {
+      const mockFile = { name: file.name, size: file.size };
+
+      dropzoneInstance.emit("addedfile", mockFile);
+      dropzoneInstance.emit("thumbnail", mockFile, file.url);
+      dropzoneInstance.emit("complete", mockFile);
+
+      dropzoneInstance.files.push(mockFile);
+  });
     },
     success: function()
     {
@@ -78,15 +88,7 @@ var orig_base_url = $("#base_url").val();
   });
   }
 
-  uploadedFiles.forEach(file => {
-    const mockFile = { name: file.name, size: file.size };
-
-    dropzoneInstance.emit("addedfile", mockFile);
-    dropzoneInstance.emit("thumbnail", mockFile, file.url);
-    dropzoneInstance.emit("complete", mockFile);
-
-    dropzoneInstance.files.push(mockFile);
-  });
+  
 
   //navigation links
   
@@ -203,7 +205,7 @@ var orig_base_url = $("#base_url").val();
               console.log(row);
               if (row.images && row.images.length > 0) {
                 imageHTML = row.images.map(img => `
-                  <img src="${img.file_path}" alt="project image" style="width: 100px; height: auto;" />
+                  <img src="${img.file_path}" alt="project image" style="width: auto; height: 200px;" />
                 `).join('');
               } else {
                 imageHTML = '<p>No images</p>';
@@ -213,18 +215,24 @@ var orig_base_url = $("#base_url").val();
                 <div class="log-row border border-white rounded my-3" data-id=${row.id} data-isactive=${row.is_active}>
                   <div class="row my-3">
                     <div class="col-6 mx-3 proj-name">
+                    <label for="proj-name" class="fw-bold">Project Name</label>
                       <p>${row.project_name}</p>
                     </div>
                     <div class="col-3 proj-role">
+                    <label for="proj-role" class="fw-bold">Project Roles</label>
                       <p>${row.project_role}</p>
                     </div>
                     <div class="col-11 mx-3 proj-tech" style="text-align: justify;">
+                    <label for="proj-tech" class="fw-bold">Project Technologies</label>
                       <p>${row.project_tech}</p>
                     </div>
                     <div class="col-11 mx-3 proj-desc" style="text-align: justify;">
+                    <label for="proj-desc" class="fw-bold">Project Description</label>
                       <p>${row.project_desc}</p>
                     </div>
                     <div class="col-11 mx-3 proj-images d-flex flex-wrap gap-2">
+                    <label for="proj-images class="fw-bold">Project Images</label>
+                    <br>
                       ${imageHTML}
                     </div>
                     <div class="col-11 mx-3 log-buttons" style="text-align: end;">
@@ -526,9 +534,9 @@ var orig_base_url = $("#base_url").val();
       $('#editLevel').val(parentRow.find('.educ-level p').text().trim());
       $('#editAcadYear').val(parentRow.find('.acad-year p').text().trim());
       $('#editEducDescription').val(parentRow.find('.institution-desc p').text().trim());
-       // Save the ID for submission
     }
     else if (fetch_url == 'skills') {
+      $('#hiddenID').val(item_id);
       $('#editSkillName').val(parentRow.find('.skill-name p').text().trim());
       $('#editSkillProgress').val(parentRow.find('.skill-progress p').text().trim());
       $('#editSkillDescription').val(parentRow.find('.skill-desc p').text().trim());
@@ -540,12 +548,14 @@ var orig_base_url = $("#base_url").val();
         preloadImages(uploadedFiles);
       });
 
+      $('#hiddenID').val(item_id);
       $('#editProjectName').val(parentRow.find('.proj-name p').text().trim());
       $('#editRole').val(parentRow.find('.proj-role p').text().trim());
       $('#editTechnologies').val(parentRow.find('.proj-tech p').text().trim());
       $('#editProjectDescription').val(parentRow.find('.proj-desc p').text().trim());
     }
     else if (fetch_url == 'exp') {
+      $('#hiddenID').val(item_id);
       $('#editCompanyTitle').val(parentRow.find('.exp-title p').text().trim());
       $('#editCompanyName').val(parentRow.find('.company-name p').text().trim());
       $('#editCompanyYears').val(parentRow.find('.prof-year p').text().trim());
@@ -565,10 +575,55 @@ var orig_base_url = $("#base_url").val();
     formData.append('institution_desc', $('#editEducDescription').val());
 
     console.log(formData);
-    api.post('update_educ', formData)
+    api.post('handle_educ', formData)
 
   });
   
+  $(document).on('click', '.btn-edit-submit-skills', () => {
+    var formData = new FormData();
+    $editSkill = parseInt($("#editSkillProgress").val());
+
+
+    if(typeof $editSkill === 'string' || $editSkill < 0 )
+    {
+      toastr.error("Check your inputs","Error");
+    }
+    else{
+      formData.append('id', $('#hiddenID').val());
+      formData.append("skill_name", $("#editSkillName").val());
+      formData.append("skill_progress", $editSkill);
+      formData.append("skill_desc", $("#editSkillDescription").val());
+
+      console.log(formData)
+      api.post('handle_skills', formData);
+    }
+  })
+
+  $(document).on('click', '.btn-edit-submit-projects', () => {
+    var formData = new FormData();
+    
+      formData.append('id', $('#hiddenID').val());
+      formData.append("project_name", $("#editProjectName").val());
+      formData.append("project_role", $("#editRole").val());
+      formData.append("project_tech", $("#editTechnologies").val());
+      formData.append("project_desc", $("#editProjectDescription").val());
+
+      api.post('handle_projects', formData);
+
+  })
+
+  $(document).on('click', '.btn-edit-submit-exp', () => {
+    var formData = new FormData();
+ 
+      formData.append('id', $('#hiddenID').val());
+      formData.append("professional_title", $("#editCompanyTitle").val());
+      formData.append("company_name", $("#editCompanyName").val());
+      formData.append("prof_year", $("#editCompanyYears").val());
+      formData.append("company_desc", $("#editCompanyDesc").val());
+
+      api.post('handle_projects', formData);
+
+  })
 
 
 
@@ -612,7 +667,7 @@ var orig_base_url = $("#base_url").val();
     formData.append('institution_desc', $('#inputEducDescription').val());
     console.log(formData);
 
-    api.post('insert_educ', formData)
+    api.post('handle_educ', formData)
   
   });
 
@@ -629,7 +684,7 @@ var orig_base_url = $("#base_url").val();
       formData.append("skill_name", $("#inputSkillName").val());
       formData.append("skill_progress", $inputSkill);
       formData.append("skill_desc", $("#inputSkillDescription").val());
-      api.post('insert_skills', formData);
+      api.post('handle_skills', formData);
     }
   });
 

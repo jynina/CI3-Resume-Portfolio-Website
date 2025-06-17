@@ -16,19 +16,18 @@ $route['experience_admin'] = 'FrontendController/experience_admin';
 $route['get_info'] = 'FrontendController/get_admin_info';
 $route['welcome_contact'] = 'FrontendController/welcome_contact';
 
-//insert to database
+//handle to database
 $route['upload_image'] = 'MainController/upload_image';
-$route['insert_contact'] = 'MainController/insert_contact';
-$route['insert_educ'] = 'MainController/insert_educ';
-$route['insert_about'] = 'MainController/insert_about';
-$route['insert_skills'] = 'MainController/insert_skills';
-$route['insert_projects'] = 'MainController/insert_projects';
+$route['handle_contact'] = 'MainController/handle_contact';
+$route['handle_educ'] = 'MainController/handle_educ';
+$route['handle_about'] = 'MainController/handle_about';
+$route['handle_skills'] = 'MainController/handle_skills';
+$route['handle_projects'] = 'MainController/handle_projects';
 $route['insert_exp'] = 'MainController/insert_exp';
 $route['update_active'] = 'MainController/update_active';
 $route['update_status'] = 'MainController/update_status';
 
 //update to database
-$route['update_educ'] = 'MainController/update_educ';
 
 //fetching
 $route['get_data'] = 'MainController/fetch_data';

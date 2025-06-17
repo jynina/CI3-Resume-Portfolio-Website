@@ -2,6 +2,7 @@
     <div class="div-education-forms">
         <div class="bg-dark p-5 my-3 rounded"> 
             <form class="mb-3 form-project">
+                
                 <div class="mb-3">
                     <label for="name" class="form-label">Project Name</label>
                     <input type="text" class="form-control" id="inputProjectName">
@@ -43,6 +44,7 @@
       </div>
       <div class="modal-body">
         <form class="mb-3 form-project">
+            <input type="text" id="hiddenID" hidden>
             <div class="mb-3">
                 <label for="name" class="form-label">Project Name</label>
                 <input type="text" class="form-control" id="editProjectName">
@@ -61,11 +63,11 @@
                 <textarea class="form-control" id="editProjectDescription" rows="3"></textarea>
             </div>
             </form>
-            <!-- <label for="exampleFormControlTextarea1" class="form-label">Project Screenshots</label>
-            <form action="<?= base_url()?>upload_image" id="myDropzoneMultiple" class="dropzone"></form> -->
+            <label for="exampleFormControlTextarea1" class="form-label">Project Screenshots</label>
+            <form action="<?= base_url()?>upload_image" id="myDropzoneMultiple" class="dropzone"></form>
             <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-primary btn-edit-submit-projects" id="btn-submit-projects">Submit</button>
-                </div>
+                <button type="button" class="btn btn-primary btn-edit-submit-projects" id="btn-edit-submit-projects">Submit</button>
+            </div>
       </div>
     </div>
   </div>

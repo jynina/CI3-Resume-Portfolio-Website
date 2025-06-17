@@ -3,7 +3,9 @@
     var typed = new Typed('#typed', {
     stringsElement: '#typed-strings'
   });
+
 </script>
+
 <div class="container" id="client-page" style="margin-top:200px;">  
 <div class="container-parent container mt-5">
 <div id="typed-strings"><h1>Welcome to my <strong class="context-title">Website~!</strong></h1></div>
