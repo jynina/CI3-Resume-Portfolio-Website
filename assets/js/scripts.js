@@ -2,7 +2,8 @@
 Dropzone.autoDiscover = false;
 
 $(document).ready(function () {
-
+  var editDropzoneMultiple;
+  console.log($('#editDropzoneMultiple').length);
 AOS.init();
 var fetch_url = $('.container-parent').attr('data-page');
 console.log(fetch_url)
@@ -67,15 +68,6 @@ var orig_base_url = $("#base_url").val();
         formData.append("origin", fetch_url);
         formData.append("foreign_id", this.options.params.foreign_id);
       });
-  //     uploadedFiles.forEach(file => {
-  //     const mockFile = { name: file.name, size: file.size };
-
-  //     dropzoneInstance.emit("addedfile", mockFile);
-  //     dropzoneInstance.emit("thumbnail", mockFile, file.url);
-  //     dropzoneInstance.emit("complete", mockFile);
-
-  //     dropzoneInstance.files.push(mockFile);
-  // });
     },
     success: function()
     {
@@ -86,6 +78,34 @@ var orig_base_url = $("#base_url").val();
       toastr.error('Tignan mo ulit code mo pls', 'BOBO MO MAGCODE')
     }
   });
+  }
+
+  if ($('#editDropzoneMultiple').length) {
+    editDropzoneMultiple = new Dropzone("#editDropzoneMultiple", {
+      paramName: "file",
+      url: orig_base_url + "upload_image",
+      addRemoveLinks: true,
+      autoProcessQueue: false,
+      uploadMultiple: true,
+      init: function () {
+        this.on("sending", function (file, xhr, formData) {
+          formData.append("foreign_id", $('#hiddenID').val()); 
+          formData.append("origin", "projects");
+        });
+
+        this.on("removedfile", function (file) {
+          if (confirm("Are you sure you want to delete this file?")) {
+            if (file.serverId) {
+              $.post(`${orig_base_url}delete_file`, { file_id: file.serverId });
+            }
+          } else {
+            this.emit("addedfile", file);
+            this.emit("thumbnail", file, file.dataURL);
+            this.emit("complete", file);
+          }
+        });
+      }
+    });
   }
 
   
@@ -543,17 +563,45 @@ var orig_base_url = $("#base_url").val();
       $('#editSkillDescription').val(parentRow.find('.skill-desc p').text().trim());
     }
     else if (fetch_url == 'projects') {
-
-      // $.get(`${orig_base_urlbase_url}get_project_files?project_id=${item_id}`, function (data) {
-      //   const uploadedFiles = JSON.parse(data);
-      //   preloadImages(uploadedFiles);
-      // });
-
+      
       $('#hiddenID').val(item_id);
       $('#editProjectName').val(parentRow.find('.proj-name p').text().trim());
       $('#editRole').val(parentRow.find('.proj-role p').text().trim());
       $('#editTechnologies').val(parentRow.find('.proj-tech p').text().trim());
       $('#editProjectDescription').val(parentRow.find('.proj-desc p').text().trim());
+      console.log('Fetching files for item_id:', item_id);
+
+      
+
+      if (editDropzoneMultiple) {
+        editDropzoneMultiple.removeAllFiles(true);
+        $.ajax({
+          url: `${orig_base_url}get_project_files`,
+          method: 'GET',
+          data: {
+            foreign_id: item_id,
+            origin: 'projects'
+          },
+          dataType: 'json',
+          success: function (files) {
+            console.log(files)
+            files.forEach(file => {
+              const mockFile = {
+                name: file.file_name,
+                size: file.size || 12345,
+                serverId: file.id
+              };
+              editDropzoneMultiple.emit("addedfile", mockFile);
+              editDropzoneMultiple.emit("thumbnail", mockFile, file.file_path);
+              editDropzoneMultiple.emit("complete", mockFile);
+            });
+          },
+          error: function (xhr, status, error) {
+            console.error('Error loading files:', error);
+          }
+        });
+      }
+      
     }
     else if (fetch_url == 'exp') {
       $('#hiddenID').val(item_id);
@@ -697,7 +745,7 @@ var orig_base_url = $("#base_url").val();
     formData.append("prof_year", $("#inputCompanyYears").val());
     formData.append("company_desc", $("#inputCompanyDesc").val());
 
-    api.post('insert_exp', formData);
+    api.post('handle_exp', formData);
   });
 
   $('.btn-submit-projects').on('click', function () {
@@ -715,7 +763,7 @@ var orig_base_url = $("#base_url").val();
       formData.append("project_desc", $("#inputProjectDescription").val());
 
       $.ajax({
-        url: orig_base_url + 'insert_projects',
+        url: orig_base_url + 'handle_projects',
         method: 'POST',
         data: formData,
         processData: false,

@@ -64,7 +64,7 @@
             </div>
             </form>
             <label for="exampleFormControlTextarea1" class="form-label">Project Screenshots</label>
-            <form action="<?= base_url()?>upload_image" id="myDropzoneMultiple" class="dropzone"></form>
+            <form action="<?= base_url()?>upload_image" id="editDropzoneMultiple" class="dropzone"></form>
             <div class="d-flex justify-content-end">
                 <button type="button" class="btn btn-primary btn-edit-submit-projects" id="btn-edit-submit-projects">Submit</button>
             </div>

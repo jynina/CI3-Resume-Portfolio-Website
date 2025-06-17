@@ -60,17 +60,29 @@ class Main_Model extends CI_Model{
 
     public function get_files($origin, $foreign_id)
     {
-    return $this->db
-                ->where('origin', $origin)
-                ->where('foreign_id', $foreign_id)
-                ->get('tbl_files')
-                ->result();
-    // $sql = "UPDATE $table SET institution_name = ?, education_level = ?, acad_year = ?, institution_desc = ? WHERE id = ? ";
-    // $result = $this->db->query($sql, array($data['institution_name'], $data['education_level'], $data['acad_year'], $data['institution_desc'], $id));
-    // return $result;
-
+        return $this->db
+                    ->where('origin', $origin)
+                    ->where('foreign_id', $foreign_id)
+                    ->get('tbl_files')
+                    ->result();
     }
 
+    public function delete_file_by_id($file_id)
+{
+    $this->db->where('id', $file_id);
+    $file = $this->db->get('tbl_files')->row();
+
+    if ($file) {
+        if (file_exists($file->file_path)) {
+            unlink($file->file_path);
+        }
+
+        $this->db->where('id', $file_id);
+        return $this->db->delete('tbl_files');
+    }
+
+    return false;
+}
 }
 
 ?>

@@ -214,3 +214,7 @@ body {
 .carousel-button.next {
   right: 1rem;
 }
+
+#editDropzoneMultiple .dz-message {
+  display: none;
+}

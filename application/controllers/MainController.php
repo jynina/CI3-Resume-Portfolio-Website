@@ -131,6 +131,35 @@ class MainController extends CI_Controller {
     //     $this->handle_update($fields, 'tbl_education');
     // }
 
+    public function get_project_files() {
+        $project_id = $this->input->get('foreign_id');
+        $files = $this->Main_Model->get_files('projects', $project_id);
+        echo json_encode($files);
+    }
+
+    public function delete_file()
+    {
+    $file_id = $this->input->post('file_id');
+
+    if (!$file_id) {
+        echo json_encode(['status' => 'error', 'message' => 'No file ID provided']);
+        return;
+    }
+
+    // Load your model if not autoloaded
+    $this->load->model('Main_Model');
+
+    // Call your model function to delete the file record
+    $deleted = $this->Main_Model->delete_file_by_id($file_id);
+
+    if ($deleted) {
+        echo json_encode(['status' => 'success', 'message' => 'File deleted successfully']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Failed to delete file']);
+    }
+    }
+
+
 
     function handle_skills()
     {

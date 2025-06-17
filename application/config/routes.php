@@ -28,8 +28,11 @@ $route['update_active'] = 'MainController/update_active';
 $route['update_status'] = 'MainController/update_status';
 
 //update to database
+$route['delete_file'] = 'MainController/delete_file';
 
 //fetching
 $route['get_data'] = 'MainController/fetch_data';
 $route['get_all_data'] = 'MainController/fetch_all_data';
 $route['fetch_inbox'] = 'MainController/fetch_inbox';
+$route['get_project_files'] = 'MainController/get_project_files';
+
