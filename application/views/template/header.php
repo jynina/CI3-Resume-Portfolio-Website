@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	  <link rel="icon" type="image/x-icon" href="<?=base_url()?>/upload/pedro.png">
 	<title>Kwenny</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
@@ -25,11 +26,14 @@
 	<script src="<?= base_url()?>assets/js/loading-bar.min.js"></script>
 	<script src="<?= base_url()?>assets/js/NavOnScroll.js"></script>
 	<script src="<?= base_url()?>assets/js/NavOnScroll.min.js"></script>
+	<script src="<?= base_url()?>assets/js/jquery.waypoints.js"></script>
+	<script src="<?= base_url()?>assets/js/jquery.waypoints.min.js"></script>
 	<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 	<script src=" https://cdn.jsdelivr.net/npm/fullpage.js@4.0.36/dist/fullpage.min.js "></script>
 	<link href=" https://cdn.jsdelivr.net/npm/fullpage.js@4.0.36/dist/fullpage.min.css " rel="stylesheet">
 </head>
 <body>
+	<div class="container-fluid">
 <input type="text" value="<?= base_url()?>" id="base_url" hidden>
 <script>
 

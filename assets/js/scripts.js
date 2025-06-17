@@ -24,7 +24,7 @@ var orig_base_url = $("#base_url").val();
         processData: false,
         contentType: false,
         success: function(){
-          // location.reload()
+          location.reload()
           toastr.success('Info has been sent', 'Nice');
         },
         error: function(){
@@ -67,15 +67,15 @@ var orig_base_url = $("#base_url").val();
         formData.append("origin", fetch_url);
         formData.append("foreign_id", this.options.params.foreign_id);
       });
-      uploadedFiles.forEach(file => {
-      const mockFile = { name: file.name, size: file.size };
+  //     uploadedFiles.forEach(file => {
+  //     const mockFile = { name: file.name, size: file.size };
 
-      dropzoneInstance.emit("addedfile", mockFile);
-      dropzoneInstance.emit("thumbnail", mockFile, file.url);
-      dropzoneInstance.emit("complete", mockFile);
+  //     dropzoneInstance.emit("addedfile", mockFile);
+  //     dropzoneInstance.emit("thumbnail", mockFile, file.url);
+  //     dropzoneInstance.emit("complete", mockFile);
 
-      dropzoneInstance.files.push(mockFile);
-  });
+  //     dropzoneInstance.files.push(mockFile);
+  // });
     },
     success: function()
     {
@@ -326,7 +326,7 @@ var orig_base_url = $("#base_url").val();
         $('.log-row').each(function () {
           const isActive = $(this).data('isactive');
           if (isActive == 1) {
-            $(this).addClass('active');
+            $(this).addClass('active-client');
           }
           });
         },
@@ -356,6 +356,7 @@ var orig_base_url = $("#base_url").val();
           <h1 data-aos="fade-left" data-aos-duration="1000" class="context-title">Hi, I'm ${personal_info.name}</h1>
           <h3 data-aos="fade-left" data-aos-duration="1500" class="context-subtitle">${personal_info.professional_title}</h3>
           <p data-aos="fade-left" data-aos-duration="2000">${personal_info.introduction}</p>
+          <a data-aos="fade-left" data-aos-duration="2000" class="btn btn-primary download-cv">Download CV</a>
           </div>
           <img class="profile-img" src="upload/pedro.png" alt="" data-aos="zoom-in"> 
         `);
@@ -366,7 +367,7 @@ var orig_base_url = $("#base_url").val();
         
           $('.div-skills').append(
             `
-        <div class="skill-container d-flex col-4 text-center my-5" data-aos="zoom-in">
+        <div class="skill-container d-flex col text-center ms-4" data-aos="fade-up" >
           <div class="circular-progress">
             <div class="d-block">
               <span class="progress-skill-name">${skill.skill_name}</span>
@@ -510,7 +511,7 @@ var orig_base_url = $("#base_url").val();
         if (res.status === 'success') {
           parentRow.attr('data-isactive', newStatus);
 
-          parentRow.toggleClass('active', newStatus === 1);
+          parentRow.toggleClass('active-client', newStatus === 1);
 
           toastr.success(res.message);
         } else {
@@ -543,10 +544,10 @@ var orig_base_url = $("#base_url").val();
     }
     else if (fetch_url == 'projects') {
 
-      $.get(`${orig_base_urlbase_url}get_project_files?project_id=${item_id}`, function (data) {
-        const uploadedFiles = JSON.parse(data);
-        preloadImages(uploadedFiles);
-      });
+      // $.get(`${orig_base_urlbase_url}get_project_files?project_id=${item_id}`, function (data) {
+      //   const uploadedFiles = JSON.parse(data);
+      //   preloadImages(uploadedFiles);
+      // });
 
       $('#hiddenID').val(item_id);
       $('#editProjectName').val(parentRow.find('.proj-name p').text().trim());
@@ -640,7 +641,7 @@ var orig_base_url = $("#base_url").val();
 
     console.log(formData);
 
-    api.post('insert_contact', formData);
+    api.post('handle_contact', formData);
     
   });
 
@@ -654,7 +655,7 @@ var orig_base_url = $("#base_url").val();
 
     console.log(formData)
 
-    api.post('insert_about', formData);
+    api.post('handle_about', formData);
   })
 
   $('.btn-submit-educ').on('click', function () {

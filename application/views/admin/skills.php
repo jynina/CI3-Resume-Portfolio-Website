@@ -35,7 +35,7 @@
       </div>
       <div class="modal-body">
         <form>
-            <div class="row">
+            <div class="row ">
             <input type="text" id="hiddenID" hidden>
             <div class="mb-3 col">
                 <label for="name" class="form-label">Skill</label>

@@ -68,8 +68,8 @@
 
         <!-- Grid column -->
         <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4">
+
+          <!-- <h6 class="text-uppercase fw-bold mb-4">
             
           </h6>
           <p>
@@ -83,7 +83,7 @@
           </p>
           <p>
             <a href="#!" class="text-reset">Help</a>
-          </p>
+          </p> -->
         </div>
         <!-- Grid column -->
 
@@ -96,7 +96,7 @@
             <i class="fas fa-envelope"></i>
             jkg.janina@gmail.com
           </p>
-          <p><i class="fas fa-phone"></i> +63 956 062 4023</p>
+          <!-- <p><i class="fas fa-phone"></i> +63 956 062 4023</p> -->
         </div>
         <!-- Grid column -->
       </div>
@@ -113,5 +113,6 @@
   <!-- Copyright -->
 </footer>
 <!-- Footer -->
+ </div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <div class="container-parent container mt-5" data-page="<?= $page?>">
     <div class="div-education-forms">
-        <div class="bg-dark p-5 my-3 rounded"> 
+        <div class="bg-dark p-5 my-3 rounded bg-opacity-10"> 
             <form class="mb-3 form-educ">
                 <div class="mb-3">
                     <label for="name" class="form-label">Institution</label>

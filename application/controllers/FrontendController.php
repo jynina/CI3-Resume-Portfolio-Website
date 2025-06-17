@@ -6,6 +6,7 @@ class FrontendController extends CI_Controller{
     public function index()
     {
         $this->load->view('template/header');
+        $this->load->view('template/welcome_nav');
         $this->load->view('welcome');
         $this->load->view('template/footer');
     }

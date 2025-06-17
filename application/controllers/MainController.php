@@ -109,7 +109,7 @@ class MainController extends CI_Controller {
         // $this->contact_send_email($contact_data);
     }
 
-    public function insert_about()
+    public function handle_about()
     {
         $fields = ['name', 'professional_title', 'introduction'];
         $this->handle_insert($fields, 'tbl_personal_info');

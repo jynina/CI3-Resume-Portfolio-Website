@@ -9,7 +9,38 @@ $(document).ready(() => {
         mobile_width         : 576
     });
         
-    $('.skill-container').each(function () {
+    const divs = document.querySelectorAll("div");
+    const navLi = document.querySelectorAll("nav .navbar-collapse ul li");
+    window.onscroll = () => {
+    var current = "";
+
+    divs.forEach((div) => {
+        const divTop = div.offsetTop;
+        if (pageYOffset >= divTop - 60) {
+        current = div.getAttribute("id"); }
+    });
+
+    navLi.forEach((li) => {
+        li.classList.remove("active");
+        if (li.classList.contains(current)) {
+        li.classList.add("active");
+        }
+    });
+    };
+
+    
+
+    var waypoint = new Waypoint({
+    element: document.getElementById('basic-waypoint'),
+    handler: function() {
+        notify('Basic waypoint triggered')
+    }
+    })
+
+
+
+    $('.skill-container').on('load', function(){
+        $('.skill-container').each(function () {
         const container = $(this);
         const circularProgress = container.find(".circular-progress");
         const progressValue = container.find(".progress-value");
@@ -29,6 +60,8 @@ $(document).ready(() => {
             }
         }, speed);
     });
+    })
+    
 
     const buttons = document.querySelectorAll("[data-carousel-button]")
 

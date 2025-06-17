@@ -9,12 +9,13 @@ hr{
 }
 
 body {
-    background-image: linear-gradient( 111.1deg,  rgba(69,150,164,1) 2.5%, rgba(17,20,34,1) 100.3% );
-    color: aliceblue;
-    font-family: "Lexend", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
+  background-image: linear-gradient( 111.1deg,  rgba(69,150,164,1) 2.5%, rgba(17,20,34,1) 100.3% );
+  color: aliceblue;
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
 }
+
 
 .alumni-sans-sc{
     font-family: "Alumni Sans SC", sans-serif;
@@ -38,7 +39,7 @@ body {
 .skill-container {
 
 	transform: translatey(0px);
-	animation: float 6s ease-in-out infinite;
+	animation: float 4s ease-in-out infinite;
 }
 
 .lexend {
@@ -48,7 +49,7 @@ body {
     font-style: normal;
 }
 
-.active{
+.active-client{
   background-color: rgb(200, 216, 185);
   color: black;
 }
@@ -61,6 +62,7 @@ body {
   animation: fall 2s linear forwards;
   z-index: 1000;
 }
+
 
 @keyframes fall {
   0% {
@@ -101,8 +103,8 @@ body {
 }
 
 .section-spacing{
-  margin-top: 50vh !important;
-  margin-bottom: 50vh !important;
+  margin-top: 20vh !important;
+  margin-bottom: 30vh !important;
 }
 
 .circle-spacing{
@@ -119,8 +121,8 @@ body {
 
 .circular-progress{
   position: relative;
-  height: 230px;
-  width: 230px;
+  height: 170px;
+  width: 170px;
   border-radius: 50%;
   background: conic-gradient(rgb(186, 248, 248), 3.6deg, #ededed 0deg);  
   display: flex;
@@ -131,22 +133,22 @@ body {
 .circular-progress::before{
   content: "";
   position:absolute;
-  height: 220px;
-  width: 220px;
+  height: 140px;
+  width: 140px;
   border-radius: 50%;
   background-color: rgb(0, 0, 0);
 }
 
 .progress-value{
   position: relative;
-  font-size: 50px;
+  font-size: 30px;
   font-weight: 600;
   color: rgb(186, 248, 248);
 }
 
 .progress-skill-name{
   position: relative;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 600;
   color: rgb(186, 248, 248);
 }
