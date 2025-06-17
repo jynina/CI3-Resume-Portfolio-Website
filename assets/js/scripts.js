@@ -2,8 +2,10 @@
 Dropzone.autoDiscover = false;
 
 $(document).ready(function () {
-  var editDropzoneMultiple;
-  console.log($('#editDropzoneMultiple').length);
+ 
+var editDropzoneMultiple;
+let isResettingDropzone = false;
+console.log($('#editDropzoneMultiple').length);
 AOS.init();
 var fetch_url = $('.container-parent').attr('data-page');
 console.log(fetch_url)
@@ -25,7 +27,7 @@ var orig_base_url = $("#base_url").val();
         processData: false,
         contentType: false,
         success: function(){
-          location.reload()
+          // location.reload()
           toastr.success('Info has been sent', 'Nice');
         },
         error: function(){
@@ -94,6 +96,7 @@ var orig_base_url = $("#base_url").val();
         });
 
         this.on("removedfile", function (file) {
+          if (isResettingDropzone) return;
           if (confirm("Are you sure you want to delete this file?")) {
             if (file.serverId) {
               $.post(`${orig_base_url}delete_file`, { file_id: file.serverId });
@@ -222,7 +225,6 @@ var orig_base_url = $("#base_url").val();
             }
             else if (fetch_url == 'projects') {
               let imageHTML = '';
-              console.log(row);
               if (row.images && row.images.length > 0) {
                 imageHTML = row.images.map(img => `
                   <img src="${img.file_path}" alt="project image" style="width: auto; height: 200px;" />
@@ -444,34 +446,55 @@ var orig_base_url = $("#base_url").val();
           );
         });
         project.forEach(proj => {
-          let files = [];
-          $('.div-projects').append(
-            `
+          let projId = `proj-${proj.id}`;
+          $('.div-projects').append(`
             <div class="project-item col-6" data-aos="fade-up">
-              <h2 class="context-title" data-aos="fade-up" data-aos-duration="1000">${proj.project_name}</h2>
-              <h3 class="context-subtitle" data-aos="fade-up" data-aos-duration="1200">${proj.project_role}</h3>
-              <h5 class="context-tech" data-aos="fade-up" data-aos-duration="1400">${proj.project_tech}</h5>
-              <p class="context-desc" data-aos="fade-up" data-aos-duration="1800">${proj.project_desc}</p>
-              <div class="context-images"></div>
+              <h2 class="context-title">${proj.project_name}</h2>
+              <h3 class="context-subtitle">${proj.project_role}</h3>
+              <h5 class="context-tech">${proj.project_tech}</h5>
+              <p class="context-desc">${proj.project_desc}</p>
+        
+              <div class="carousel" data-carousel>
+                <button class="carousel-button prev" data-carousel-button="prev">&#8592;</button>
+                <button class="carousel-button next" data-carousel-button="next">&#8594;</button>
+                <ul class="proj-image-slides ${projId}" data-slides></ul>
+              </div>
             </div>
-            `
-          );
-          images.forEach(file =>{
-            if (file.foreign_id == proj.id){
-              files = file
-              console.log(files)
-              
+          `);
 
-              $('.proj-image-slides').append(
-                `
+          images.forEach(file => {
+            if (file.foreign_id == proj.id && file.origin == 'projects') {
+              console.log(file)
+              console.log(projId)
+              $(`.${projId}`).append(`
                 <li class="slide">
-                  <img src="${orig_base_url}${file.file_path}"  alt="">
+                  <img src="${orig_base_url}${file.file_path}" alt="">
                 </li>
-                `
-              )
+              `);
             }
+          });
+          $(`.${projId} .slide`).first().attr("data-active", true);
+          const buttons = document.querySelectorAll("[data-carousel-button]")
+
+          buttons.forEach(button => {
+            $(button).on('click', () => {
+              const offset = button.dataset.carouselButton === "next" ? 1 : -1
+              const slides = button
+                .closest("[data-carousel]")
+                .querySelector("[data-slides]");
+
+              const activeSlide = slides.querySelector("[data-active]");
+              let newIndex = [...slides.children].indexOf(activeSlide) + offset;
+              if (newIndex < 0) { newIndex = slides.children.length - 1 }
+              if (newIndex >= slides.children.length) { newIndex = 0; }
+
+              slides.children[newIndex].dataset.active = true;
+              delete activeSlide.dataset.active
+            })
           })
         });
+        
+        
       },
       error: function (status) {
         toastr.error(status,'Something is wrong')
@@ -574,7 +597,9 @@ var orig_base_url = $("#base_url").val();
       
 
       if (editDropzoneMultiple) {
+        isResettingDropzone = true;
         editDropzoneMultiple.removeAllFiles(true);
+        isResettingDropzone = false; 
         $.ajax({
           url: `${orig_base_url}get_project_files`,
           method: 'GET',
@@ -591,6 +616,7 @@ var orig_base_url = $("#base_url").val();
                 size: file.size || 12345,
                 serverId: file.id
               };
+              editDropzoneMultiple.files.push(mockFile);
               editDropzoneMultiple.emit("addedfile", mockFile);
               editDropzoneMultiple.emit("thumbnail", mockFile, file.file_path);
               editDropzoneMultiple.emit("complete", mockFile);
@@ -648,18 +674,43 @@ var orig_base_url = $("#base_url").val();
     }
   })
 
-  $(document).on('click', '.btn-edit-submit-projects', () => {
+  $(document).on('click', '.btn-edit-submit-projects', function () {
     var formData = new FormData();
-    
-      formData.append('id', $('#hiddenID').val());
-      formData.append("project_name", $("#editProjectName").val());
-      formData.append("project_role", $("#editRole").val());
-      formData.append("project_tech", $("#editTechnologies").val());
-      formData.append("project_desc", $("#editProjectDescription").val());
 
-      api.post('handle_projects', formData);
+    const id = $('#hiddenID').val();
+    const origin = 'projects';
 
-  })
+    formData.append('id', id);
+    formData.append("project_name", $("#editProjectName").val());
+    formData.append("project_role", $("#editRole").val());
+    formData.append("project_tech", $("#editTechnologies").val());
+    formData.append("project_desc", $("#editProjectDescription").val());
+
+    $.ajax({
+      url: orig_base_url + 'handle_projects',
+      method: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function () {
+        
+        editDropzoneMultiple.options.params = {
+          foreign_id: id,
+          origin: origin
+        };
+
+        if (editDropzoneMultiple.getQueuedFiles().length > 0) {
+          editDropzoneMultiple.processQueue();
+        } else {
+          $('#editProjectModal').modal('hide'); 
+        }
+      },
+      error: function () {
+        alert("Update failed.");
+        console.log(formData)
+      }
+    });
+  });
 
   $(document).on('click', '.btn-edit-submit-exp', () => {
     var formData = new FormData();
@@ -670,7 +721,7 @@ var orig_base_url = $("#base_url").val();
       formData.append("prof_year", $("#editCompanyYears").val());
       formData.append("company_desc", $("#editCompanyDesc").val());
 
-      api.post('handle_projects', formData);
+      api.post('handle_exp', formData);
 
   })
 

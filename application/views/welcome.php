@@ -28,29 +28,7 @@
     <hr>
     <h1 class="circle-spacing text-center mt-5" id="projects-page" data-aos="fade-up" data-aos-duration="800">PROJECTS</h1>
     <div class="row div-projects my-5 section-spacing">
-      <div class="project-item col-6" data-aos="fade-up">
-        <h2 class="context-title" data-aos="fade-up" data-aos-duration="1000">${proj.project_name}</h2>
-        <h3 class="context-subtitle" data-aos="fade-up" data-aos-duration="1200">${proj.project_role}</h3>
-        <h5 class="context-tech" data-aos="fade-up" data-aos-duration="1400">${proj.project_tech}</h5>
-        <p class="context-desc" data-aos="fade-up" data-aos-duration="1800">${proj.project_desc}</p>
-        <div class="context-images" data-aos="fade-up" data-aos-duration="1800">
-            <div class="carousel" data-carousel>
-              <button class="carousel-button prev" data-carousel-button>&#8592;</button>
-              <button class="carousel-button next" data-carousel-button>&#8594;</button>
-              <ul class="proj-image-slides"data-slides>
-                <!-- <li class="slide" data-active>
-                  <img src="<?= base_url()?>upload/blush.png"  alt="">
-                </li>
-                <li class="slide">
-                  <img src="<?= base_url()?>upload/cry.png" alt="">
-                </li>
-                <li class="slide">
-                  <img src="<?= base_url()?>upload/pedro.png" alt="">
-                </li> -->
-              </ul>
-            </div>
-        </div>
-        </div>
+      
     </div>
     <hr> 
   <div class="div-btn-contact text-center" >

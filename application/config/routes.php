@@ -23,7 +23,7 @@ $route['handle_educ'] = 'MainController/handle_educ';
 $route['handle_about'] = 'MainController/handle_about';
 $route['handle_skills'] = 'MainController/handle_skills';
 $route['handle_projects'] = 'MainController/handle_projects';
-$route['insert_exp'] = 'MainController/insert_exp';
+$route['handle_exp'] = 'MainController/handle_exp';
 $route['update_active'] = 'MainController/update_active';
 $route['update_status'] = 'MainController/update_status';
 

@@ -146,10 +146,8 @@ class MainController extends CI_Controller {
         return;
     }
 
-    // Load your model if not autoloaded
     $this->load->model('Main_Model');
 
-    // Call your model function to delete the file record
     $deleted = $this->Main_Model->delete_file_by_id($file_id);
 
     if ($deleted) {
@@ -174,14 +172,22 @@ class MainController extends CI_Controller {
     function handle_projects()
     {
         $fields = ["project_name", "project_role", "project_tech", "project_desc"];
-        $insertedData = $this->handle_insert_with_id($fields, 'tbl_projects');
-        $insert_id = isset($insertedData['id']) ? $insertedData['id'] : 0;
+        
 
-        echo json_encode(['new_id' => $insert_id]);
+        if($this->input->post('id')){
+            $this->handle_update($fields, 'tbl_projects');
+        }
+        else{
+            $insertedData = $this->handle_insert_with_id($fields, 'tbl_projects');
+            $insert_id = isset($insertedData['id']) ? $insertedData['id'] : 0;
+            echo json_encode(['new_id' => $insert_id]);
+        }
+
+        
     }
     
 
-    function update_exp()
+    function handle_exp()
     {
         $fields = ["professional_title", "company_name", "prof_year", "company_desc"];
         if($this->input->post('id')){
