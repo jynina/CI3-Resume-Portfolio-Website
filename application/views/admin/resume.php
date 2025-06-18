@@ -13,6 +13,7 @@
                 </div>
             </div>
         </div>
-        <div class="div-logs"></div>
+        <div class="div-logs">
+        </div>
     </div>
 </div>

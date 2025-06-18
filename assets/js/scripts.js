@@ -3,22 +3,21 @@ Dropzone.autoDiscover = false;
 
 
 $(document).ready(function () {
-Splide.defaults = {
-  type: 'loop'
-}
-var editDropzoneMultiple;
-var myDropzoneProfile;
-let isResettingDropzone = false;
-console.log($('#editDropzoneMultiple').length);
-AOS.init();
-var fetch_url = $('.container-parent').attr('data-page');
-console.log(fetch_url)
-var orig_base_url = $("#base_url").val();
+  Splide.defaults = {
+    type: 'loop'
+  }
+  var editDropzoneMultiple;
+  var myDropzoneProfile;
+  let isResettingDropzone = false;
+  console.log($('#editDropzoneMultiple').length);
+  AOS.init();
+  var fetch_url = $('.container-parent').attr('data-page');
+  console.log(fetch_url)
+  var orig_base_url = $("#base_url").val();
   
   function ApiHelperInput(base_url)
   {
     this.base_url = base_url;
-
   }
 
   //HELPERS
@@ -58,12 +57,9 @@ var orig_base_url = $("#base_url").val();
       this.on("removedFile")//edit this for edit modal remove
       }
   });
-
-
   }
 
-  if($('#myDropzoneMultiple').length)
-  {
+  if($('#myDropzoneMultiple').length){
     var myDropzone = new Dropzone("#myDropzoneMultiple", {    
     url: orig_base_url + "upload_image", 
     addRemoveLinks: true,
@@ -86,9 +82,7 @@ var orig_base_url = $("#base_url").val();
   });
   }
 
-  if($('#editDropzoneMultiple').length) 
-  {
-    
+  if($('#editDropzoneMultiple').length){
     editDropzoneMultiple = new Dropzone("#editDropzoneMultiple", {
       paramName: "file",
       url: orig_base_url + "upload_image",
@@ -117,8 +111,7 @@ var orig_base_url = $("#base_url").val();
     });
   }
 
-  if($('#myDropzoneResume').length)
-  {
+  if($('#myDropzoneResume').length){
     var myDropzoneResume = new Dropzone("#myDropzoneResume", {    
     url: orig_base_url + "upload_image", 
     addRemoveLinks: true,
@@ -131,7 +124,6 @@ var orig_base_url = $("#base_url").val();
       this.on("removedFile")//edit this for edit modal remove
       }
     });
-
   }
 
   //navigation links
@@ -139,8 +131,7 @@ var orig_base_url = $("#base_url").val();
   $('.nav-link').on('click', function () {
     $('.nav-link').removeClass('active');
     $(this).addClass('active');
-  
-  }); //
+  }); 
   
   if ($('#admin-page').length > 0){
     loadTableDataAdmin(fetch_url);
@@ -160,7 +151,7 @@ var orig_base_url = $("#base_url").val();
         toastr.success(data,'success')
           let html = ``;
           data.forEach(function(row){
-            if(fetch_url == 'personal_info'){
+            if(fetch_url == 'personal_info') {
               $('#inputName').val(row.name);
               $('#inputTitle').val(row.professional_title);
               $('#inputDesc').val(row.introduction);
@@ -171,7 +162,7 @@ var orig_base_url = $("#base_url").val();
               // iba pa to
 
             }
-            if (fetch_url == 'education'){
+            if (fetch_url == 'education') {
               html += `<div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
                           <div class="row my-3">
                               <div class="col-6 mx-3 institution-name">
@@ -205,8 +196,7 @@ var orig_base_url = $("#base_url").val();
                               </div>
                           </div>
                         </div>`
-            }
-            else if (fetch_url == 'resume'){
+            } else if (fetch_url == 'resume') {
               let filesHTML = '';
               if (row.files && row.files.length > 0) {
                 filesHTML = row.files.map(file => `
@@ -248,8 +238,7 @@ var orig_base_url = $("#base_url").val();
                               </div>
                           </div>
                         </div>`
-            }
-            else if (fetch_url == 'skills'){
+            } else if (fetch_url == 'skills') {
               html +=
               `
               <div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
@@ -286,8 +275,7 @@ var orig_base_url = $("#base_url").val();
                     </div>
                 </div>
               `
-            }
-            else if (fetch_url == 'projects') {
+            } else if (fetch_url == 'projects') {
               let imageHTML = '';
               if (row.images && row.images.length > 0) {
                 imageHTML = row.images.map(img => `
@@ -335,9 +323,7 @@ var orig_base_url = $("#base_url").val();
                   </div>
                 </div>
               `;
-            }
-            
-            else if (fetch_url == 'exp') {
+            } else if (fetch_url == 'exp') {
               html +=
               `
               <div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
@@ -374,9 +360,7 @@ var orig_base_url = $("#base_url").val();
                           </div>
                         </div>
               ` 
-            }
-            else if (fetch_url == 'contact')
-            {
+            } else if (fetch_url == 'contact'){
               html +=
               `
              <div class="accordion-item">
@@ -403,17 +387,16 @@ var orig_base_url = $("#base_url").val();
             </div>
             </div>
         </div>
-              `
-              
+              ` 
             }
           })
           $(".div-logs").append(html)
           
-        $('.log-row').each(function () {
-          const isActive = $(this).data('isactive');
-          if (isActive == 1) {
-            $(this).addClass('active-client');
-          }
+          $('.log-row').each(function () {
+            const isActive = $(this).data('isactive');
+            if (isActive == 1) {
+              $(this).addClass('active-client');
+            }
           });
         },
         error: function (status, error)
@@ -438,8 +421,6 @@ var orig_base_url = $("#base_url").val();
         var experience = data.experience;
         var project = data.projects;
         var images = data.files;
-
-        console.log(resume)
 
         images.forEach(file =>{
            if (file.origin == 'resume' && file.foreign_id == resume.id){
@@ -470,55 +451,48 @@ var orig_base_url = $("#base_url").val();
           }
         })
 
-    
-
         skills.forEach(skill => {
-          console.log(skill.skill_name);
-        
-          $('.div-skills').append(
-            `
-        <div class="skill-container d-flex col-xs-12 col-lg-3 col-md-3 ms-xs-5 ps-xs-5 my-xs-3 text-center ms-4" data-aos="fade-up" >
-          <div class="circular-progress">
-            <div class="d-block">
-              <span class="progress-skill-name">${skill.skill_name}</span>
-              <br>
-              <span data-progressvalue = "${skill.skill_progress}" class="progress-value justify-content-center">0%</span>
-              </div>
+          $('.div-skills').append(`
+          <div class="skill-container d-flex col-xs-12 col-lg-3 col-md-3 ms-xs-5 ps-xs-5 my-xs-3 text-center ms-4" data-aos="fade-up" >
+            <div class="circular-progress">
+              <div class="d-block">
+                <span class="progress-skill-name">${skill.skill_name}</span>
+                <br>
+                <span data-progressvalue = "${skill.skill_progress}" class="progress-value justify-content-center">0%</span>
+                </div>
+            </div>
           </div>
-        </div>
-        `);
-        //animation
+          `);
+
          $('.skill-container').each(function () {
-          const container = $(this);
-          const circularProgress = container.find(".circular-progress");
-          const progressValue = container.find(".progress-value");
+            const container = $(this);
+            const circularProgress = container.find(".circular-progress");
+            const progressValue = container.find(".progress-value");
 
-          let progressStartValue = 0;
-          const progressEndValue = parseInt(progressValue.attr('data-progressvalue'));
-          const speed = 20;
+            let progressStartValue = 0;
+            const progressEndValue = parseInt(progressValue.attr('data-progressvalue'));
+            const speed = 20;
 
-          const progress = setInterval(() => {
-              progressStartValue++;
+            const progress = setInterval(() => {
+                progressStartValue++;
 
-              progressValue.text(`${progressStartValue}%`);
-              circularProgress.css('background', `conic-gradient(rgb(186, 248, 248) ${progressStartValue * 3.6}deg, #ededed 0deg)`);
+                progressValue.text(`${progressStartValue}%`);
+                circularProgress.css('background', `conic-gradient(rgb(186, 248, 248) ${progressStartValue * 3.6}deg, #ededed 0deg)`);
 
-              if (progressStartValue >= progressEndValue) {
-                  clearInterval(progress);
-              }
+                if (progressStartValue >= progressEndValue) {
+                    clearInterval(progress);
+                }
             }, speed);
           });
         })
         education.forEach(edu => {
-          $('.div-education').append(
-            `
+          $('.div-education').append(`
             <div class="education-item">
               <h2 class="context-title" data-aos="fade-up" data-aos-duration="800">${edu.institution_name}</h2>
               <h3 class="context-subtitle" data-aos="fade-up" data-aos-duration="1000">${edu.education_level}</h3>
               <h5 data-aos="fade-up" data-aos-duration="1200">${edu.acad_year}</h5>
             </div>
-            `
-          )
+            `)
         })
         experience.forEach(exp => {
           $('.div-experience').append(
@@ -547,10 +521,7 @@ var orig_base_url = $("#base_url").val();
                   </ul>
                 </div>
               </section>
-          `);
-
-          
-           
+          `); 
           images.forEach(file => {
             if (file.foreign_id == proj.id && file.origin == 'projects') {
               $(`.${projId}`).append(`
@@ -562,39 +533,14 @@ var orig_base_url = $("#base_url").val();
             
           });
           $(`.${projId} .slide`).first().attr("data-active", true);
-
          new Splide(`#${projId}`).mount()
-          // const buttons = document.querySelectorAll("[data-carousel-button]")
-
-          // buttons.forEach(button => {
-          //   $(button).on('click', () => {
-          //     const offset = button.dataset.carouselButton === "next" ? 1 : -1
-          //     const slides = button
-          //       .closest("[data-carousel]")
-          //       .querySelector("[data-slides]");
-
-          //     const activeSlide = slides.querySelector("[data-active]");
-          //     let newIndex = [...slides.children].indexOf(activeSlide) + offset;
-          //     if (newIndex < 0) { newIndex = slides.children.length - 1 }
-          //     if (newIndex >= slides.children.length) { newIndex = 0; }
-
-          //     console.log(newIndex);
-
-          //     slides.children[newIndex].dataset.active = true;
-          //     delete activeSlide.dataset.active
-          //   })
-          // })
         });
-        
-        
       },
       error: function (status) {
         toastr.error(status,'Something is wrong')
       }
-
     })
   }
-
 
   //log-row buttonw
 
@@ -628,10 +574,10 @@ var orig_base_url = $("#base_url").val();
   });
 
   $(document).on('click', '.btn-activate', function () {
-      let button = $(this);
-      let item_id = button.data('id');
-      let parentRow = button.closest('.log-row');
-      let currentStatus = parseInt(parentRow.attr('data-isactive')); 
+    let button = $(this);
+    let item_id = button.data('id');
+    let parentRow = button.closest('.log-row');
+    let currentStatus = parseInt(parentRow.attr('data-isactive')); 
 
     if(fetch_url == 'resume'){
       console.log('is resume')
@@ -886,8 +832,6 @@ var orig_base_url = $("#base_url").val();
       api.post('handle_exp', formData);
 
   })
-
-
 
   //submit buttons forms
 

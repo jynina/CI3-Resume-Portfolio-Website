@@ -69,27 +69,27 @@
       <div class="modal-body">
       <form class="mb-3 form-educ">
         <input type="text" val="" id="hiddenID" hidden>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Institution</label>
-                    <input type="text" class="form-control" id="editInstitution" required>
-                </div>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Course/Education Level</label>
-                    <input type="text" class="form-control" id="editLevel" required>
-                </div>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Academic Year</label>
-                    <input type="text" class="form-control" id="editAcadYear" required>
-                </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Institution</label>
+                <input type="text" class="form-control" id="editInstitution" required>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Course/Education Level</label>
+                <input type="text" class="form-control" id="editLevel" required>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Academic Year</label>
+                <input type="text" class="form-control" id="editAcadYear" required>
+            </div>
 
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Brief Description <span class="text-secondary">(Optional)</span></label>
-                    <textarea class="form-control" id="editEducDescription" rows="3" value=""></textarea>
-                </div>
-                <div class="d-flex justify-content-end">
-                <button type="button" class="btn btn-primary btn-edit-submit-educ">Submit</button>
-                </div>
-            </form>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Brief Description <span class="text-secondary">(Optional)</span></label>
+                <textarea class="form-control" id="editEducDescription" rows="3" value=""></textarea>
+            </div>
+            <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-primary btn-edit-submit-educ">Submit</button>
+            </div>
+        </form>
       </div>
     </div>
   </div>

@@ -13,18 +13,16 @@ class MainController extends CI_Controller {
         $name = $this->input->get('table');
         $data = $this->Main_Model->fetch_data('tbl_' . $name);
 
-        if ($name == 'projects') {
+        if ($name == 'projects'){
             foreach ($data as &$project) {
                 $project->images = $this->Main_Model->get_files($name, $project->id);
             }
         }
-
-        if ($name == 'resume') {
+        if ($name == 'resume'){
             foreach ($data as &$resume) {
                 $resume->files = $this->Main_Model->get_files($name, $resume->id);
             }
-        }
-        
+        } 
         echo json_encode($data);
     }
 
@@ -89,19 +87,18 @@ class MainController extends CI_Controller {
         return $data;
     }
 
-    private function handle_insert_with_id($fields, $table_name)
-    {
-    $data = [];
-    foreach ($fields as $field) {
-        $data[$field] = $this->input->post($field);
-    }
+    private function handle_insert_with_id($fields, $table_name){
+        $data = [];
+        foreach ($fields as $field) {
+            $data[$field] = $this->input->post($field);
+        }
 
-    $insert_id = $this->Main_Model->insert_data($data, $table_name, []);
-    if ($insert_id !== false) {
-        $data['id'] = $insert_id;
-    }
+        $insert_id = $this->Main_Model->insert_data($data, $table_name, []);
+        if ($insert_id !== false) {
+            $data['id'] = $insert_id;
+        }
 
-    return $data;
+        return $data;
     }
 
     //insertion
@@ -129,7 +126,7 @@ class MainController extends CI_Controller {
 
     public function handle_resume(){
         $fields = ['resume_name', 'resume_desc'];
-        if($this->input->post('id')){
+        if ($this->input->post('id')){
             $this->handle_update($fields, 'tbl_resume');
         }
         else{
@@ -155,24 +152,22 @@ class MainController extends CI_Controller {
         echo json_encode($files);
     }
 
-    public function delete_file()
-    {
-    $file_id = $this->input->post('file_id');
+    public function delete_file(){
+        $file_id = $this->input->post('file_id');
 
-    if (!$file_id) {
-        echo json_encode(['status' => 'error', 'message' => 'No file ID provided']);
-        return;
+        if (!$file_id) {
+            echo json_encode(['status' => 'error', 'message' => 'No file ID provided']);
+            return;
     }
 
     $this->load->model('Main_Model');
+        $deleted = $this->Main_Model->delete_file_by_id($file_id);
 
-    $deleted = $this->Main_Model->delete_file_by_id($file_id);
-
-    if ($deleted) {
-        echo json_encode(['status' => 'success', 'message' => 'File deleted successfully']);
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'Failed to delete file']);
-    }
+        if ($deleted) {
+            echo json_encode(['status' => 'success', 'message' => 'File deleted successfully']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Failed to delete file']);
+        }
     }
 
 
@@ -180,6 +175,7 @@ class MainController extends CI_Controller {
     function handle_skills()
     {
         $fields = ["skill_name", "skill_progress", "skill_desc"];
+
         if($this->input->post('id')){
             $this->handle_update($fields, 'tbl_skills');
         }else{
@@ -191,7 +187,6 @@ class MainController extends CI_Controller {
     {
         $fields = ["project_name", "project_role", "project_tech", "project_desc"];
         
-
         if($this->input->post('id')){
             $this->handle_update($fields, 'tbl_projects');
         }else{

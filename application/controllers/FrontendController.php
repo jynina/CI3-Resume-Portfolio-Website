@@ -35,7 +35,6 @@ class FrontendController extends CI_Controller{
     {
         $this->load->view('template/header', ['page' => 'education']);
 		$this->load->view('template/admin_nav');
-		// $this->load->view('welcome_message');
 		$this->load->view('admin/education');
 		$this->load->view('template/footer');
     }
@@ -44,7 +43,6 @@ class FrontendController extends CI_Controller{
     {
         $this->load->view('template/header', ['page' => 'skills']);
 		$this->load->view('template/admin_nav');
-		// $this->load->view('welcome_message');
 		$this->load->view('admin/skills');
 		$this->load->view('template/footer');
     }
@@ -53,7 +51,6 @@ class FrontendController extends CI_Controller{
     {
         $this->load->view('template/header');
 		$this->load->view('template/admin_nav');
-		// $this->load->view('welcome_message');
 		$this->load->view('admin/contact');
 		$this->load->view('template/footer');
     }

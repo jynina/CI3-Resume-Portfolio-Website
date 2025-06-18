@@ -17,14 +17,12 @@ class Main_Model extends CI_Model{
         return $this->db->query('SELECT * FROM tbl_contact WHERE status != 0 ORDER BY created_at DESC');
     }
 
-    function fetch_data($table_name)
-    {
+    function fetch_data($table_name){
         $sql = $this->db->query('SELECT * FROM '. $table_name .' WHERE status != 0 ORDER BY created_at DESC');
         return $sql->result();
     }
 
-    function fetch_all_data()
-    {
+    function fetch_all_data(){
         return [
             'education'     => $this->db->get_where('tbl_education', ['status' => 1, 'is_active' => 1])->result(),
             'experience'    => $this->db->get_where('tbl_exp', ['status' => 1, 'is_active' => 1])->result(),
@@ -46,37 +44,32 @@ class Main_Model extends CI_Model{
                         ->update($table, ['status' => 0]);
     }
     
-    function update_data($table, $id, $data)
-    {
+    function update_data($table, $id, $data){
         $this->db->where('id', $id);
         return $this->db->update($table, $data);
     }
 
-    public function get_files($origin, $foreign_id)
-    {
-        return $this->db
-                    ->where('origin', $origin)
-                    ->where('foreign_id', $foreign_id)
-                    ->get('tbl_files')
-                    ->result();
+    public function get_files($origin, $foreign_id){
+        return $this->db->where('origin', $origin)
+                        ->where('foreign_id', $foreign_id)
+                        ->get('tbl_files')
+                        ->result();
     }
 
-    public function delete_file_by_id($file_id)
-{
-    $this->db->where('id', $file_id);
-    $file = $this->db->get('tbl_files')->row();
-
-    if ($file) {
-        if (file_exists($file->file_path)) {
-            unlink($file->file_path);
-        }
-
+    public function delete_file_by_id($file_id){
         $this->db->where('id', $file_id);
-        return $this->db->delete('tbl_files');
-    }
+        $file = $this->db->get('tbl_files')->row();
 
-    return false;
-}
+        if ($file) {
+            if (file_exists($file->file_path)) {
+                unlink($file->file_path);
+            }
+
+            $this->db->where('id', $file_id);
+            return $this->db->delete('tbl_files');
+        }
+        return false;
+    }
 }
 
 ?>
