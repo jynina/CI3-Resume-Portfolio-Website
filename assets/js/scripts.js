@@ -643,35 +643,32 @@ $(document).ready(function () {
             toastr.error('Something went wrong.');
           }
         });
-    }
-    else{
+    } else {
 
-    let newStatus = currentStatus === 1 ? 0 : 1;    
+      let newStatus = currentStatus === 1 ? 0 : 1;    
 
-    $.ajax({
-      url: orig_base_url + 'update_active',
-      method: 'POST',
-      data: {
-        id: item_id,
-        table: fetch_url,
-        is_active: newStatus 
-      },
-      dataType: 'json',
-      success: function (res) {
-        if (res.status === 'success') {
-          parentRow.attr('data-isactive', newStatus);
-
-          parentRow.toggleClass('active-client', newStatus === 1);
-
-          toastr.success(res.message);
-        } else {
-          toastr.warning(res.message);
+      $.ajax({
+        url: orig_base_url + 'update_active',
+        method: 'POST',
+        data: {
+          id: item_id,
+          table: fetch_url,
+          is_active: newStatus 
+        },
+        dataType: 'json',
+        success: function (res) {
+          if (res.status === 'success') {
+            parentRow.attr('data-isactive', newStatus);
+            parentRow.toggleClass('active-client', newStatus === 1);
+            toastr.success(res.message);
+          } else {
+            toastr.warning(res.message);
+          }
+        },
+        error: function () {
+          toastr.error('Something went wrong.');
         }
-      },
-      error: function () {
-        toastr.error('Something went wrong.');
-      }
-    });
+      });
     }
   });
 
@@ -694,15 +691,12 @@ $(document).ready(function () {
       $('#editSkillDescription').val(parentRow.find('.skill-desc p').text().trim());
     }
     else if (fetch_url == 'projects') {
-      
       $('#hiddenID').val(item_id);
       $('#editProjectName').val(parentRow.find('.proj-name p').text().trim());
       $('#editRole').val(parentRow.find('.proj-role p').text().trim());
       $('#editTechnologies').val(parentRow.find('.proj-tech p').text().trim());
       $('#editProjectDescription').val(parentRow.find('.proj-desc p').text().trim());
-      console.log('Fetching files for item_id:', item_id);
-
-      
+      console.log('Fetching files for item_id:', item_id);  
 
       if (editDropzoneMultiple) {
         isResettingDropzone = true;
@@ -734,60 +728,44 @@ $(document).ready(function () {
             console.error('Error loading files:', error);
           }
         });
-      }
-      
-    }
-    else if (fetch_url == 'exp') {
+      }  
+    } else if (fetch_url == 'exp') {
       $('#hiddenID').val(item_id);
       $('#editCompanyTitle').val(parentRow.find('.exp-title p').text().trim());
       $('#editCompanyName').val(parentRow.find('.company-name p').text().trim());
       $('#editCompanyYears').val(parentRow.find('.prof-year p').text().trim());
       $('#editCompanyDesc').val(parentRow.find('.company-desc p').text().trim());
     }
-
   });
   
   $(document).on('click', '.btn-edit-submit-educ', function () {
-
     var formData = new FormData();
-
     formData.append('id', $('#hiddenID').val());
     formData.append('institution_name', $('#editInstitution').val());
     formData.append('education_level', $('#editLevel').val());
     formData.append('acad_year', $('#editAcadYear').val());
     formData.append('institution_desc', $('#editEducDescription').val());
-
-    console.log(formData);
     api.post('handle_educ', formData)
-
   });
   
   $(document).on('click', '.btn-edit-submit-skills', () => {
     var formData = new FormData();
     $editSkill = parseInt($("#editSkillProgress").val());
-
-
-    if(typeof $editSkill === 'string' || $editSkill < 0 )
-    {
+    if(typeof $editSkill === 'string' || $editSkill < 0 ){
       toastr.error("Check your inputs","Error");
-    }
-    else{
+    } else {
       formData.append('id', $('#hiddenID').val());
       formData.append("skill_name", $("#editSkillName").val());
       formData.append("skill_progress", $editSkill);
       formData.append("skill_desc", $("#editSkillDescription").val());
-
-      console.log(formData)
       api.post('handle_skills', formData);
     }
-  })
+  });
 
   $(document).on('click', '.btn-edit-submit-projects', function () {
     var formData = new FormData();
-
     const id = $('#hiddenID').val();
     const origin = 'projects';
-
     formData.append('id', id);
     formData.append("project_name", $("#editProjectName").val());
     formData.append("project_role", $("#editRole").val());
@@ -801,12 +779,10 @@ $(document).ready(function () {
       processData: false,
       contentType: false,
       success: function () {
-        
         editDropzoneMultiple.options.params = {
           foreign_id: id,
           origin: origin
         };
-
         if (editDropzoneMultiple.getQueuedFiles().length > 0) {
           editDropzoneMultiple.processQueue();
         } else {
@@ -822,45 +798,32 @@ $(document).ready(function () {
 
   $(document).on('click', '.btn-edit-submit-exp', () => {
     var formData = new FormData();
- 
-      formData.append('id', $('#hiddenID').val());
-      formData.append("professional_title", $("#editCompanyTitle").val());
-      formData.append("company_name", $("#editCompanyName").val());
-      formData.append("prof_year", $("#editCompanyYears").val());
-      formData.append("company_desc", $("#editCompanyDesc").val());
-
-      api.post('handle_exp', formData);
+    formData.append('id', $('#hiddenID').val());
+    formData.append("professional_title", $("#editCompanyTitle").val());
+    formData.append("company_name", $("#editCompanyName").val());
+    formData.append("prof_year", $("#editCompanyYears").val());
+    formData.append("company_desc", $("#editCompanyDesc").val());
+    api.post('handle_exp', formData);
 
   })
 
   //submit buttons forms
 
   $('.btn-submit-contact').on('click', function(){
-
     var formData = new FormData();
-
     formData.append("contact_name", $('#inputName').val());
     formData.append("contact_email", $('#inputEmail').val());
     formData.append("contact_subject", $('#inputSubject').val());
     formData.append("contact_message", $('#inputMessage').val());
-
-    console.log(formData);
-
     api.post('handle_contact', formData);
-    
   });
 
   $('.btn-submit-about').on('click', function(){
-
     var formData = new FormData();
-
     if(myDropzoneProfile.files.length === 0){
       toastr.error("Please input all of the fields", "Incomplete fields");
-    }
-    else
-    {
-       var formData = new FormData();
-
+    } else {
+      var formData = new FormData();
       formData.append("name", $("inputName").val());
       formData.append("professional_title", $("#inputTitle").val());
       formData.append("introduction", $("#inputDesc").val());
@@ -886,17 +849,12 @@ $(document).ready(function () {
     }
   })
 
-   $('.btn-submit-resume').on('click', function(){
-
+  $('.btn-submit-resume').on('click', function(){
     var formData = new FormData();
-
     if(myDropzoneResume.files.length === 0){
       toastr.error("Please input all of the fields", "Incomplete fields");
-    }
-    else
-    {
-       var formData = new FormData();
-
+    } else {
+      var formData = new FormData();
       formData.append("resume_name", $("#inputResumeName").val());
       formData.append("resume_desc", $("#inputDesc").val());
 
@@ -923,29 +881,21 @@ $(document).ready(function () {
   })
 
   $('.btn-submit-educ').on('click', function () {
-
     var formData = new FormData();
-
     formData.append('institution_name', $('#inputInstitution').val());
     formData.append('education_level', $('#inputLevel').val());
     formData.append('acad_year', $('#inputAcadYear').val());
     formData.append('institution_desc', $('#inputEducDescription').val());
-    console.log(formData);
-
-    api.post('handle_educ', formData)
-  
+    api.post('handle_educ', formData) 
   });
 
   $('.btn-submit-skills').on('click', function () {
     var formData = new FormData();
     $inputSkill = parseInt($("#inputSkillProgress").val());
-
-
     if(typeof $inputSkill === 'string' || $inputSkill < 0 )
     {
       toastr.error("Check your inputs","Error");
-    }
-    else{
+    } else {
       formData.append("skill_name", $("#inputSkillName").val());
       formData.append("skill_progress", $inputSkill);
       formData.append("skill_desc", $("#inputSkillDescription").val());
@@ -955,24 +905,18 @@ $(document).ready(function () {
 
   $('.btn-submit-exp').on('click', function () {
     var formData = new FormData();
-
     formData.append("professional_title", $("#inputCompanyTitle").val());
     formData.append("company_name", $("#inputCompanyName").val());
     formData.append("prof_year", $("#inputCompanyYears").val());
     formData.append("company_desc", $("#inputCompanyDesc").val());
-
     api.post('handle_exp', formData);
   });
 
   $('.btn-submit-projects').on('click', function () {
-
     if(myDropzone.files.length === 0){
       toastr.error("Please input all of the fields", "Incomplete fields");
-    }
-    else
-    {
-       var formData = new FormData();
-
+    } else {
+      var formData = new FormData();
       formData.append("project_name", $("#inputProjectName").val());
       formData.append("project_role", $("#inputRole").val());
       formData.append("project_tech", $("#inputTechnologies").val());
@@ -986,19 +930,16 @@ $(document).ready(function () {
         contentType: false,
         success: function(res){
           let response = JSON.parse(res);
-          let new_id = response.new_id; // Return this from PHP
+          let new_id = response.new_id; 
           let origin = 'projects';
       
-          // Save this info for Dropzone later
           myDropzone.options.params = { foreign_id: new_id, origin: origin };
-      
           myDropzone.processQueue();
         }
       });
     }
   });
 
-  //Others
   $('.snow-button').on('mousemove', function (e) {
     let $snowflake = $('<div class="snowflake">❅</div>');
     $snowflake.css({
@@ -1011,7 +952,4 @@ $(document).ready(function () {
       $snowflake.remove();
     }, 2000);
   });
-
-
-
 });
