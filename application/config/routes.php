@@ -15,10 +15,12 @@ $route['projects_admin'] = 'FrontendController/projects_admin';
 $route['experience_admin'] = 'FrontendController/experience_admin';
 $route['get_info'] = 'FrontendController/get_admin_info';
 $route['welcome_contact'] = 'FrontendController/welcome_contact';
+$route['resume_admin'] = 'FrontendController/resume_admin';
 
 //handle to database
-$route['upload_image'] = 'MainController/upload_image';
+$route['upload_image'] = 'MainController/upload_files';
 $route['handle_contact'] = 'MainController/handle_contact';
+$route['handle_resume'] = 'MainController/handle_resume';
 $route['handle_educ'] = 'MainController/handle_educ';
 $route['handle_about'] = 'MainController/handle_about';
 $route['handle_skills'] = 'MainController/handle_skills';

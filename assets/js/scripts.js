@@ -1,9 +1,13 @@
 //constants
 Dropzone.autoDiscover = false;
 
+
 $(document).ready(function () {
- 
+Splide.defaults = {
+  type: 'loop'
+}
 var editDropzoneMultiple;
+var myDropzoneProfile;
 let isResettingDropzone = false;
 console.log($('#editDropzoneMultiple').length);
 AOS.init();
@@ -42,13 +46,14 @@ var orig_base_url = $("#base_url").val();
 
   if($('#myDropzoneProfile').length)
   {
-    var myDropzone = new Dropzone("#myDropzoneProfile", {    
+    var myDropzoneProfile = new Dropzone("#myDropzoneProfile", {    
     url: orig_base_url + "upload_image", 
     addRemoveLinks: true,
     autoProcessQueue: false,
     init: function () {
       this.on("sending", function (file, xhr, formData) {
         formData.append("origin", fetch_url);
+        formData.append("foreign_id", this.options.params.foreign_id);
         });
       this.on("removedFile")//edit this for edit modal remove
       }
@@ -66,7 +71,6 @@ var orig_base_url = $("#base_url").val();
     uploadMultiple: true,
     init: function () {
       this.on("sending", function (file, xhr, formData) {
-        console.log("foreign_id to send:", this.options.params.foreign_id);
         formData.append("origin", fetch_url);
         formData.append("foreign_id", this.options.params.foreign_id);
       });
@@ -82,7 +86,9 @@ var orig_base_url = $("#base_url").val();
   });
   }
 
-  if ($('#editDropzoneMultiple').length) {
+  if($('#editDropzoneMultiple').length) 
+  {
+    
     editDropzoneMultiple = new Dropzone("#editDropzoneMultiple", {
       paramName: "file",
       url: orig_base_url + "upload_image",
@@ -111,7 +117,22 @@ var orig_base_url = $("#base_url").val();
     });
   }
 
-  
+  if($('#myDropzoneResume').length)
+  {
+    var myDropzoneResume = new Dropzone("#myDropzoneResume", {    
+    url: orig_base_url + "upload_image", 
+    addRemoveLinks: true,
+    autoProcessQueue: false,
+    init: function () {
+      this.on("sending", function (file, xhr, formData) {
+        formData.append("origin", fetch_url);
+        formData.append("foreign_id", this.options.params.foreign_id);
+        });
+      this.on("removedFile")//edit this for edit modal remove
+      }
+    });
+
+  }
 
   //navigation links
   
@@ -175,6 +196,49 @@ var orig_base_url = $("#base_url").val();
                             <button type="button" class='btn btn-secondary btn-edit' data-id= ${row.id} data-bs-toggle="modal" data-bs-target="#editModal">
                               Edit
                               </button>
+                                  <button type="button" class='btn btn-danger btn-delete' data-id= ${row.id}>
+                                  Delete
+                                  </button>
+                                  <button type="button" class='btn btn-success btn-activate' data-id= ${row.id}>
+                                    Activate
+                                  </button>
+                              </div>
+                          </div>
+                        </div>`
+            }
+            else if (fetch_url == 'resume'){
+              let filesHTML = '';
+              if (row.files && row.files.length > 0) {
+                filesHTML = row.files.map(file => `
+                  <br>
+                  <iframe src="${file.file_path}" class="embed-responsive-item" style="width: 40vw;height: 50vh;"></iframe>
+                `).join('');
+              } else {
+                filesHTML = '<p>No Files</p>';
+              }
+              html += `<div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
+                          <div class="row my-3">
+                              <div class="col-8 mx-3 resume-name">
+                                <label class="fw-bold">Resume Name</label>
+                                  <p>${row.resume_name}</p>
+                              </div>
+                              <div class="col-2 resume-date">
+                                <label class="fw-bold">Created At</label>
+                                  <p>${row.created_at}</p>
+                              </div>
+                              </div>
+                              <div class="col-11 mx-3 resume-desc" style="text-align: justify;">
+                              <label class="fw-bold">Resume Description</label>
+                                  <p>
+                                  ${row.resume_desc}
+                                  </p>
+                              </div>
+                              <div class="col-11 mx-3 resume-file d-block gap-2 embed-responsive embed-responsive-4by3" style="">
+                                <label for="resume-file" class="fw-bold">Resume File</label>
+                                
+                                  ${filesHTML}
+                              </div>
+                            <div class="col-11 mx-3 mb-3 log-buttons" style="text-align: end;">
                                   <button type="button" class='btn btn-danger btn-delete' data-id= ${row.id}>
                                   Delete
                                   </button>
@@ -366,6 +430,8 @@ var orig_base_url = $("#base_url").val();
       dataType: 'json',
       success: function (data) {
         toastr.success('Ngaleng', 'Data successfully loaded')
+        var download_path;
+        var resume = data.resume[0];
         var personal_info = data.personal_info[0];
         var skills = data.skills;
         var education = data.education;
@@ -373,23 +439,45 @@ var orig_base_url = $("#base_url").val();
         var project = data.projects;
         var images = data.files;
 
+        console.log(resume)
+
+        images.forEach(file =>{
+           if (file.origin == 'resume' && file.foreign_id == resume.id){
+            download_path = file.file_path;
+          }
+        })
+
         $('.div-about-me').append(`
-        <div " class="text-end w-50 me-5">
+        <div class="text-end w-50 me-5">
           <h1 data-aos="fade-left" data-aos-duration="1000" class="context-title">Hi, I'm ${personal_info.name}</h1>
           <h3 data-aos="fade-left" data-aos-duration="1500" class="context-subtitle">${personal_info.professional_title}</h3>
           <p data-aos="fade-left" data-aos-duration="2000">${personal_info.introduction}</p>
-          <a data-aos="fade-left" data-aos-duration="2000" class="btn btn-primary download-cv">Download CV</a>
+          <a data-aos="fade-left" data-aos-duration="2000" href="${orig_base_url}${download_path}" class="btn btn-primary download-cv" id="download-cv" download>Download CV</a>
           </div>
           <img class="profile-img" src="upload/pedro.png" alt="" data-aos="zoom-in"> 
         `);
-        console.log('test')
+        images.forEach(file => {
+          if (file.foreign_id == personal_info.id && file.origin == 'personal_info'){
+            const mockFile = {
+              name: file.file_name,
+              size: file.size,
+              serverId: file.id
+            }
+            myDropzoneProfile.files.push(mockFile)
+            myDropzoneProfile.emit("addedfile", mockFile);
+            myDropzoneProfile.emit("thumbnail", mockFile, file.file_path);
+            myDropzoneProfile.emit("complete", mockFile);
+          }
+        })
+
+    
 
         skills.forEach(skill => {
           console.log(skill.skill_name);
         
           $('.div-skills').append(
             `
-        <div class="skill-container d-flex col text-center ms-4" data-aos="fade-up" >
+        <div class="skill-container d-flex col-xs-12 col-lg-3 col-md-3 ms-xs-5 ps-xs-5 my-xs-3 text-center ms-4" data-aos="fade-up" >
           <div class="circular-progress">
             <div class="d-block">
               <span class="progress-skill-name">${skill.skill_name}</span>
@@ -422,7 +510,6 @@ var orig_base_url = $("#base_url").val();
           });
         })
         education.forEach(edu => {
-          console.log(edu);
           $('.div-education').append(
             `
             <div class="education-item">
@@ -448,50 +535,55 @@ var orig_base_url = $("#base_url").val();
         project.forEach(proj => {
           let projId = `proj-${proj.id}`;
           $('.div-projects').append(`
-            <div class="project-item col-6" data-aos="fade-up">
+            <div class="project-item col-lg-6 col-xl-6 col-12 mt-5" data-aos="fade-up">
               <h2 class="context-title">${proj.project_name}</h2>
               <h3 class="context-subtitle">${proj.project_role}</h3>
               <h5 class="context-tech">${proj.project_tech}</h5>
               <p class="context-desc">${proj.project_desc}</p>
-        
-              <div class="carousel" data-carousel>
-                <button class="carousel-button prev" data-carousel-button="prev">&#8592;</button>
-                <button class="carousel-button next" data-carousel-button="next">&#8594;</button>
-                <ul class="proj-image-slides ${projId}" data-slides></ul>
-              </div>
-            </div>
+
+              <section class="splide" id="${projId}" aria-label="Splide Basic HTML Example">
+                <div class="splide__track">
+                  <ul class="splide__list ${projId}">
+                  </ul>
+                </div>
+              </section>
           `);
 
+          
+           
           images.forEach(file => {
             if (file.foreign_id == proj.id && file.origin == 'projects') {
-              console.log(file)
-              console.log(projId)
               $(`.${projId}`).append(`
-                <li class="slide">
-                  <img src="${orig_base_url}${file.file_path}" alt="">
+                <li class="splide__slide">
+                    <img src="${orig_base_url}${file.file_path}" alt="">
                 </li>
               `);
             }
+            
           });
           $(`.${projId} .slide`).first().attr("data-active", true);
-          const buttons = document.querySelectorAll("[data-carousel-button]")
 
-          buttons.forEach(button => {
-            $(button).on('click', () => {
-              const offset = button.dataset.carouselButton === "next" ? 1 : -1
-              const slides = button
-                .closest("[data-carousel]")
-                .querySelector("[data-slides]");
+         new Splide(`#${projId}`).mount()
+          // const buttons = document.querySelectorAll("[data-carousel-button]")
 
-              const activeSlide = slides.querySelector("[data-active]");
-              let newIndex = [...slides.children].indexOf(activeSlide) + offset;
-              if (newIndex < 0) { newIndex = slides.children.length - 1 }
-              if (newIndex >= slides.children.length) { newIndex = 0; }
+          // buttons.forEach(button => {
+          //   $(button).on('click', () => {
+          //     const offset = button.dataset.carouselButton === "next" ? 1 : -1
+          //     const slides = button
+          //       .closest("[data-carousel]")
+          //       .querySelector("[data-slides]");
 
-              slides.children[newIndex].dataset.active = true;
-              delete activeSlide.dataset.active
-            })
-          })
+          //     const activeSlide = slides.querySelector("[data-active]");
+          //     let newIndex = [...slides.children].indexOf(activeSlide) + offset;
+          //     if (newIndex < 0) { newIndex = slides.children.length - 1 }
+          //     if (newIndex >= slides.children.length) { newIndex = 0; }
+
+          //     console.log(newIndex);
+
+          //     slides.children[newIndex].dataset.active = true;
+          //     delete activeSlide.dataset.active
+          //   })
+          // })
         });
         
         
@@ -502,6 +594,7 @@ var orig_base_url = $("#base_url").val();
 
     })
   }
+
 
   //log-row buttonw
 
@@ -535,10 +628,78 @@ var orig_base_url = $("#base_url").val();
   });
 
   $(document).on('click', '.btn-activate', function () {
-    let button = $(this);
-    let item_id = button.data('id');
-    let parentRow = button.closest('.log-row');
-    let currentStatus = parseInt(parentRow.attr('data-isactive')); 
+      let button = $(this);
+      let item_id = button.data('id');
+      let parentRow = button.closest('.log-row');
+      let currentStatus = parseInt(parentRow.attr('data-isactive')); 
+
+    if(fetch_url == 'resume'){
+      console.log('is resume')
+      if($('.active-client').length >= 1){
+        console.log('length is greater or equal to one')
+        console.log('proof:', $('.active-client').length)
+        if(currentStatus == '1'){
+          console.log('for deactivation')
+
+          let newStatus = currentStatus === 1 ? 0 : 1;    
+
+        $.ajax({
+          url: orig_base_url + 'update_active',
+          method: 'POST',
+          data: {
+            id: item_id,
+            table: fetch_url,
+            is_active: newStatus 
+          },
+          dataType: 'json',
+          success: function (res) {
+            if (res.status === 'success') {
+              parentRow.attr('data-isactive', newStatus);
+
+              parentRow.toggleClass('active-client', newStatus === 1);
+
+              toastr.success(res.message);
+            } else {
+              toastr.warning(res.message);
+            }
+          },
+          error: function () {
+            toastr.error('Something went wrong.');
+          }
+        });
+        }
+        toastr.error('only one resume can be active', 'nononononon');
+        return
+      }
+      let newStatus = currentStatus === 1 ? 0 : 1;    
+
+        $.ajax({
+          url: orig_base_url + 'update_active',
+          method: 'POST',
+          data: {
+            id: item_id,
+            table: fetch_url,
+            is_active: newStatus 
+          },
+          dataType: 'json',
+          success: function (res) {
+            if (res.status === 'success') {
+              parentRow.attr('data-isactive', newStatus);
+
+              parentRow.toggleClass('active-client', newStatus === 1);
+
+              toastr.success(res.message);
+            } else {
+              toastr.warning(res.message);
+            }
+          },
+          error: function () {
+            toastr.error('Something went wrong.');
+          }
+        });
+    }
+    else{
+
     let newStatus = currentStatus === 1 ? 0 : 1;    
 
     $.ajax({
@@ -565,6 +726,7 @@ var orig_base_url = $("#base_url").val();
         toastr.error('Something went wrong.');
       }
     });
+    }
   });
 
   $(document).on('click', '.btn-edit', function () {
@@ -613,7 +775,7 @@ var orig_base_url = $("#base_url").val();
             files.forEach(file => {
               const mockFile = {
                 name: file.file_name,
-                size: file.size || 12345,
+                size: file.size,
                 serverId: file.id
               };
               editDropzoneMultiple.files.push(mockFile);
@@ -748,13 +910,72 @@ var orig_base_url = $("#base_url").val();
 
     var formData = new FormData();
 
-    formData.append('name', $('#inputName').val());
-    formData.append('professional_title', $('#inputTitle').val());
-    formData.append('introduction',  $('#inputDesc').val())
+    if(myDropzoneProfile.files.length === 0){
+      toastr.error("Please input all of the fields", "Incomplete fields");
+    }
+    else
+    {
+       var formData = new FormData();
 
-    console.log(formData)
+      formData.append("name", $("inputName").val());
+      formData.append("professional_title", $("#inputTitle").val());
+      formData.append("introduction", $("#inputDesc").val());
 
-    api.post('handle_about', formData);
+      $.ajax({
+        url: orig_base_url + 'handle_about',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(res){
+          let response = JSON.parse(res);
+          let new_id = response.new_id;
+          let origin = 'personal_info';
+          console.log(new_id);
+      
+
+          myDropzoneProfile.options.params = { foreign_id: new_id, origin: origin };
+      
+          myDropzoneProfile.processQueue();
+        }
+      });
+    }
+  })
+
+   $('.btn-submit-resume').on('click', function(){
+
+    var formData = new FormData();
+
+    if(myDropzoneResume.files.length === 0){
+      toastr.error("Please input all of the fields", "Incomplete fields");
+    }
+    else
+    {
+       var formData = new FormData();
+
+      formData.append("resume_name", $("#inputResumeName").val());
+      formData.append("resume_desc", $("#inputDesc").val());
+
+      $.ajax({
+        url: orig_base_url + 'handle_resume',
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(res){
+          let response = JSON.parse(res);
+          let new_id = response.new_id; // Return this from PHP
+          let origin = 'resume';
+          console.log(new_id);
+          console.log(formData)
+      
+          // Save this info for Dropzone later
+          myDropzoneResume.options.params = { foreign_id: new_id, origin: origin };
+    
+          myDropzoneResume.processQueue();
+        }
+      });
+    }
   })
 
   $('.btn-submit-educ').on('click', function () {

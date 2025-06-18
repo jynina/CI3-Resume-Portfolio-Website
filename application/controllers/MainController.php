@@ -1,8 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 class MainController extends CI_Controller {
 
@@ -18,6 +16,12 @@ class MainController extends CI_Controller {
         if ($name == 'projects') {
             foreach ($data as &$project) {
                 $project->images = $this->Main_Model->get_files($name, $project->id);
+            }
+        }
+
+        if ($name == 'resume') {
+            foreach ($data as &$resume) {
+                $resume->files = $this->Main_Model->get_files($name, $resume->id);
             }
         }
         
@@ -101,7 +105,7 @@ class MainController extends CI_Controller {
     }
 
     //insertion
-    public function insert_contact() 
+    public function handle_contact() 
     {
         $fields = ['contact_name', 'contact_email', 'contact_subject', 'contact_message'];
         $contact_data = $this->handle_insert($fields, 'tbl_contact');
@@ -112,8 +116,28 @@ class MainController extends CI_Controller {
     public function handle_about()
     {
         $fields = ['name', 'professional_title', 'introduction'];
-        $this->handle_insert($fields, 'tbl_personal_info');
+        if($this->input->post('id')){
+            $this->handle_update($fields, 'tbl_personal_info');
+        }
+        else{
+            $insertedData = $this->handle_insert_with_id($fields, 'tbl_personal_info');
+            $insert_id = isset($insertedData['id']) ? $insertedData['id'] : 0;
+            echo json_encode(['new_id' => $insert_id]);
+        }
+        
     }   
+
+    public function handle_resume(){
+        $fields = ['resume_name', 'resume_desc'];
+        if($this->input->post('id')){
+            $this->handle_update($fields, 'tbl_resume');
+        }
+        else{
+            $insertedData = $this->handle_insert_with_id($fields, 'tbl_resume');
+            $insert_id = isset($insertedData['id']) ? $insertedData['id'] : 0;
+            echo json_encode(['new_id' => $insert_id]);
+        }
+    }
 
     public function handle_educ()
     {
@@ -124,12 +148,6 @@ class MainController extends CI_Controller {
             $this->handle_insert($fields, 'tbl_education');
         }
     }
-
-    // public function update_educ()
-    // {
-    //     $fields = ['institution_name', 'education_level', 'acad_year', 'institution_desc'];
-    //     $this->handle_update($fields, 'tbl_education');
-    // }
 
     public function get_project_files() {
         $project_id = $this->input->get('foreign_id');
@@ -176,8 +194,7 @@ class MainController extends CI_Controller {
 
         if($this->input->post('id')){
             $this->handle_update($fields, 'tbl_projects');
-        }
-        else{
+        }else{
             $insertedData = $this->handle_insert_with_id($fields, 'tbl_projects');
             $insert_id = isset($insertedData['id']) ? $insertedData['id'] : 0;
             echo json_encode(['new_id' => $insert_id]);
@@ -199,7 +216,7 @@ class MainController extends CI_Controller {
     } 
 
     //dropzone upload to db
-    public function upload_image()
+    public function upload_files()
     {
         $origin = $this->input->post('origin');
         $foreign_id = $this->input->post('foreign_id');
@@ -211,7 +228,7 @@ class MainController extends CI_Controller {
         }
 
         if (isset($_FILES['file']['name'])) {
-            // Force to always treat as multiple files for consistency
+
             $fileCount = is_array($_FILES['file']['name']) ? count($_FILES['file']['name']) : 1;
 
             for ($i = 0; $i < $fileCount; $i++) {
@@ -242,35 +259,30 @@ class MainController extends CI_Controller {
 
     public function contact_send_email($data) {
         //not sure if working
-        $mail = new PHPMailer(true);
+        $config = Array (
+            'protocol' => 'smtp',
+            'smtp_host' => 'smtp.gmail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'xxx',
+            'smtp_pass' => 'xxx',
+            'mailtype'  => 'html',
+            'charset'   => 'iso-8859-1'
+        );
 
-        try {
-            $mail->isSMTP();
-            $mail->Host       = 'smtp.office365.com';
-            $mail->SMTPAuth   = true;
-            $mail->Username   = 'kwenn.testing@outlook.com';
-            $mail->Password   = 'OutlookPass112';
-            $mail->SMTPSecure = 'tls';
-            $mail->Port       = 587;
+        $this->load->library('email', $config);
+        $this->email->from('your@example.com', 'Your Name');
+        $this->email->to('someone@example.com');
+        $this->email->cc('another@another-example.com');
+        $this->email->bcc('them@their-example.com');
 
-            $mail->setFrom('kwenn.testing@outlook.com', 'Contact Form');
-            $mail->addAddress('kwenn.gacelos@outlook.com');
-            $mail->addReplyTo($data['contact_email'], $data['contact_name']);
+        $this->email->subject('Email Test');
+        $this->email->message('Testing the email class.');
 
-            $mail->isHTML(true);
-            $mail->Subject = $data['contact_subject'];
-            $mail->Body    = "
-                <h3>New Contact Form Message</h3>
-                <p><strong>Name:</strong> {$data['contact_name']}</p>
-                <p><strong>Email:</strong> {$data['contact_email']}</p>
-                <p><strong>Message:</strong><br>{$data['contact_message']}</p>
-            ";
+        $result = $this->email->send();
 
-            $mail->send();
-            echo 'Message sent successfully!';
-        } catch (Exception $e) {
-            echo `Mailer Error: {$mail->ErrorInfo}`;
-        }
+
+        // Set to, from, message, etc.
+                
     }
 
    

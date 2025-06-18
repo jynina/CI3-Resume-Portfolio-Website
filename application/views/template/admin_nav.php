@@ -1,6 +1,6 @@
 <div class="container">
     <div class="container text-center mt-5">
-        <p class="fs-2 mt-5">Anong ieedit mo nanaman</p>
+        <p class="fs-2 mt-5">Edit</p>
     </div>
     <div class="" id="admin-page">
         <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
@@ -10,7 +10,7 @@
                 </button>
                 <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
                     <div class="navbar-nav mx-auto">
-                        <a class="snow-button nav-link nav-logs" aria-current="page" href="#">Logs</a>
+                        <a class="snow-button nav-link nav-resume" href="<?= base_url() ?>resume_admin">Resume</a>
                         <a class="snow-button nav-link nav-about" href="<?= base_url() ?>about_admin">About</a>
                         <a class="snow-button nav-link nav-education" href="<?= base_url() ?>education_admin">Education</a>
                         <a class="snow-button nav-link nav-skills" href="<?= base_url() ?>skills_admin">Skills</a>

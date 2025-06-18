@@ -17,9 +17,8 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    <script src=" https://cdn.jsdelivr.net/npm/animejs@4.0.2/lib/anime.umd.min.js "></script>
-	<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+	<script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
+	<link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css " rel="stylesheet">
 	<script src="<?= base_url()?>assets/js/loading-bar.js"></script>
 	<script src="<?= base_url()?>assets/js/scripts.js"></script>
 	<script src="<?= base_url()?>assets/js/animation.js"></script>
@@ -29,8 +28,6 @@
 	<script src="<?= base_url()?>assets/js/jquery.waypoints.js"></script>
 	<script src="<?= base_url()?>assets/js/jquery.waypoints.min.js"></script>
 	<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
-	<script src=" https://cdn.jsdelivr.net/npm/fullpage.js@4.0.36/dist/fullpage.min.js "></script>
-	<link href=" https://cdn.jsdelivr.net/npm/fullpage.js@4.0.36/dist/fullpage.min.css " rel="stylesheet">
 </head>
 <body>
 	<div class="container-fluid">

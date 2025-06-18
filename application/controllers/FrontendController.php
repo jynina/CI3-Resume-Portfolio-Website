@@ -15,8 +15,14 @@ class FrontendController extends CI_Controller{
     {
         $this->load->view('template/header', ['page' => 'personal_info']);
 		$this->load->view('template/admin_nav');
-		// $this->load->view('welcome_message');
 		$this->load->view('admin/about');
+		$this->load->view('template/footer');
+    }
+    public function resume_admin()
+    {
+        $this->load->view('template/header', ['page' => 'resume']);
+		$this->load->view('template/admin_nav');
+		$this->load->view('admin/resume');
 		$this->load->view('template/footer');
     }
 

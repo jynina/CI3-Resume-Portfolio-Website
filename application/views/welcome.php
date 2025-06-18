@@ -28,7 +28,22 @@
     <hr>
     <h1 class="circle-spacing text-center mt-5" id="projects-page" data-aos="fade-up" data-aos-duration="800">PROJECTS</h1>
     <div class="row div-projects my-5 section-spacing">
-      
+       <!-- <div class="project-item col-6 mt-5" data-aos="fade-up">
+          <h2 class="context-title">${proj.project_name}</h2>
+          <h3 class="context-subtitle">${proj.project_role}</h3>
+          <h5 class="context-tech">${proj.project_tech}</h5>
+          <p class="context-desc">${proj.project_desc}</p>
+    
+          <section class="splide" aria-label="Splide Basic HTML Example">
+            <div class="splide__track">
+              <ul class="splide__list">
+                <li class="splide__slide">Slide 01</li>
+                <li class="splide__slide">Slide 02</li>
+                <li class="splide__slide">Slide 03</li>
+              </ul>
+            </div>
+          </section>
+        </div> -->
     </div>
     <hr> 
   <div class="div-btn-contact text-center" >

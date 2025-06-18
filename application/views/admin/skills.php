@@ -1,6 +1,6 @@
 <div class="container-parent container mt-5" data-page="<?= $page?>">
     <div class="div-skills-forms">
-        <div class="bg-dark p-5 my-3 rounded"> 
+        <div class="p-5 my-3" id="forms-container">
             <form>
                 <div class="row">
                 <div class="mb-3 col">

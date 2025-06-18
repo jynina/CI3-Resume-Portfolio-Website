@@ -1,6 +1,6 @@
 <div class="container-parent container mt-5" data-page="<?= $page?>">
     <div class="div-exp-forms">
-        <div class="bg-dark p-5 my-3 rounded"> 
+        <div class="p-5 my-3" id="forms-container">
             <form>
                 <div class="mb-3">
                     <label for="name" class="form-label">Professional Title</label>

@@ -30,6 +30,7 @@ class Main_Model extends CI_Model{
             'experience'    => $this->db->get_where('tbl_exp', ['status' => 1, 'is_active' => 1])->result(),
             'files'         => $this->db->get_where('tbl_files', ['is_active' => 1])->result(),
             'personal_info' => $this->db->get_where('tbl_personal_info', ['status' => 1])->result(),
+            'resume'        => $this->db->get_where('tbl_resume', ['status' => 1,'is_active' => 1])->result(),
             'projects'      => $this->db->get_where('tbl_projects', ['status' => 1, 'is_active' => 1])->result(),
             'skills'        => $this->db->get_where('tbl_skills', ['status' => 1, 'is_active' => 1])->result(),
         ];
@@ -41,21 +42,14 @@ class Main_Model extends CI_Model{
     }
 
     function update_status($table, $id){
-        return $this->db->where('id', $id)->update($table, ['status' => 0]);
+        return $this->db->where('id', $id)
+                        ->update($table, ['status' => 0]);
     }
     
     function update_data($table, $id, $data)
     {
-    // if (!$table || !$id || empty($data)) {
-    //     return false;
-    // }
-
-    // $this->db->where('id', $id);
-    // return $this->db->update($table, $data)->result();
-
-
-    $this->db->where('id', $id);
-    return $this->db->update($table, $data);
+        $this->db->where('id', $id);
+        return $this->db->update($table, $data);
     }
 
     public function get_files($origin, $foreign_id)
