@@ -8,6 +8,7 @@ $(document).ready(function () {
   }
   var editDropzoneMultiple;
   var myDropzoneProfile;
+  var editDropzoneProfile;
   let isResettingDropzone = false;
   console.log($('#editDropzoneMultiple').length);
   AOS.init();
@@ -43,20 +44,50 @@ $(document).ready(function () {
 
 //DropZone
 
-  if($('#myDropzoneProfile').length)
-  {
-    var myDropzoneProfile = new Dropzone("#myDropzoneProfile", {    
-    url: orig_base_url + "upload_image", 
-    addRemoveLinks: true,
-    autoProcessQueue: false,
-    init: function () {
-      this.on("sending", function (file, xhr, formData) {
-        formData.append("origin", fetch_url);
-        formData.append("foreign_id", this.options.params.foreign_id);
+  if ($('#myDropzoneProfile').length) {
+    var myDropzoneProfile = new Dropzone("#myDropzoneProfile", {
+      url: orig_base_url + "upload_image", 
+      addRemoveLinks: false,               
+      autoProcessQueue: false,
+      clickable: false,                    
+      acceptedFiles: "image/*",
+      maxFiles: 1,
+      init: function () {
+        this.on("addedfile", function (file) {
+          // Disable file preview click interaction
+          file.previewElement.classList.add('dz-preview-readonly');
         });
-      this.on("removedFile")//edit this for edit modal remove
       }
-  });
+    });
+  }
+
+  if ($('#editDropzoneProfile').length) {
+    editDropzoneProfile = new Dropzone("#editDropzoneProfile", {
+      paramName: "file",
+      url: orig_base_url + "upload_image",
+      addRemoveLinks: true,
+      autoProcessQueue: false,
+      maxFiles: 1,
+      init: function () {
+        this.on("sending", function (file, xhr, formData) {
+          formData.append("foreign_id", $('#hiddenID').val());
+          formData.append("origin", "personal_info");
+        });
+
+        this.on("removedfile", function (file) {
+          if (isResettingDropzone) return;
+          if (confirm("Are you sure you want to delete this file?")) {
+            if (file.serverId) {
+              $.post(`${orig_base_url}delete_file`, { file_id: file.serverId });
+            }
+          } else {
+            this.emit("addedfile", file);
+            this.emit("thumbnail", file, file.dataURL);
+            this.emit("complete", file);
+          }
+        });
+      }
+    });
   }
 
   if($('#myDropzoneMultiple').length){
@@ -150,16 +181,39 @@ $(document).ready(function () {
       success: function(data) {
         toastr.success(data,'success')
           let html = ``;
-          data.forEach(function(row){
-            if(fetch_url == 'personal_info') {
+          data.forEach(function(row, index){
+            if(fetch_url == 'personal_info' && index === 0) {
+              console.log(row)
+              $('#hiddenprofileid').val(row.id)
               $('#inputName').val(row.name);
               $('#inputTitle').val(row.professional_title);
               $('#inputDesc').val(row.introduction);
-              // $.get(`${orig_base_urlbase_url}get_project_files?project_id=${item_id}`, function (data) {
-              //   const uploadedFiles = JSON.parse(data);
-              //   preloadImages(uploadedFiles);
-              // }); 
-              // iba pa to
+              $.ajax({
+                url: orig_base_url + 'get_project_files',
+                method: 'GET',
+                data: {
+                  foreign_id: row.id,
+                  origin: 'personal_info'
+                },
+                dataType: 'json',
+                success: function (files) {
+                  console.log(row.id)
+                  files.forEach(file => {
+                    const mockFile = {
+                      name: file.file_name,
+                      size: file.size || 12345,
+                      serverId: file.id
+                    };
+                    myDropzoneProfile.emit("addedfile", mockFile);
+                    myDropzoneProfile.emit("thumbnail", mockFile, file.file_path);
+                    myDropzoneProfile.emit("complete", mockFile);
+                    
+                  });
+                },
+                error: function (err) {
+                  console.error("Profile image preload failed:", err);
+                }
+              });
 
             }
             if (fetch_url == 'education') {
@@ -448,7 +502,7 @@ $(document).ready(function () {
             myDropzoneProfile.emit("addedfile", mockFile);
             myDropzoneProfile.emit("thumbnail", mockFile, file.file_path);
             myDropzoneProfile.emit("complete", mockFile);
-          }
+          }   
         })
 
         skills.forEach(skill => {
@@ -690,6 +744,47 @@ $(document).ready(function () {
       $('#editSkillProgress').val(parentRow.find('.skill-progress p').text().trim());
       $('#editSkillDescription').val(parentRow.find('.skill-desc p').text().trim());
     }
+    else if (fetch_url == 'personal_info') {
+     
+      item_id = $('#hiddenprofileid').val();
+      $('#editName').val($('#inputName').val());
+      $('#editTitle').val($('#inputTitle').val());
+      $('#editDesc').val($('#inputDesc').val());
+
+      console.log(item_id)
+
+      if (editDropzoneProfile) {
+        isResettingDropzone = true;
+        editDropzoneProfile.removeAllFiles(true);
+        isResettingDropzone = false;
+        $.ajax({
+          url: `${orig_base_url}get_project_files`,
+          method: 'GET',
+          data: {
+            foreign_id: item_id,
+            origin: 'personal_info'
+          },
+          dataType: 'json',
+          success: function (files) {
+            console.log(files)
+            files.forEach(file => {
+              const mockFile = {
+                name: file.file_name,
+                size: file.size,
+                serverId: file.id
+              };
+              editDropzoneProfile.files.push(mockFile);
+              editDropzoneProfile.emit("addedfile", mockFile);
+              editDropzoneProfile.emit("thumbnail", mockFile, file.file_path);
+              editDropzoneProfile.emit("complete", mockFile);
+            });
+          },
+          error: function (xhr, status, error) {
+            console.error('Error loading files:', error);
+          }
+        });
+      }
+    }
     else if (fetch_url == 'projects') {
       $('#hiddenID').val(item_id);
       $('#editProjectName').val(parentRow.find('.proj-name p').text().trim());
@@ -820,13 +915,13 @@ $(document).ready(function () {
 
   $('.btn-submit-about').on('click', function(){
     var formData = new FormData();
-    if(myDropzoneProfile.files.length === 0){
+    if(editDropzoneProfile.files.length === 0){
       toastr.error("Please input all of the fields", "Incomplete fields");
     } else {
       var formData = new FormData();
-      formData.append("name", $("inputName").val());
-      formData.append("professional_title", $("#inputTitle").val());
-      formData.append("introduction", $("#inputDesc").val());
+      formData.append("name", $("#editName").val());
+      formData.append("professional_title", $("#editTitle").val());
+      formData.append("introduction", $("#editDesc").val());
 
       $.ajax({
         url: orig_base_url + 'handle_about',
@@ -841,9 +936,9 @@ $(document).ready(function () {
           console.log(new_id);
       
 
-          myDropzoneProfile.options.params = { foreign_id: new_id, origin: origin };
+          editDropzoneProfile.options.params = { foreign_id: new_id, origin: origin };
       
-          myDropzoneProfile.processQueue();
+          editDropzoneProfile.processQueue();
         }
       });
     }

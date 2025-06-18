@@ -176,3 +176,22 @@ body {
 #editDropzoneMultiple .dz-message {
   display: none;
 }
+
+.dropzone .dz-preview .dz-image {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  /* optional rounded corners */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropzone .dz-preview .dz-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* or 'contain' if you want full image with white space */
+  border-radius: 8px;
+}

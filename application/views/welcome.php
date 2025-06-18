@@ -10,6 +10,7 @@
   <div class="container-parent container" style="margin-top:20vh">
     <div id="typed-strings"><h1>Welcome to my <strong class="context-title">Website~!</strong></h1></div>
       <span id="typed" class="fs-1"></span>
+      <span><a href="<?=base_url()?>test_email">test email</a></span>
 
       <div class="d-flex div-about-me justify-content-end section-spacing" id="about-page"></div>
       <hr>

@@ -107,7 +107,7 @@ class MainController extends CI_Controller {
         $fields = ['contact_name', 'contact_email', 'contact_subject', 'contact_message'];
         $contact_data = $this->handle_insert($fields, 'tbl_contact');
 
-        // $this->contact_send_email($contact_data);
+        $this->contact_send_email($contact_data);
     }
 
     public function handle_about()
@@ -148,7 +148,8 @@ class MainController extends CI_Controller {
 
     public function get_project_files() {
         $project_id = $this->input->get('foreign_id');
-        $files = $this->Main_Model->get_files('projects', $project_id);
+        $origin = $this->input->get('origin');
+        $files = $this->Main_Model->get_files($origin, $project_id);
         echo json_encode($files);
     }
 
@@ -169,7 +170,6 @@ class MainController extends CI_Controller {
             echo json_encode(['status' => 'error', 'message' => 'Failed to delete file']);
         }
     }
-
 
 
     function handle_skills()
@@ -254,32 +254,32 @@ class MainController extends CI_Controller {
 
     public function contact_send_email($data) {
         //not sure if working
-        $config = Array (
-            'protocol' => 'smtp',
+        $this->load->library('email');
+        $config = array(
+            'protocol'  => 'smtp',
             'smtp_host' => 'smtp.gmail.com',
-            'smtp_port' => 465,
-            'smtp_user' => 'xxx',
-            'smtp_pass' => 'xxx',
+            'smtp_port' => 587,
+            'smtp_user' => 'hannin.arts@gmail.com',
+            'smtp_pass' => 'ucvyuzibcfhjrjwh ', 
             'mailtype'  => 'html',
-            'charset'   => 'iso-8859-1'
+            'charset'   => 'utf-8',
+            'newline'   => "\r\n",
+            'smtp_crypto' => 'tls',
+            'wordwrap' => TRUE
         );
-
-        $this->load->library('email', $config);
-        $this->email->from('your@example.com', 'Your Name');
-        $this->email->to('someone@example.com');
-        $this->email->cc('another@another-example.com');
-        $this->email->bcc('them@their-example.com');
-
-        $this->email->subject('Email Test');
-        $this->email->message('Testing the email class.');
-
-        $result = $this->email->send();
+        $this->email->initialize($config); 
 
 
-        // Set to, from, message, etc.
-                
+        $this->email->from($data['contact_email'], $data['contact_name']);
+        $this->email->to('hannin.arts@gmail.com');
+        $this->email->subject($data['contact_subject']);
+        $this->email->message($data['contact_message']);
+
+        if ($this->email->send()) {
+            echo "✅ Test email sent successfully!";
+        } else {
+            echo "❌ Failed to send email:<br>";
+            echo $this->email->print_debugger();
+        }
     }
-
-   
-
 }
