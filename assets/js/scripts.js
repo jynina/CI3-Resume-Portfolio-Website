@@ -1,6 +1,6 @@
 //constants
 Dropzone.autoDiscover = false;
-
+// https://www.madebynf.com/journal/neutral-color-palette-inspiration
 $(document).ready(function () {
 
 	Splide.defaults = {
