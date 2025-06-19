@@ -1,3 +1,5 @@
+
+
 <div class="container mt-5">
         <h1 class="text-center mb-5">Contact</h1>
     <div>
@@ -16,7 +18,7 @@
             </div>
             <div class="mb-3">
                 <label for="message" class="form-label">Message</label>
-                <textarea class="form-control" id="inputMessage" rows="10"></textarea>
+                <div id="inputMessage"></div>
             </div>
             <button type="button" class="btn btn-primary btn-submit-contact">Submit</button>
         </form>

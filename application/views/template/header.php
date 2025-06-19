@@ -27,7 +27,11 @@
 	<script src="<?= base_url()?>assets/js/NavOnScroll.min.js"></script>
 	<script src="<?= base_url()?>assets/js/jquery.waypoints.js"></script>
 	<script src="<?= base_url()?>assets/js/jquery.waypoints.min.js"></script>
+		<script src="<?= base_url()?>assets/js/particles.js"></script>
+	<script src="<?= base_url()?>assets/js/particles.min.js"></script>
 	<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+	<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 </head>
 <body>
 	<div class="container-fluid">

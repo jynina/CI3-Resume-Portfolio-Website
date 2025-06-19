@@ -274,12 +274,5 @@ class MainController extends CI_Controller {
         $this->email->to('hannin.arts@gmail.com');
         $this->email->subject($data['contact_subject']);
         $this->email->message($data['contact_message']);
-
-        if ($this->email->send()) {
-            echo "✅ Test email sent successfully!";
-        } else {
-            echo "❌ Failed to send email:<br>";
-            echo $this->email->print_debugger();
-        }
     }
 }

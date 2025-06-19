@@ -29,6 +29,7 @@ $(document).ready(() => {
     };
 
     
+    
 
     var waypoint = new Waypoint({
     element: document.getElementById('basic-waypoint'),
@@ -53,7 +54,7 @@ $(document).ready(() => {
             progressStartValue++;
 
             progressValue.text(`${progressStartValue}%`);
-            circularProgress.css('background', `conic-gradient(rgb(186, 248, 248) ${progressStartValue * 3.6}deg, #ededed 0deg)`);
+            circularProgress.css('background', `conic-gradient(#A5998D ${progressStartValue * 3.6}deg, #ededed 0deg)`);
 
             if (progressStartValue >= progressEndValue) {
                 clearInterval(progress);
@@ -81,5 +82,30 @@ $(document).ready(() => {
             delete activeSlide.dataset.active
         })
     })
+
+    function isScrolledIntoView(elem){
+        var docViewTop = $(window).scrollTop();
+        var docViewBottom = docViewTop + $(window).height();
+
+        var elemTop = $(elem).offset().top;
+        var elemBottom = elemTop + $(elem).height();
+
+        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop))
+    }
+
+    function refreshIndicators() {
+        $('.nav-item').each(function (){
+            if(isScrolledIntoView($('#' + $(this).attr('data-nav')))){
+                $(this).addClass('active');
+                console.log(this)
+            }else{
+                $(this).removeClass('active');
+                console.log("not in view ")
+            }
+        })
+    }
+    refreshIndicators();
+
+    $(window).bind('scroll', refreshIndicators);
 });
   

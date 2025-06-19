@@ -39,7 +39,7 @@
         <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
           <!-- Content -->
           <h6 class="text-uppercase fw-bold mb-4">
-            <i class="fas fa-gem"></i>Janina Kwenn Patinio Gacelos
+            <i class="fas fa-gem"></i>Janina Kwenn Gacelos
           </h6>
           <p>
             Thank you for taking the time to look at my portfolio. Do not hesistate to contact me! ( ദ്ദി ˙ᗜ˙ )
@@ -66,26 +66,6 @@
         </div>
         <!-- Grid column -->
 
-        <!-- Grid column -->
-        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-
-          <!-- <h6 class="text-uppercase fw-bold mb-4">
-            
-          </h6>
-          <p>
-            <a href="#!" class="text-reset">Pricing</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Settings</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Orders</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Help</a>
-          </p> -->
-        </div>
-        <!-- Grid column -->
 
         <!-- Grid column -->
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">

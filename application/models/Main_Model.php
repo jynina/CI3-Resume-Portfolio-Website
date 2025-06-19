@@ -27,7 +27,7 @@ class Main_Model extends CI_Model{
             'education'     => $this->db->get_where('tbl_education', ['status' => 1, 'is_active' => 1])->result(),
             'experience'    => $this->db->get_where('tbl_exp', ['status' => 1, 'is_active' => 1])->result(),
             'files'         => $this->db->get_where('tbl_files', ['is_active' => 1])->result(),
-            'personal_info' => $this->db->get_where('tbl_personal_info', ['status' => 1])->result(),
+            'personal_info' => $this->db->order_by('created_at', 'DESC')->get_where('tbl_personal_info', ['status' => 1])->result(),
             'resume'        => $this->db->get_where('tbl_resume', ['status' => 1,'is_active' => 1])->result(),
             'projects'      => $this->db->get_where('tbl_projects', ['status' => 1, 'is_active' => 1])->result(),
             'skills'        => $this->db->get_where('tbl_skills', ['status' => 1, 'is_active' => 1])->result(),
@@ -69,6 +69,10 @@ class Main_Model extends CI_Model{
             return $this->db->delete('tbl_files');
         }
         return false;
+    }
+
+    public function insert_logs(){
+        
     }
 }
 
