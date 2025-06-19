@@ -1,7 +1,7 @@
 //constants
 Dropzone.autoDiscover = false;
 // https://www.madebynf.com/journal/neutral-color-palette-inspiration
-$(document).ready(function () {
+$(document).ready( function () {
 
 	Splide.defaults = {
 		type: 'loop'
@@ -488,7 +488,7 @@ $(document).ready(function () {
 
 			skills.forEach(skill => {
 			$('.div-skills').append(`
-			<div class="skill-container d-flex col-xs-12 col-lg-3 col-md-3 ms-xs-5 ps-xs-5 my-xs-3 text-center ms-4" data-aos="fade-up" >
+			<div class="skill-container d-flex col-xs-12 col-lg-3 col-md-3 ms-xs-5 ps-xs-5 my-5 text-center ms-4" data-aos="fade-up" >
 				<div class="circular-progress">
 				<div class="d-block">
 					<span class="progress-skill-name">${skill.skill_name}</span>

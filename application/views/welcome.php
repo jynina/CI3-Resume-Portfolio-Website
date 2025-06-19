@@ -17,7 +17,7 @@
         <div class="d-flex div-about-me justify-content-end section-spacing" id="about-page"></div>
         <hr>
           <h1 class="circle-spacing text-center mt-5" id="skills-page" data-aos="fade-up" data-aos-duration="800">SKILLS</h1>
-        <div class="div-skills d-xl-flex d-lg-flex d-sm-inline ms-5 py-5 justify-content-center section-spacing"></div>
+        <div class="div-skills row d-xl-flex d-lg-flex d-sm-inline ms-5 py-5 justify-content-center section-spacing"></div>
         <hr>
         <h1 class="circle-spacing text-center mt-5" id="education-page" data-aos="fade-up" data-aos-duration="800">EDUCATION</h1>
         <div class="div-education my-5 section-spacing text-center"></div>
