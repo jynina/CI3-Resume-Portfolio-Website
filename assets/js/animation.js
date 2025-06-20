@@ -1,42 +1,18 @@
 
 
 $(document).ready(() => {
-    hide_on_scroll({
-        nav_id               : '',      // you must specify this for plugin to work
-        nav_offset           : 200,     // after how much y-scroll, nav should hide onscroll down
-        nav_position         : 'top',   // you want to see nav bar at 'top' or 'bottom', default 'top'
-        hide_onscroll_mobile : false,   // disables hide-onscroll for mobile, you can set it to true
-        mobile_width         : 576
-    });
-        
-    const divs = document.querySelectorAll("div");
-    const navLi = document.querySelectorAll("nav .navbar-collapse ul li");
-    window.onscroll = () => {
-    var current = "";
 
-    divs.forEach((div) => {
-        const divTop = div.offsetTop;
-        if (pageYOffset >= divTop - 60) {
-        current = div.getAttribute("id"); }
-    });
-
-    navLi.forEach((li) => {
-        li.classList.remove("active");
-        if (li.classList.contains(current)) {
-        li.classList.add("active");
-        }
-    });
-    };
-
-    
-    
-
-    var waypoint = new Waypoint({
-    element: document.getElementById('basic-waypoint'),
-    handler: function() {
-        notify('Basic waypoint triggered')
-    }
+    const scrollSpy = new bootstrap.ScrollSpy(document.body, {
+    target: '#navbar-main'
     })
+
+    var typed = new Typed('#typed', {
+        stringsElement: '.typed-strings',
+        typeSpeed: 50,
+        backSpeed: 20,
+        loop: true
+    });
+
 
 
 
@@ -83,29 +59,32 @@ $(document).ready(() => {
         })
     })
 
-    function isScrolledIntoView(elem){
-        var docViewTop = $(window).scrollTop();
-        var docViewBottom = docViewTop + $(window).height();
+    // function isScrolledIntoView(elem){
+    //     var docViewTop = $(window).scrollTop();
+    //     var docViewBottom = docViewTop + $(window).height();
 
-        var elemTop = $(elem).offset().top;
-        var elemBottom = elemTop + $(elem).height();
+    //     console.log(docViewTop, docViewBottom);
 
-        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop))
-    }
+    //     var elemTop = $(elem).offset().top;
+    //     var elemBottom = elemTop + $(elem).height();
 
-    function refreshIndicators() {
-        $('.nav-item').each(function (){
-            if(isScrolledIntoView($('#' + $(this).attr('data-nav')))){
-                $(this).addClass('active');
-                console.log(this)
-            }else{
-                $(this).removeClass('active');
-                console.log("not in view ")
-            }
-        })
-    }
-    refreshIndicators();
+    //     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop))
+    // }
 
-    $(window).bind('scroll', refreshIndicators);
+    // function refreshIndicators() {
+    //     $('.nav-item').each(function (){
+    //         if(isScrolledIntoView($('#' + $(this).attr('data-nav')))){
+    //             $(this).addClass('active');
+    //             console.log(this)
+    //         }else{
+    //             $(this).removeClass('active');
+    //             console.log("not in view ")
+    //         }
+    //     })
+    // }
+    // refreshIndicators();
+
+    // $(window).bind('scroll', refreshIndicators);
+
 });
   

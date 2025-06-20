@@ -11,6 +11,10 @@
                     <input type="text" class="form-control" id="inputLevel" required>
                 </div>
                 <div class="mb-3">
+                    <label for="name" class="form-label">Course Name</label>
+                    <input type="text" class="form-control" id="inputCourseName" required>
+                </div>
+                <div class="mb-3">
                     <label for="name" class="form-label">Academic Year</label>
                     <input type="text" class="form-control" id="inputAcadYear" required>
                 </div>
@@ -76,6 +80,10 @@
             <div class="mb-3">
                 <label for="name" class="form-label">Course/Education Level</label>
                 <input type="text" class="form-control" id="editLevel" required>
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Course Name</label>
+                <input type="text" class="form-control" id="editCourseName" required>
             </div>
             <div class="mb-3">
                 <label for="name" class="form-label">Academic Year</label>

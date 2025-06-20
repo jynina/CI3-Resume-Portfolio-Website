@@ -3,11 +3,13 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	  <link rel="icon" type="image/x-icon" href="<?=base_url()?>/upload/pedro.png">
+	  <link rel="icon" type="image/x-icon" href="<?=base_url()?>/upload/resume_logo1.png">
 	<title>Kwenny</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/styles.css">
+    <!-- <link rel="stylesheet" href="<?=base_url()?>assets/css/style.scss -->
+    <!-- <link rel="stylesheet" href="<?=base_url()?>assets/css/style.css"> -->
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/loading-bar.css">
 	<link rel="stylesheet" href="<?=base_url()?>assets/css/loading-bar.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
@@ -21,38 +23,28 @@
 	<link href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css " rel="stylesheet">
 	<script src="<?= base_url()?>assets/js/loading-bar.js"></script>
 	<script src="<?= base_url()?>assets/js/scripts.js"></script>
+    <!-- <script src="<?= base_url()?>assets/js/main.js"></script> -->
 	<script src="<?= base_url()?>assets/js/animation.js"></script>
 	<script src="<?= base_url()?>assets/js/loading-bar.min.js"></script>
 	<script src="<?= base_url()?>assets/js/NavOnScroll.js"></script>
 	<script src="<?= base_url()?>assets/js/NavOnScroll.min.js"></script>
 	<script src="<?= base_url()?>assets/js/jquery.waypoints.js"></script>
 	<script src="<?= base_url()?>assets/js/jquery.waypoints.min.js"></script>
-		<script src="<?= base_url()?>assets/js/particles.js"></script>
+    <script src="<?= base_url()?>assets/js/particles.js"></script>
 	<script src="<?= base_url()?>assets/js/particles.min.js"></script>
 	<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 	<link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
 	<script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+	<script src="https://kit.fontawesome.com/6009e58553.js" crossorigin="anonymous"></script>
+	<script src=" https://cdn.jsdelivr.net/npm/animejs@4.0.2/lib/anime.umd.min.js "></script>
+    <script src=" https://cdn.jsdelivr.net/npm/vertical-timeline@2.0.0/assets/js/main.min.js "></script>
+    <link href=" https://cdn.jsdelivr.net/npm/vertical-timeline@2.0.0/assets/css/style.min.css " rel="stylesheet">
 </head>
-<body>
+<body data-bs-spy="scroll" data-bs-target=".navbar-main" data-bs-offset="600" class="scrollspy" tabindex="0">
 	<div class="container-fluid">
 <input type="text" value="<?= base_url()?>" id="base_url" hidden>
 <script>
 
-	VANTA.FOG({
-    el: "#client-page",
-    mouseControls: true,
-    touchControls: true,
-    gyroControls: false,
-    minHeight: 200.00,
-    minWidth: 200.00,
-    highlightColor: 0xbfe6ff,
-    midtoneColor: 0xdafffc,
-    lowlightColor: 0xa3daeb,
-    baseColor: 0xffffff,
-    blurFactor: 0.90,
-    speed: 4.40,
-    zoom: 1.50
-    })
 
 </script>
 

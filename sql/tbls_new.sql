@@ -33,7 +33,11 @@ CREATE TABLE `tbl_contact` (
 
 /*Data for the table `tbl_contact` */
 
+LOCK TABLES `tbl_contact` WRITE;
+
 insert  into `tbl_contact`(`id`,`contact_name`,`contact_email`,`contact_subject`,`contact_message`,`created_at`,`status`) values (4,'CAmeron','cameron@email.com','TEST CXONTACT','JKASHDKJAHSKDJHAKSJDHAKJS HKASBDjhCBASIC IAd','2025-06-14 12:27:40',1),(5,'asdasdad','adadas','dasda','sdasdasdasd','2025-06-14 12:28:24',1),(6,'Testing Email','Test@email.com','Testing 123','Lorem Ipsum Dolor sit amet','2025-06-18 18:45:31',1),(7,'Janina Kwenn P. Gacelos','edu.gacelos@gmail.com','Official Job Offer from [company]','Dear [Candidate\'s First Name],\r\n\r\nWe are pleased to offer you the position of [Job Title] at [Company Name]. After reviewing your qualifications and speaking with you during the interview process, we are confident that you will be a valuable addition to our team.\r\n\r\nPosition: [Job Title]\r\nStart Date: [Proposed Start Date]\r\nSalary: [Offered Salary] per [year/month/hour], payable [bi-weekly/monthly/etc.]\r\nLocation: [Work Location or indicate remote]\r\nReporting to: [Supervisor\'s Name & Title]\r\n\r\nIn this role, you will be responsible for [brief summary of role responsibilities]. We believe your skills and experience will contribute significantly to our ongoing success.\r\n\r\nAttached to this email, you’ll find the formal offer letter outlining the terms and conditions of your employment. Please review it carefully and let us know if you have any questions. To accept the offer, kindly sign and return the letter by [Response Deadline, e.g., June 24, 2025].\r\n\r\nWe’re excited about the possibility of you joining our team and look forward to your response.\r\n\r\nWarm regards,\r\n[Your Full Name]\r\n[Your Job Title]\r\n[Company Name]\r\n[Email Address]\r\n[Phone Number]','2025-06-19 12:34:46',1);
+
+UNLOCK TABLES;
 
 /*Table structure for table `tbl_education` */
 
@@ -46,6 +50,7 @@ CREATE TABLE `tbl_education` (
   `acad_year` varchar(20) DEFAULT NULL,
   `institution_desc` varchar(255) DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp(),
+  `course_name` varchar(255) DEFAULT NULL,
   `status` int(11) DEFAULT 1,
   `is_active` int(11) DEFAULT 1,
   PRIMARY KEY (`id`)
@@ -53,7 +58,11 @@ CREATE TABLE `tbl_education` (
 
 /*Data for the table `tbl_education` */
 
-insert  into `tbl_education`(`id`,`institution_name`,`education_level`,`acad_year`,`institution_desc`,`created_at`,`status`,`is_active`) values (4,'Polytechnic University of the Philippines','Bachelor of Science in Information Technology','Year graduated: 2025','asdadasd','2025-06-14 12:27:16',1,1),(21,'Ebenezer Christian Academy, Inc.','High School','Year graduated: 2020','','2025-06-16 11:47:29',1,0),(22,'edasd','edads','dasd','edasd','2025-06-16 11:55:05',0,0),(23,'bnmbnmbm','bnmbnmbm','smbnmbnm','bnmbnmbnm','2025-06-16 11:55:31',0,0),(24,'aaa','aaa','aaa','aaa','2025-06-16 11:59:50',0,0),(25,'d','d','d','d','2025-06-17 08:00:20',0,0),(26,'att','att','att','att','2025-06-17 08:21:14',0,0);
+LOCK TABLES `tbl_education` WRITE;
+
+insert  into `tbl_education`(`id`,`institution_name`,`education_level`,`acad_year`,`institution_desc`,`created_at`,`course_name`,`status`,`is_active`) values (4,'Polytechnic University of the Philippines','Bachelor of Science in Information Technology','Year graduated: 2025','asdadasd','2025-06-14 12:27:16',NULL,1,1),(21,'Ebenezer Christian Academy, Inc.','High School','Year graduated: 2020','','2025-06-16 11:47:29',NULL,1,1),(22,'edasd','edads','dasd','edasd','2025-06-16 11:55:05',NULL,0,0),(23,'bnmbnmbm','bnmbnmbm','smbnmbnm','bnmbnmbnm','2025-06-16 11:55:31',NULL,0,0),(24,'aaa','aaa','aaa','aaa','2025-06-16 11:59:50',NULL,0,0),(25,'d','d','d','d','2025-06-17 08:00:20',NULL,0,0),(26,'att','att','att','att','2025-06-17 08:21:14',NULL,0,0);
+
+UNLOCK TABLES;
 
 /*Table structure for table `tbl_events` */
 
@@ -70,7 +79,11 @@ CREATE TABLE `tbl_events` (
 
 /*Data for the table `tbl_events` */
 
+LOCK TABLES `tbl_events` WRITE;
+
 insert  into `tbl_events`(`id`,`event_name`,`event_desc`,`status`,`created_at`) values (1,'Insert Data',NULL,1,'2025-06-19 07:03:41'),(2,'Update Data',NULL,1,'2025-06-19 07:03:51'),(3,'Delete Data',NULL,1,'2025-06-19 07:04:21');
+
+UNLOCK TABLES;
 
 /*Table structure for table `tbl_exp` */
 
@@ -90,7 +103,11 @@ CREATE TABLE `tbl_exp` (
 
 /*Data for the table `tbl_exp` */
 
+LOCK TABLES `tbl_exp` WRITE;
+
 insert  into `tbl_exp`(`id`,`status`,`created_at`,`professional_title`,`company_name`,`prof_year`,`company_desc`,`is_active`) values (3,1,'2025-06-14 12:26:01','Intern','Kuga Corp','March - June 2025','Assisted in executing functional, regression, and exploratory tests on software applications to ensure they met quality standards.\r\n\r\nParticipated in the creation and execution of test cases based on product requirements and user stories.',1);
+
+UNLOCK TABLES;
 
 /*Table structure for table `tbl_files` */
 
@@ -106,11 +123,15 @@ CREATE TABLE `tbl_files` (
   `is_active` int(11) DEFAULT 1,
   `foreign_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tbl_files` */
 
-insert  into `tbl_files`(`id`,`file_name`,`file_path`,`file_type`,`created_at`,`origin`,`is_active`,`foreign_id`) values (12,'01de3e6b-f32e-469a-b075-da45adf6cd08.jpg','upload/01de3e6b-f32e-469a-b075-da45adf6cd08.jpg','image/jpeg','2025-06-14 20:41:43','projects',1,NULL),(13,'1da78ccf-795c-495c-b516-36a5992491c6.jpg','upload/1da78ccf-795c-495c-b516-36a5992491c6.jpg','image/jpeg','2025-06-14 20:41:43','projects',1,NULL),(14,'4889a39d-8dc9-400f-bb9c-b809ccacdb5a.jpg','upload\\4889a39d-8dc9-400f-bb9c-b809ccacdb5a.jpg','image/jpeg','2025-06-14 20:46:32','projects',1,0),(15,'d5e3f8d9-6cc8-476b-92cd-ca4583839182.jpg','upload\\d5e3f8d9-6cc8-476b-92cd-ca4583839182.jpg','image/jpeg','2025-06-14 20:46:32','projects',1,0),(16,'8509dda5-1367-481a-bc67-a4e539a4fe9f.jpg','upload\\8509dda5-1367-481a-bc67-a4e539a4fe9f.jpg','image/jpeg','2025-06-14 20:50:12','projects',1,0),(17,'5ba3f3a0-ddfb-4f3a-852f-d26cd13370bb.jpg','upload\\5ba3f3a0-ddfb-4f3a-852f-d26cd13370bb.jpg','image/jpeg','2025-06-14 20:50:12','projects',1,0),(18,'0715ec0d-76e2-45d9-8ab3-8f5ddaadbb24.jpg','upload\\0715ec0d-76e2-45d9-8ab3-8f5ddaadbb24.jpg','image/jpeg','2025-06-14 20:57:26','projects',1,0),(19,'82df69a9-7761-4456-8770-57e0657c57ff.jpg','upload\\82df69a9-7761-4456-8770-57e0657c57ff.jpg','image/jpeg','2025-06-14 20:57:26','projects',1,0),(20,'82df69a9-7761-4456-8770-57e0657c57ff.jpg','upload\\82df69a9-7761-4456-8770-57e0657c57ff.jpg','image/jpeg','2025-06-14 21:00:15','projects',1,0),(21,'8509dda5-1367-481a-bc67-a4e539a4fe9f.jpg','upload\\8509dda5-1367-481a-bc67-a4e539a4fe9f.jpg','image/jpeg','2025-06-14 21:00:15','projects',1,0),(22,'0715ec0d-76e2-45d9-8ab3-8f5ddaadbb24.jpg','upload\\0715ec0d-76e2-45d9-8ab3-8f5ddaadbb24.jpg','image/jpeg','2025-06-14 21:03:56','projects',1,9),(23,'82df69a9-7761-4456-8770-57e0657c57ff.jpg','upload\\82df69a9-7761-4456-8770-57e0657c57ff.jpg','image/jpeg','2025-06-14 21:03:56','projects',1,9),(24,'cry.png','upload\\cry.png','image/png','2025-06-16 07:13:33','projects',1,10),(25,'blush.png','upload\\blush.png','image/png','2025-06-16 07:13:33','projects',1,10),(26,'cry.png','upload\\cry.png','image/png','2025-06-16 07:40:43','projects',1,11),(27,'blush.png','upload\\blush.png','image/png','2025-06-16 07:40:43','projects',1,11),(30,'cherry.jpg','upload\\cherry.jpg','image/jpeg','2025-06-17 07:12:56','projects',1,15),(31,'peach.jpg','upload\\peach.jpg','image/jpeg','2025-06-17 07:12:56','projects',1,15),(32,'cry.png','upload\\cry.png','image/png','2025-06-18 06:35:04','projects',1,3),(33,'blush.png','upload\\blush.png','image/png','2025-06-18 06:35:04','projects',1,3),(34,'highres.png','upload\\highres.png','image/png','2025-06-18 06:35:51','projects',1,14),(35,'orange.jpg','upload\\orange.jpg','image/jpeg','2025-06-18 06:35:51','projects',1,14),(36,'blush.png','upload\\blush.png','image/png','2025-06-18 07:34:43','personal_info',1,18),(37,'heart.png','upload\\heart.png','image/png','2025-06-18 08:52:03','projects',1,19),(38,'test.jpg','upload\\test.jpg','image/jpeg','2025-06-18 08:52:03','projects',1,19),(39,'Logo-13Kuga.png','upload\\Logo-13Kuga.png','image/png','2025-06-18 08:59:19','projects',1,19),(40,'apple.jpg','upload\\apple.jpg','image/jpeg','2025-06-18 09:09:01','projects',1,20),(41,'test.jpg','upload\\test.jpg','image/jpeg','2025-06-18 09:09:01','projects',1,20),(42,'bomb.webp','upload\\bomb.webp','image/webp','2025-06-18 09:09:20','projects',1,20),(43,'wallhaven-qd6ew7.jpg','upload\\wallhaven-qd6ew7.jpg','image/jpeg','2025-06-18 09:09:27','projects',1,20),(44,'strawberries.jpg','upload\\strawberries.jpg','image/jpeg','2025-06-18 09:15:20','projects',1,21),(45,'banana.jpg','upload\\banana.jpg','image/jpeg','2025-06-18 09:15:20','projects',1,21),(46,'output-11.pdf','upload\\output-11.pdf','application/pdf','2025-06-18 11:52:08','resume',1,1),(47,'Logo-13Kuga.webp','upload\\Logo-13Kuga.webp','image/webp','2025-06-18 11:55:03','personal_info',1,9),(48,'output-11.pdf','upload\\output-11.pdf','application/pdf','2025-06-18 12:20:36','resume',1,2),(49,'output-3.pdf','upload\\output-3.pdf','application/pdf','2025-06-18 12:39:48','resume',1,3),(50,'output-2.pdf','upload\\output-2.pdf','application/pdf','2025-06-18 12:40:33','resume',1,4),(53,'Untitled.png','upload\\Untitled.png','image/png','2025-06-19 06:43:03','personal_info',1,0),(54,'blush.png','upload\\blush.png','image/png','2025-06-19 06:46:57','personal_info',1,0),(55,'OIP.jpg','upload\\OIP.jpg','image/jpeg','2025-06-19 06:49:12','personal_info',1,0),(56,'wallhaven-qd6ew7.jpg','upload\\wallhaven-qd6ew7.jpg','image/jpeg','2025-06-19 06:51:16','personal_info',1,0),(57,'apple.jpg','upload\\apple.jpg','image/jpeg','2025-06-19 06:54:55','personal_info',1,22),(58,'TEST-Safety-policy-statement.pdf','upload\\TEST-Safety-policy-statement.pdf','application/pdf','2025-06-19 06:56:14','resume',1,5);
+LOCK TABLES `tbl_files` WRITE;
+
+insert  into `tbl_files`(`id`,`file_name`,`file_path`,`file_type`,`created_at`,`origin`,`is_active`,`foreign_id`) values (12,'01de3e6b-f32e-469a-b075-da45adf6cd08.jpg','upload/01de3e6b-f32e-469a-b075-da45adf6cd08.jpg','image/jpeg','2025-06-14 20:41:43','projects',1,NULL),(13,'1da78ccf-795c-495c-b516-36a5992491c6.jpg','upload/1da78ccf-795c-495c-b516-36a5992491c6.jpg','image/jpeg','2025-06-14 20:41:43','projects',1,NULL),(14,'4889a39d-8dc9-400f-bb9c-b809ccacdb5a.jpg','upload\\4889a39d-8dc9-400f-bb9c-b809ccacdb5a.jpg','image/jpeg','2025-06-14 20:46:32','projects',1,0),(15,'d5e3f8d9-6cc8-476b-92cd-ca4583839182.jpg','upload\\d5e3f8d9-6cc8-476b-92cd-ca4583839182.jpg','image/jpeg','2025-06-14 20:46:32','projects',1,0),(16,'8509dda5-1367-481a-bc67-a4e539a4fe9f.jpg','upload\\8509dda5-1367-481a-bc67-a4e539a4fe9f.jpg','image/jpeg','2025-06-14 20:50:12','projects',1,0),(17,'5ba3f3a0-ddfb-4f3a-852f-d26cd13370bb.jpg','upload\\5ba3f3a0-ddfb-4f3a-852f-d26cd13370bb.jpg','image/jpeg','2025-06-14 20:50:12','projects',1,0),(18,'0715ec0d-76e2-45d9-8ab3-8f5ddaadbb24.jpg','upload\\0715ec0d-76e2-45d9-8ab3-8f5ddaadbb24.jpg','image/jpeg','2025-06-14 20:57:26','projects',1,0),(19,'82df69a9-7761-4456-8770-57e0657c57ff.jpg','upload\\82df69a9-7761-4456-8770-57e0657c57ff.jpg','image/jpeg','2025-06-14 20:57:26','projects',1,0),(20,'82df69a9-7761-4456-8770-57e0657c57ff.jpg','upload\\82df69a9-7761-4456-8770-57e0657c57ff.jpg','image/jpeg','2025-06-14 21:00:15','projects',1,0),(21,'8509dda5-1367-481a-bc67-a4e539a4fe9f.jpg','upload\\8509dda5-1367-481a-bc67-a4e539a4fe9f.jpg','image/jpeg','2025-06-14 21:00:15','projects',1,0),(22,'0715ec0d-76e2-45d9-8ab3-8f5ddaadbb24.jpg','upload\\0715ec0d-76e2-45d9-8ab3-8f5ddaadbb24.jpg','image/jpeg','2025-06-14 21:03:56','projects',1,9),(23,'82df69a9-7761-4456-8770-57e0657c57ff.jpg','upload\\82df69a9-7761-4456-8770-57e0657c57ff.jpg','image/jpeg','2025-06-14 21:03:56','projects',1,9),(24,'cry.png','upload\\cry.png','image/png','2025-06-16 07:13:33','projects',1,10),(25,'blush.png','upload\\blush.png','image/png','2025-06-16 07:13:33','projects',1,10),(26,'cry.png','upload\\cry.png','image/png','2025-06-16 07:40:43','projects',1,11),(27,'blush.png','upload\\blush.png','image/png','2025-06-16 07:40:43','projects',1,11),(30,'cherry.jpg','upload\\cherry.jpg','image/jpeg','2025-06-17 07:12:56','projects',1,15),(31,'peach.jpg','upload\\peach.jpg','image/jpeg','2025-06-17 07:12:56','projects',1,15),(32,'cry.png','upload\\cry.png','image/png','2025-06-18 06:35:04','projects',1,3),(33,'blush.png','upload\\blush.png','image/png','2025-06-18 06:35:04','projects',1,3),(34,'highres.png','upload\\highres.png','image/png','2025-06-18 06:35:51','projects',1,14),(35,'orange.jpg','upload\\orange.jpg','image/jpeg','2025-06-18 06:35:51','projects',1,14),(36,'blush.png','upload\\blush.png','image/png','2025-06-18 07:34:43','personal_info',1,18),(37,'heart.png','upload\\heart.png','image/png','2025-06-18 08:52:03','projects',1,19),(38,'test.jpg','upload\\test.jpg','image/jpeg','2025-06-18 08:52:03','projects',1,19),(39,'Logo-13Kuga.png','upload\\Logo-13Kuga.png','image/png','2025-06-18 08:59:19','projects',1,19),(40,'apple.jpg','upload\\apple.jpg','image/jpeg','2025-06-18 09:09:01','projects',1,20),(41,'test.jpg','upload\\test.jpg','image/jpeg','2025-06-18 09:09:01','projects',1,20),(42,'bomb.webp','upload\\bomb.webp','image/webp','2025-06-18 09:09:20','projects',1,20),(43,'wallhaven-qd6ew7.jpg','upload\\wallhaven-qd6ew7.jpg','image/jpeg','2025-06-18 09:09:27','projects',1,20),(44,'strawberries.jpg','upload\\strawberries.jpg','image/jpeg','2025-06-18 09:15:20','projects',1,21),(45,'banana.jpg','upload\\banana.jpg','image/jpeg','2025-06-18 09:15:20','projects',1,21),(46,'output-11.pdf','upload\\output-11.pdf','application/pdf','2025-06-18 11:52:08','resume',1,1),(47,'Logo-13Kuga.webp','upload\\Logo-13Kuga.webp','image/webp','2025-06-18 11:55:03','personal_info',1,9),(48,'output-11.pdf','upload\\output-11.pdf','application/pdf','2025-06-18 12:20:36','resume',1,2),(49,'output-3.pdf','upload\\output-3.pdf','application/pdf','2025-06-18 12:39:48','resume',1,3),(50,'output-2.pdf','upload\\output-2.pdf','application/pdf','2025-06-18 12:40:33','resume',1,4),(53,'Untitled.png','upload\\Untitled.png','image/png','2025-06-19 06:43:03','personal_info',1,0),(54,'blush.png','upload\\blush.png','image/png','2025-06-19 06:46:57','personal_info',1,0),(55,'OIP.jpg','upload\\OIP.jpg','image/jpeg','2025-06-19 06:49:12','personal_info',1,0),(56,'wallhaven-qd6ew7.jpg','upload\\wallhaven-qd6ew7.jpg','image/jpeg','2025-06-19 06:51:16','personal_info',1,0),(57,'apple.jpg','upload\\apple.jpg','image/jpeg','2025-06-19 06:54:55','personal_info',1,22),(58,'TEST-Safety-policy-statement.pdf','upload\\TEST-Safety-policy-statement.pdf','application/pdf','2025-06-19 06:56:14','resume',1,5),(59,'XKHtdO4_.png','upload\\XKHtdO4_.png','image/png','2025-06-20 13:49:43','personal_info',1,23);
+
+UNLOCK TABLES;
 
 /*Table structure for table `tbl_logs` */
 
@@ -127,6 +148,10 @@ CREATE TABLE `tbl_logs` (
 
 /*Data for the table `tbl_logs` */
 
+LOCK TABLES `tbl_logs` WRITE;
+
+UNLOCK TABLES;
+
 /*Table structure for table `tbl_personal_info` */
 
 DROP TABLE IF EXISTS `tbl_personal_info`;
@@ -139,11 +164,15 @@ CREATE TABLE `tbl_personal_info` (
   `status` int(11) DEFAULT 1,
   `professional_title` varchar(60) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tbl_personal_info` */
 
-insert  into `tbl_personal_info`(`id`,`name`,`introduction`,`created_at`,`status`,`professional_title`) values (4,'kwenn','hello','2025-06-14 12:24:44',1,'taong bahay'),(16,'testing','testing','2025-06-18 20:28:07',1,'testing'),(17,'Kwenn','Interested and passionate at Web Development; Curious and loves continuous learning. ','2025-06-19 06:40:41',1,'Fresh Graduate'),(19,'Kwenn','Interested and passionate at Web Development; Curious and loves continuous learning. Update','2025-06-19 06:46:57',1,'Fresh Graduate'),(20,'Kwenn','Interested and passionate at Web Development; Curious and loves continuous learning. Update','2025-06-19 06:49:11',1,'Fresh Graduate'),(21,'Kwenn','Interested and passionate at Web Development; Curious and loves continuous learning. Update','2025-06-19 06:51:16',1,'Fresh Graduate'),(22,'Kwenn','Interested and passionate at Web Development; Curious and loves continuous learning. Update','2025-06-19 06:54:55',1,'Fresh Graduate');
+LOCK TABLES `tbl_personal_info` WRITE;
+
+insert  into `tbl_personal_info`(`id`,`name`,`introduction`,`created_at`,`status`,`professional_title`) values (4,'kwenn','hello','2025-06-14 12:24:44',1,'taong bahay'),(16,'testing','testing','2025-06-18 20:28:07',1,'testing'),(17,'Kwenn','Interested and passionate at Web Development; Curious and loves continuous learning. ','2025-06-19 06:40:41',1,'Fresh Graduate'),(19,'Kwenn','Interested and passionate at Web Development; Curious and loves continuous learning. Update','2025-06-19 06:46:57',1,'Fresh Graduate'),(20,'Kwenn','Interested and passionate at Web Development; Curious and loves continuous learning. Update','2025-06-19 06:49:11',1,'Fresh Graduate'),(21,'Kwenn','Interested and passionate at Web Development; Curious and loves continuous learning. Update','2025-06-19 06:51:16',1,'Fresh Graduate'),(22,'Kwenn','Interested and passionate at Web Development; Curious and loves continuous learning. Update','2025-06-19 06:54:55',1,'Fresh Graduate'),(23,'Kwenn','Passionate about web development, I’m driven by curiosity and a commitment to continuous learning. I have hands-on experience with legacy frameworks, which has broadened my understanding of both established and modern technologies.','2025-06-20 13:49:43',1,'Fresh Graduate'),(24,'Kwenn','Passionate about web development, I’m driven by curiosity and a commitment to continuous learning. I have hands-on experience with legacy frameworks, which has broadened my understanding of both established and modern technologies.','2025-06-20 14:28:03',1,'Information Technology Graduate from Polytechnic University ');
+
+UNLOCK TABLES;
 
 /*Table structure for table `tbl_projects` */
 
@@ -163,7 +192,11 @@ CREATE TABLE `tbl_projects` (
 
 /*Data for the table `tbl_projects` */
 
+LOCK TABLES `tbl_projects` WRITE;
+
 insert  into `tbl_projects`(`id`,`status`,`created_at`,`project_name`,`project_role`,`project_tech`,`project_desc`,`is_active`) values (3,1,'2025-06-14 12:26:44','Inventrack','Backend Coder','HTML, CSS, JS, PHP, MySQL','hahahahahhaha',1),(4,0,'2025-06-14 20:41:43','asdasd','asdasd','asdasd','teadasd',1),(5,0,'2025-06-14 20:46:32','taeadasd','taetasdad','teasdasda','teadatead',1),(6,0,'2025-06-14 20:50:12','asdadad','asdadad','asdadadasd','asdadadad',1),(7,0,'2025-06-14 20:57:26','asdasdada','sdasdadadsa','sdasdasdasd','asdasdasdasd',1),(8,0,'2025-06-14 21:00:15','asdasdasda','sasdadasd','asdadasda','dasdasdasdasd',1),(9,0,'2025-06-14 21:03:56','asdadasd','asdasdasd','asdadad','asdasdasdasd',1),(10,0,'2025-06-16 07:13:33','test w/ images','test w/ images','test w/ images','test w/ images',1),(11,0,'2025-06-16 07:40:43','test','ttest','astat','afafasf',1),(12,0,'2025-06-16 14:13:36','dfsdfsdfsdf','sdfsdfsdf','sdfsdfsfs','dfsdfsdfsdfsdf',1),(13,0,'2025-06-16 14:33:18','test','test','test','test',1),(14,1,'2025-06-16 14:35:51','test','test','test','test',1),(15,1,'2025-06-17 07:12:56','adasdas','dasdaasd','adasdada','dasdasdasd',1),(16,0,'2025-06-17 14:19:31',NULL,NULL,NULL,NULL,0),(17,0,'2025-06-17 14:19:41',NULL,NULL,NULL,NULL,0),(18,0,'2025-06-18 07:34:43','undefined','undefined','undefined','undefined',1),(19,1,'2025-06-18 08:52:03','doublemint','doublemint','doublemint','doublemint',1),(20,1,'2025-06-18 09:09:01','test','test','test','test',1),(21,1,'2025-06-18 09:15:20','test 100','test 100','test 100','test 100',1);
+
+UNLOCK TABLES;
 
 /*Table structure for table `tbl_resume` */
 
@@ -181,7 +214,11 @@ CREATE TABLE `tbl_resume` (
 
 /*Data for the table `tbl_resume` */
 
+LOCK TABLES `tbl_resume` WRITE;
+
 insert  into `tbl_resume`(`id`,`resume_name`,`resume_desc`,`status`,`created_at`,`is_active`) values (5,'test','123456789',1,'2025-06-19 06:56:14',1);
+
+UNLOCK TABLES;
 
 /*Table structure for table `tbl_skills` */
 
@@ -200,7 +237,11 @@ CREATE TABLE `tbl_skills` (
 
 /*Data for the table `tbl_skills` */
 
+LOCK TABLES `tbl_skills` WRITE;
+
 insert  into `tbl_skills`(`id`,`skill_name`,`skill_progress`,`skill_desc`,`created_at`,`status`,`is_active`) values (4,'HTML','70','html','2025-06-14 12:25:23',1,1),(5,'testing','95','','2025-06-16 13:21:20',0,1),(6,'JQuery','50','jquery','2025-06-17 08:59:41',1,1),(7,'CSS3','70','','2025-06-17 09:01:20',1,1),(8,'Bootstrap 5','80','','2025-06-17 14:13:44',1,1);
+
+UNLOCK TABLES;
 
 /*Table structure for table `tbl_users` */
 
@@ -212,12 +253,19 @@ CREATE TABLE `tbl_users` (
   `password` varchar(60) DEFAULT NULL,
   `status` int(11) DEFAULT 1,
   `created_at` datetime DEFAULT current_timestamp(),
+  `initial_name` varchar(255) DEFAULT NULL,
+  `initial_position` varchar(255) DEFAULT NULL,
+  `initial_desc` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `tbl_users` */
 
-insert  into `tbl_users`(`id`,`username`,`password`,`status`,`created_at`) values (1,'admin','admin123',1,'2025-06-19 07:18:32');
+LOCK TABLES `tbl_users` WRITE;
+
+insert  into `tbl_users`(`id`,`username`,`password`,`status`,`created_at`,`initial_name`,`initial_position`,`initial_desc`) values (1,'admin','admin123',1,'2025-06-19 07:18:32',NULL,NULL,NULL);
+
+UNLOCK TABLES;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Alumni+Sans+SC:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Giga:wght@100..900&display=swap');
 
 
 hr{
@@ -15,6 +16,29 @@ body {
     font-family: "Lexend", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
+    position: relative;
+}
+
+.navbar {
+    font-family: "Lexend Giga", sans-serif;
+}
+
+
+.nav-logo{
+    color: #3A3A3A;
+    font-family: "Lexend Giga", sans-serif;
+    font-weight: 700;
+    font-size: 2vw;
+}
+
+.nav-left{
+}
+
+.nav-center{
+    
+}
+
+.nav-right{
 }
 
 #forms-container{
@@ -127,7 +151,6 @@ body {
 
 .circle-spacing{
     margin-top: 50px;
-    margin-bottom: 50px;
     margin-left: 50px;
     margin-right: 50px;
 }
@@ -136,6 +159,8 @@ body {
     margin-top: 150px;
     margin-bottom: 150px;
 }
+
+
 
 .circular-progress{
     position: relative;
@@ -146,6 +171,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    
 }
 
 .circular-progress::before{
@@ -194,5 +220,6 @@ body {
 .border-grey{
     border-color: #CED4DA;
 }
+
 
 

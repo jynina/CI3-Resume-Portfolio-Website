@@ -7,24 +7,7 @@
 
     <!-- Right -->
     <div>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-google"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-instagram"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fa-brands fa-linkedin"></i>
-      </a>
-      <a href="" class="me-4 text-reset">
-        <i class="fab fa-github"></i>
-      </a>
+      
     </div>
     <!-- Right -->
   </section>
@@ -71,9 +54,8 @@
         <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4 me-3">Contact</h6>
-          <p><i class="fas fa-home" style="color: white;"></i> San Jose Del Monte, Bulacan, Philippines</p>
+          <p></i>San Jose Del Monte, Bulacan, Philippines</p>
           <p>
-            <i class="fas fa-envelope"></i>
             jkg.janina@gmail.com
           </p>
           <!-- <p><i class="fas fa-phone"></i> +63 956 062 4023</p> -->
