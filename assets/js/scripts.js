@@ -468,7 +468,7 @@ $(document).ready( function () {
 		success: function (data) {
 			toastr.success('Ngaleng', 'Data successfully loaded')
 			var download_path;
-            var profile_img_path = 'upload/pedro.pngg'
+            var profile_img_path = 'upload/pedro.png'
 			var resume = data.resume[0];
 			var personal_info = data.personal_info[0];
 			var skills = data.skills;
@@ -583,7 +583,7 @@ $(document).ready( function () {
                     <div class="cd-timeline__content text-component">
                         <h2 data-aos="fade-up" data-aos-duration="900">${edu.institution_name}</h2>
                         <h3 class="context-subtitle" data-aos="fade-up" data-aos-duration="1000">${edu.education_level}</h3>
-						<h5 data-aos="fade-up" data-aos-duration="1200">course</h5>
+						<h5 data-aos="fade-up" data-aos-duration="1200">${edu.course_name}</h5>
                         <div class="flex justify-between items-center">
                         <span class="cd-timeline__date">${edu.acad_year}</span>
                         </div>
