@@ -24,7 +24,10 @@
                             <a class="nav-link" href="#education-page">Education</a>
                         </li>
                         <li class="nav-item" data-nav="contact">
-                            <a class="nav-link" href="#btn-contact">Contact</a>
+                            <a class="nav-link" href="#div-btn-contact">Contact</a>
+                        </li>
+                        <li class="nav-item" data-nav="contact">
+                            <a class="nav-link" href="<?= base_url()?>admin_dashboard">Edit</a>
                         </li>
                     </ul>
                 </div>

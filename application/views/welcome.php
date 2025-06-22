@@ -79,7 +79,7 @@
             </section> 
         </div>
         <hr>
-        <div class="div-btn-contact text-center" >
+        <div class="div-btn-contact text-center" id="btn-contact">
         <a href="<?= base_url()?>welcome_contact" class="btn btn-transparent border rounded btn-lg welcome-contact" style="">Contact Me :D</a>
         </div>
     </div>

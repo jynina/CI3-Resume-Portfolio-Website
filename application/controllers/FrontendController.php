@@ -11,19 +11,36 @@ class FrontendController extends CI_Controller{
         $this->load->view('template/footer');
     }
 
+    public function admin_dashboard()
+    {
+        $this->load->view('template/header', ['page' => '#']);
+		$this->load->view('admin/login');
+
+    }
+    
     public function about_admin()
     {
-        $this->load->view('template/header', ['page' => 'personal_info']);
-		$this->load->view('template/admin_nav');
-		$this->load->view('admin/about');
-		$this->load->view('template/footer');
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin_dashboard');
+        } else {
+
+            $this->load->view('template/header', ['page' => 'personal_info']);
+            $this->load->view('template/admin_nav');
+            $this->load->view('admin/about');
+            $this->load->view('template/footer');
+
+        }
     }
     public function resume_admin()
     {
-        $this->load->view('template/header', ['page' => 'resume']);
-		$this->load->view('template/admin_nav');
-		$this->load->view('admin/resume');
-		$this->load->view('template/footer');
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin_dashboard');
+        } else {
+            $this->load->view('template/header', ['page' => 'resume']);
+            $this->load->view('template/admin_nav');
+            $this->load->view('admin/resume');
+            $this->load->view('template/footer');
+        }
     }
 
     public function get_admin_info(){
@@ -33,59 +50,88 @@ class FrontendController extends CI_Controller{
 
     public function education_admin()
     {
-        $this->load->view('template/header', ['page' => 'education']);
-		$this->load->view('template/admin_nav');
-		$this->load->view('admin/education');
-		$this->load->view('template/footer');
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin_dashboard');
+        } else {
+
+            $this->load->view('template/header', ['page' => 'education']);
+            $this->load->view('template/admin_nav');
+            $this->load->view('admin/education');
+            $this->load->view('template/footer');
+
+        }
     }
 
     public function skills_admin()
     {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin_dashboard');
+        } else {
         $this->load->view('template/header', ['page' => 'skills']);
 		$this->load->view('template/admin_nav');
 		$this->load->view('admin/skills');
 		$this->load->view('template/footer');
+        }
     }
 
     public function contact_admin()
     {
-        $this->load->view('template/header');
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin_dashboard');
+        } else {
+        $this->load->view('template/header', ['page' => 'contact']);
 		$this->load->view('template/admin_nav');
 		$this->load->view('admin/contact');
 		$this->load->view('template/footer');
+        }
     }
 
     public function inbox_admin()
     {
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin_dashboard');
+        } else {
         $this->load->view('template/header', ['page' => 'contact']);
 		$this->load->view('template/admin_nav');
         $this->load->view('admin/inbox');
 		$this->load->view('template/footer');
-
+        }
     }
 
     public function experience_admin()
     {
-        $this->load->view('template/header', ['page' => 'exp']);
-		$this->load->view('template/admin_nav');
-        $this->load->view('admin/experience');
-		$this->load->view('template/footer'); 
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin_dashboard');
+        } else {
+            $this->load->view('template/header', ['page' => 'exp']);
+            $this->load->view('template/admin_nav');
+            $this->load->view('admin/experience');
+            $this->load->view('template/footer'); 
+        }
     }
 
     public function projects_admin()
     {
-        $this->load->view('template/header', ['page' => 'projects']);
-		$this->load->view('template/admin_nav');
-        $this->load->view('admin/projects');
-		$this->load->view('template/footer');
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin_dashboard');
+        } else {
+            $this->load->view('template/header', ['page' => 'projects']);
+            $this->load->view('template/admin_nav');
+            $this->load->view('admin/projects');
+            $this->load->view('template/footer');
+        }
 
     }
 
     public function welcome_contact()
     {
-        $this->load->view('template/header');
-        $this->load->view('welcome_contact');
-		$this->load->view('template/footer');
+        if (!$this->session->userdata('logged_in')) {
+            redirect('admin_dashboard');
+        } else {
+            $this->load->view('template/header');
+            $this->load->view('welcome_contact');
+            $this->load->view('template/footer');
+        }
     }
 
 }

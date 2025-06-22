@@ -3,10 +3,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Main_Model extends CI_Model{
 
-    public function insert_data($data, $table_name, $log_data)
+    public function insert_data($data, $table_name)
     {
         $this->db->insert($table_name, $data);
         if ($this->db->affected_rows() > 0) {
+            $this->insert_log(1,$this->db->insert_id(),$table);
             return $this->db->insert_id();
         } else {
             return false;
@@ -36,17 +37,37 @@ class Main_Model extends CI_Model{
 
     function update_active($table, $id, $is_active = 1){
         $this->db->where('id', $id);
-        return $this->db->update($table, ['is_active' => $is_active]);
+        $updated = $this->db->update($table, ['is_active' => $is_active]);
+    
+        if ($updated) {
+            $this->insert_log(2, $id, $table);
+        }
+    
+        return $updated;
     }
 
     function update_status($table, $id){
-        return $this->db->where('id', $id)
+        $updated = $this->db->where('id', $id)
                         ->update($table, ['status' => 0]);
+        $this->insert_log(2, $id, $table);
+        
+        if ($updated) {
+            $this->insert_log(2, $id, $table);
+        }
+    
+        return $updated;
     }
     
     function update_data($table, $id, $data){
         $this->db->where('id', $id);
-        return $this->db->update($table, $data);
+        $updated = $this->db->update($table, $data);
+        $this->insert_log(2, $id, $table);
+
+        if ($updated) {
+            $this->insert_log(2, $id, $table);
+        }
+    
+        return $updated;
     }
 
     public function get_files($origin, $foreign_id){
@@ -56,7 +77,8 @@ class Main_Model extends CI_Model{
                         ->result();
     }
 
-    public function delete_file_by_id($file_id){
+    public function delete_file_by_id($file_id, $table){
+        
         $this->db->where('id', $file_id);
         $file = $this->db->get('tbl_files')->row();
 
@@ -64,16 +86,38 @@ class Main_Model extends CI_Model{
             if (file_exists($file->file_path)) {
                 unlink($file->file_path);
             }
-
+            
             $this->db->where('id', $file_id);
-            return $this->db->delete('tbl_files');
+            $deleted = $this->db->delete('tbl_files');
+            $this->insert_log(3, $file_id, $table);
+            return $deleted;
         }
         return false;
     }
 
-    public function insert_logs(){
+    public function check_credentials($username, $password) {
         
+        $this->db->where('username', $username);
+        $this->db->where('password', $password);
+        $query = $this->db->get('tbl_users');
+
+        if ($query->num_rows() == 1) {
+            return $query->row();
+        } else {
+            return false;
+        }
     }
+
+    private function insert_log($event, $id, $table){
+        $data = array (
+            'event_id' => $event,
+            'item_id' => $id,
+            'tbl_origin' => $table
+        );
+            $this->db->insert('tbl_logs', $data);
+    }
+
+
 }
 
 ?>

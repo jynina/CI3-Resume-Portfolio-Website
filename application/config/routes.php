@@ -16,6 +16,8 @@ $route['experience_admin'] = 'FrontendController/experience_admin';
 $route['get_info'] = 'FrontendController/get_admin_info';
 $route['welcome_contact'] = 'FrontendController/welcome_contact';
 $route['resume_admin'] = 'FrontendController/resume_admin';
+$route['admin_dashboard'] = 'FrontendController/admin_dashboard';
+$route['logout_admin'] = 'MainController/logout_admin';
 
 //handle to database
 $route['upload_image'] = 'MainController/upload_files';
@@ -28,6 +30,7 @@ $route['handle_projects'] = 'MainController/handle_projects';
 $route['handle_exp'] = 'MainController/handle_exp';
 $route['update_active'] = 'MainController/update_active';
 $route['update_status'] = 'MainController/update_status';
+$route['handle_login'] = 'MainController/handle_login';
 
 //update to database
 $route['delete_file'] = 'MainController/delete_file';

@@ -34,8 +34,8 @@ $(document).ready( function () {
 			processData: false,
 			contentType: false,
 			success: function(){
-				location.reload()
 				toastr.success('Info has been sent', 'Nice');
+				location.reload();
 			},
 			error: function(){
 				toastr.error('May mali', 'Irror')
@@ -542,26 +542,38 @@ $(document).ready( function () {
 				</div>
 				`);
 
-				$('.skill-container').each(function () {
-					const container = $(this);
-					const circularProgress = container.find(".circular-progress");
-					const progressValue = container.find(".progress-value");
+				const observer = new IntersectionObserver((entries, observer) => {
+					entries.forEach(entry => {
+						if (entry.isIntersecting) {
+							const container = $(entry.target);
+							const circularProgress = container.find(".circular-progress");
+							const progressValue = container.find(".progress-value");
 
-					let progressStartValue = 0;
-					const progressEndValue = parseInt(progressValue.attr('data-progressvalue'));
-					const speed = 20;
+							let progressStartValue = 0;
+							const progressEndValue = parseInt(progressValue.attr('data-progressvalue'));
+							const speed = 20;
 
-					const progress = setInterval(() => {
-						progressStartValue++;
+							const progress = setInterval(() => {
+								progressStartValue++;
+								progressValue.text(`${progressStartValue}%`);
+								circularProgress.css('background', `conic-gradient(#A5998D ${progressStartValue * 3.6}deg, #ededed 0deg)`);
 
-						progressValue.text(`${progressStartValue}%`);
-						circularProgress.css('background', `conic-gradient(#A5998D ${progressStartValue * 3.6}deg, #ededed 0deg)`);
+								if (progressStartValue >= progressEndValue) {
+									clearInterval(progress);
+								}
+							}, speed);
 
-						if (progressStartValue >= progressEndValue) {
-							clearInterval(progress);
+							observer.unobserve(entry.target);
 						}
-					}, speed);
+					});
+				}, {
+					threshold: 0.5  // Adjust this if needed (50% of the element must be visible)
 				});
+
+				// Observe each skill-container
+				$('.skill-container').each(function () {
+					observer.observe(this);
+				  });
 			})
 			education.forEach(edu => {
 				// $('.div-education').append(
@@ -830,10 +842,6 @@ $(document).ready( function () {
 			$('#editCompanyDesc').val(parentRow.find('.company-desc p').text().trim());
 		}
   });
-
-	$(document).on('click', '.welcome-contact', function (){
-
-	})
   
 	$(document).on('click', '.btn-edit-submit-educ', function () {
 		var formData = new FormData();
@@ -907,10 +915,59 @@ $(document).ready( function () {
 		formData.append("company_name", $("#editCompanyName").val());
 		formData.append("prof_year", $("#editCompanyYears").val());
 		formData.append("company_desc", $("#editCompanyDesc").val());
-		api.post('handle_exp', formData);
+		$.ajax({
+			url: orig_base_url + 'handle_login',
+			method: 'POST',
+			data: data,
+			processData: false,
+			contentType: false,
+			success: function (res) {
+				let response = JSON.parse(res);
+				if (response.success) {
+					console.log(response)
+					toastr.success('Login successful', 'Welcome');
+					window.location.href = response.redirect; 
+				} else {
+					toastr.error(response.message || 'Login failed', 'Error');
+					window.location.href = response.redirect; 
+				}
+			},
+			error: function () {
+				toastr.error('An error occurred', 'Error');
+			}
+		});
 	})
 
   //submit buttons forms
+
+	$('.btn-submit-login').on('click', function () {
+		var formData = new FormData();
+
+		formData.append("username", $('#inputUser').val());
+		formData.append("password", $('#inputPass').val());
+
+		$.ajax({
+			url: orig_base_url + 'handle_login',
+			method: 'POST',
+			data: formData,
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			success: function (res) {
+				if (res.success) {
+					toastr.success(res.message, 'Success');
+					window.location.href = res.redirect;
+				} else {
+					toastr.error(res.message, 'Error');
+					location.reload();
+				}
+			},
+			error: function () {
+				toastr.error('Something went wrong', 'Error');
+				location.reload();
+			}
+		});
+	});
 
 	$('.btn-submit-contact').on('click', function(){
 		var formData = new FormData();
@@ -1048,16 +1105,17 @@ $(document).ready( function () {
 		}
 	});
 
-  $('.snow-button').on('mousemove', function (e) {
-    let $snowflake = $('<div class="snowflake">❅</div>');
-    $snowflake.css({
-      left: e.pageX + (Math.random() * 20 - 10) + 'px',
-      top: e.pageY + 'px'
-    });
-    $('body').append($snowflake);
+	$('.snow-button').on('mousemove', function (e) {
+		let $snowflake = $('<div class="snowflake">❅</div>');
+		$snowflake.css({
+			left: e.pageX + (Math.random() * 20 - 10) + 'px',
+			top: e.pageY + 'px'
+		});
 
-    setTimeout(() => {
-      $snowflake.remove();
-    }, 2000);
-  });
+		$('body').append($snowflake);
+
+		setTimeout(() => {
+			$snowflake.remove();
+		}, 2000);
+	});
 });
