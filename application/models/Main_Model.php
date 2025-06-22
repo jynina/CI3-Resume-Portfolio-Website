@@ -3,12 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Main_Model extends CI_Model{
 
-    public function insert_data($data, $table_name)
+    public function insert_data($data, $table)
     {
-        $this->db->insert($table_name, $data);
+        
+        $this->db->insert($table, $data);
         if ($this->db->affected_rows() > 0) {
-            $this->insert_log(1,$this->db->insert_id(),$table);
-            return $this->db->insert_id();
+            $res = $this->db->insert_id();
+            $this->insert_log(1,$res, $table);
+            return $res;
         } else {
             return false;
         }
@@ -18,8 +20,8 @@ class Main_Model extends CI_Model{
         return $this->db->query('SELECT * FROM tbl_contact WHERE status != 0 ORDER BY created_at DESC');
     }
 
-    function fetch_data($table_name){
-        $sql = $this->db->query('SELECT * FROM '. $table_name .' WHERE status != 0 ORDER BY created_at DESC');
+    function fetch_data($table){
+        $sql = $this->db->query('SELECT * FROM '. $table .' WHERE status != 0 ORDER BY created_at DESC');
         return $sql->result();
     }
 

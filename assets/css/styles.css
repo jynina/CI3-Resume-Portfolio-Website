@@ -164,8 +164,8 @@ body {
 
 .circular-progress{
     position: relative;
-    height: 25vh;
-    width: 25vh;
+    height: 20vh;
+    width: 20vh;
     border-radius: 50%;
     background: conic-gradient(#A5998D, 3.6deg, #ededed 0deg);  
     display: flex;
@@ -177,8 +177,8 @@ body {
 .circular-progress::before{
     content: "";
     position:absolute;
-    height: 24vh;
-    width: 24vh;
+    height: 19vh;
+    width: 19vh;
     border-radius: 50%;
     background-color: #DFD5CB;
 }

@@ -30,7 +30,7 @@
         <hr>
         <h1 class="circle-spacing text-center mt-5 div-client" id="projects-page" data-aos="fade-up" data-aos-duration="800">PROJECTS</h1>
         <div class="container w-75 mt-3" >
-            <p data-aos="fade-up" data-aos-duration="1000">I enjoy working on web development projects to apply and grow my skills. Through each project, I aim to explore new challenges and demonstrate my ability to tackle problems, whether with modern frameworks or legacy systems."</p>
+            <p data-aos="fade-up" data-aos-duration="1000">I enjoy working on web development projects to apply and grow my skills. Through each project, I aim to explore new challenges and demonstrate my ability to tackle problems.</p>
         </div>
         <div class="row div-projects my-5 section-spacing "></div>
         <hr> 
@@ -44,43 +44,14 @@
         <div class="div-education my-5 section-spacing text-center">
             <section class="cd-timeline js-cd-timeline">
                 <div class="container max-width-lg cd-timeline__container">
-                    <!-- <div class="cd-timeline__block">
-                        <div class="cd-timeline__img cd-timeline__img--picture">
-                        <img src="assets/img/cd-icon-picture.svg" alt="Picture">
-                        </div> 
-
-                        <div class="cd-timeline__content text-component">
-                        <h2>Title of section 1</h2>
-                        <p class="color-contrast-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
-
-                        <div class="flex justify-between items-center">
-                        <span class="cd-timeline__date">Jan 14</span>
-                        <a href="#0" class="btn btn--subtle">Read more</a>
-                        </div>
-                        </div> 
-                    </div> 
-
-                        <div class="cd-timeline__block">
-                    <div class="cd-timeline__img cd-timeline__img--picture">
-                        <img src="assets/img/cd-icon-picture.svg" alt="Picture">
-                        </div> 
-
-                        <div class="cd-timeline__content text-component">
-                        <h2>Title of section 1</h2>
-                        <p class="color-contrast-medium">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto, optio, dolorum provident rerum aut hic quasi placeat iure tempora laudantium ipsa ad debitis unde? Iste voluptatibus minus veritatis qui ut.</p>
-
-                        <div class="flex justify-between items-center">
-                        <span class="cd-timeline__date">Jan 14</span>
-                        <a href="#0" class="btn btn--subtle">Read more</a>
-                        </div>
-                        </div> 
-                    </div> cd-timeline__block -->
                 </div>
             </section> 
         </div>
         <hr>
+        <h1 class="circle-spacing text-center mt-5 div-client" id="experiences-page" data-aos="fade-up" data-aos-duration="800">Want to reach out?</h1>
         <div class="div-btn-contact text-center" id="btn-contact">
-        <a href="<?= base_url()?>welcome_contact" class="btn btn-transparent border rounded btn-lg welcome-contact" style="">Contact Me :D</a>
+            <p data-aos="fade-up" data-aos-duration="1000" class="mb-3">Reach out to me with a simple click of a button!</p>
+            <a data-aos="fade-up" data-aos-duration="1000" href="<?= base_url()?>welcome_contact" class="btn btn-transparent border rounded btn-lg welcome-contact" style="">Contact Me :D</a>
         </div>
     </div>
 </div>

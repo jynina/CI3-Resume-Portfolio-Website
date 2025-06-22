@@ -35,9 +35,8 @@
             <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-        </nav>
-        <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
-            <span class="d-flex text-end nav-right">
+            <div class="d-flex text-end nav-right">
+                
                 <ul class="navbar-nav">
                     <li class="nav-item" id="nav-email">
                         <a href="mailto:jkg.janina@gmail.com" class="me-4 text-reset">
@@ -45,18 +44,18 @@
                         </a>
                     </li>
                     <li class="nav-item" id="nav-linkedin">
-                        <a href="" class="me-4 text-reset">
+                        <a href="https://linkedin.com/in/janina-kwenn-gacelos" class="me-4 text-reset">
                             <i class="fa-brands fa-linkedin"></i>
                         </a>
                     </li>
                     <li class="nav-item" id="nav-github">
-                        <a href="github.com/jynina" class="me-4 text-reset">
+                        <a href="https://github.com/jynina" class="me-4 text-reset">
                             <i class="fab fa-github"></i>
                         </a>
                     </li>
                 </ul>
-            </span>
-</nav>
+                </div>
+            </div>
         </div>
     </nav>
 </div>
