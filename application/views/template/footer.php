@@ -19,7 +19,7 @@
       <!-- Grid row -->
       <div class="row mt-3">
         <!-- Grid column -->
-        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+        <div class="col-md-4 col-lg-6 col-xl-5 mx-auto mb-4">
           <!-- Content -->
           <h6 class="text-uppercase fw-bold mb-4">
             <i class="fas fa-gem"></i>Janina Kwenn Gacelos
@@ -30,28 +30,9 @@
         </div>
         <!-- Grid column -->
 
-        <!-- Grid column -->
-        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-          <!-- Links -->
-          <h6 class="text-uppercase fw-bold mb-4">
-            Project Links
-          </h6>
-          <p>
-            <a href="#!" class="text-reset">Pet Store E-Commerce</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Inventory System</a>
-          </p>
-          <p>
-            <a href="#!" class="text-reset">Inspirational Quote Generator (Discord)</a>
-          </p>
-          
-        </div>
-        <!-- Grid column -->
-
 
         <!-- Grid column -->
-        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+        <div class="col-md-4 col-lg-6 col-xl-5 mx-auto mb-md-0 mb-4">
           <!-- Links -->
           <h6 class="text-uppercase fw-bold mb-4 me-3">Contact</h6>
           <p></i>San Jose Del Monte, Bulacan, Philippines</p>
@@ -70,7 +51,7 @@
   <!-- Copyright -->
   <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
     © 2025 Copyright:
-    <a class="text-reset fw-bold" href="https://mdbootstrap.com/">jynina</a>
+    <a class="text-reset fw-bold" href="#">jynina</a>
   </div>
   <!-- Copyright -->
 </footer>

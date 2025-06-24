@@ -3015,7 +3015,7 @@ mark{
     padding:var(--space-lg) 0;
     color:hsl(207, 10%, 55%);
     color:var(--cd-color-3);
-    background-color:hsl(205, 38%, 93.45%);
+    background-color: #dfd5cb;
     background-color:hsl(var(--cd-color-2-h), var(--cd-color-2-s), calc(var(--cd-color-2-l)*1.05));
     font-family:'Droid Serif', serif;
     font-family:var(--font-primary)

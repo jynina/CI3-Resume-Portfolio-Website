@@ -18,7 +18,7 @@
             </div>
             <div class="mb-3">
                 <label for="message" class="form-label">Message</label>
-                <div id="inputMessage"></div>
+                <textarea class="form-control" id="inputMessage"></textarea>
             </div>
             <button type="button" class="btn btn-primary btn-submit-contact">Submit</button>
         </form>

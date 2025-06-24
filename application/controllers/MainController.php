@@ -83,7 +83,7 @@ class MainController extends CI_Controller {
             $data[$field] = $this->input->post($field);
         }
 
-        $this->Main_Model->insert_data($data, $table_name, []);
+        $this->Main_Model->insert_data($data, $table_name);
         return $data;
     }
 
@@ -93,7 +93,7 @@ class MainController extends CI_Controller {
             $data[$field] = $this->input->post($field);
         }
 
-        $insert_id = $this->Main_Model->insert_data($data, $table_name, []);
+        $insert_id = $this->Main_Model->insert_data($data, $table_name);
         if ($insert_id !== false) {
             $data['id'] = $insert_id;
         }
@@ -155,6 +155,7 @@ class MainController extends CI_Controller {
 
     public function delete_file(){
         $file_id = $this->input->post('file_id');
+        $table = $this->input->post('table');
 
         if (!$file_id) {
             echo json_encode(['status' => 'error', 'message' => 'No file ID provided']);
@@ -162,7 +163,7 @@ class MainController extends CI_Controller {
     }
 
     $this->load->model('Main_Model');
-        $deleted = $this->Main_Model->delete_file_by_id($file_id);
+        $deleted = $this->Main_Model->delete_file_by_id($file_id, 'tbl_' . $table);
 
         if ($deleted) {
             echo json_encode(['status' => 'success', 'message' => 'File deleted successfully']);
@@ -250,10 +251,8 @@ class MainController extends CI_Controller {
         }
     }
 
-    //email
-
     public function contact_send_email($data) {
-        //not sure if working
+
         $this->load->library('email');
         $config = array(
             'protocol'  => 'smtp',
@@ -275,4 +274,28 @@ class MainController extends CI_Controller {
         $this->email->subject($data['contact_subject']);
         $this->email->message($data['contact_message']);
     }
+
+    public function handle_login() {
+        $username = $this->input->post('username');
+        $password = $this->input->post('password');
+    
+        $user = $this->Main_Model->check_credentials($username, $password);
+    
+        if ($user) {
+            $this->session->set_userdata([
+                'user_id' => $user->id,
+                'username' => $user->username,
+                'logged_in' => true
+            ]);
+            echo json_encode(['success' => true, 'redirect' => base_url('about_admin')]);
+        } else {
+            echo json_encode(['success' => false, 'redirect' => base_url('admin_dashboard'), 'message' => 'Invalid username or password']);
+        }
+    }
+
+    public function logout_admin() {
+        $this->session->sess_destroy();
+        redirect('index.php');
+    }
+
 }

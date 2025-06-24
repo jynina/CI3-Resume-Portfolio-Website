@@ -34,8 +34,8 @@ $(document).ready( function () {
 			processData: false,
 			contentType: false,
 			success: function(){
-				location.reload()
 				toastr.success('Info has been sent', 'Nice');
+				location.reload();
 			},
 			error: function(){
 				toastr.error('May mali', 'Irror')
@@ -97,6 +97,7 @@ $(document).ready( function () {
 			addRemoveLinks: true,
 			autoProcessQueue: false,
 			uploadMultiple: true,
+			parallelUploads: 10,
 			init: function () {
 				this.on("sending", function (file, xhr, formData) {
 				formData.append("origin", fetch_url);
@@ -121,6 +122,7 @@ $(document).ready( function () {
 		addRemoveLinks: true,
 		autoProcessQueue: false,
 		uploadMultiple: true,
+		parallelUploads: 10,
 		init: function () {
 			this.on("sending", function (file, xhr, formData) {
 			formData.append("foreign_id", $('#hiddenID').val()); 
@@ -496,7 +498,7 @@ $(document).ready( function () {
                     <section class="testimonial position-relative z-index-1">
                     <div class="container max-width-adaptive-sm">
                         <figure class="flex justify-center margin-bottom-md reveal-fx reveal-fx--scale">
-                        <img class="profile-img block width-xxl height-xxl radius-50% border border-bg border-2 shadow-sm" src="${orig_base_url}${profile_img_path}" alt="Testimonial picture">
+                        <img class="profile-img block width-md height-md radius-50% border border-bg border-2 shadow-sm" src="${orig_base_url}${profile_img_path}" alt="Testimonial picture" style="height: 20rem;">
                         </figure>
                         <div class="text-center">
                         <p class="text-uppercase letter-spacing-md"><strong>${personal_info.name}</strong></p>
@@ -531,7 +533,7 @@ $(document).ready( function () {
 
 			skills.forEach(skill => {
 				$('.div-skills').append(`
-				<div class="skill-container d-flex col-xs-12 col-lg-3 col-md-3 ms-xs-5 ps-xs-5 my-5 text-center ms-4" data-aos="fade-up" >
+				<div class="skill-container d-flex col-xs-12 col-lg-3 col-md-3 my-5 text-center" data-aos="fade-up" >
 					<div class="circular-progress shadow">
 					<div class="d-block">
 						<span class="progress-skill-name">${skill.skill_name}</span>
@@ -542,26 +544,46 @@ $(document).ready( function () {
 				</div>
 				`);
 
-				$('.skill-container').each(function () {
-					const container = $(this);
-					const circularProgress = container.find(".circular-progress");
-					const progressValue = container.find(".progress-value");
+				const observer = new IntersectionObserver((entries, observer) => {
+					entries.forEach(entry => {
+						const container = $(entry.target);
+						const circularProgress = container.find(".circular-progress");
+						const progressValue = container.find(".progress-value");
 
-					let progressStartValue = 0;
-					const progressEndValue = parseInt(progressValue.attr('data-progressvalue'));
-					const speed = 20;
+						if (entry.isIntersecting) {
+							let progressStartValue = 0;
+							const progressEndValue = parseInt(progressValue.attr('data-progressvalue'));
+							const speed = 20;
 
-					const progress = setInterval(() => {
-						progressStartValue++;
+							// Save interval ID to container's data
+							const intervalId = setInterval(() => {
+								progressStartValue++;
+								progressValue.text(`${progressStartValue}%`);
+								circularProgress.css('background', `conic-gradient(#A5998D ${progressStartValue * 3.6}deg, #ededed 0deg)`);
 
-						progressValue.text(`${progressStartValue}%`);
-						circularProgress.css('background', `conic-gradient(#A5998D ${progressStartValue * 3.6}deg, #ededed 0deg)`);
+								if (progressStartValue >= progressEndValue) {
+									clearInterval(intervalId);
+								}
+							}, speed);
 
-						if (progressStartValue >= progressEndValue) {
-							clearInterval(progress);
+							container.data('intervalId', intervalId);
+						} else {
+							// Reset values
+							const intervalId = container.data('intervalId');
+							if (intervalId) clearInterval(intervalId);
+
+							progressValue.text(`0%`);
+							circularProgress.css('background', `conic-gradient(#A5998D 0deg, #ededed 0deg)`);
 						}
-					}, speed);
-				});
+					});
+				}, {
+					threshold: 0.5 // 50% visibility
+				  });
+
+				// Observe each skill-container
+				$('.skill-container').each(function () {
+					observer.observe(this);
+				  });
 			})
 			education.forEach(edu => {
 				// $('.div-education').append(
@@ -577,7 +599,7 @@ $(document).ready( function () {
                     `
                     <div data-aos="fade-up" data-aos-duration="200" class="cd-timeline__block">
                      <div data-aos="fade-up" data-aos-duration="500" class="cd-timeline__img cd-timeline__img--picture">
-                        <img data-aos="fade-up" data-aos-duration="700" src="${orig_base_url}assets/img/cd-icon-picture.svg" alt="Picture">
+                        <img data-aos="fade-up" data-aos-duration="700" src="${orig_base_url}assets/img/cd-icon-location.svg" alt="Picture">
                     </div> <!-- cd-timeline__img -->
 
                     <div class="cd-timeline__content text-component">
@@ -609,19 +631,23 @@ $(document).ready( function () {
 			project.forEach(proj => {
 			let projId = `proj-${proj.id}`;
 			$('.div-projects').append(
+				
 			`
 				<div class="project-item col-lg-6 col-xl-6 col-6 mt-5" data-aos="fade-up">
-				<h2 class="context-title">${proj.project_name}</h2>
-				<h3 class="context-subtitle">${proj.project_role}</h3>
-				<h5 class="context-tech">${proj.project_tech}</h5>
-				<p class="context-desc">${proj.project_desc}</p>
+					<section class="splide" id="${projId}" aria-label="Splide Basic HTML Example">
+						<div class="splide__track">
+						<ul class="splide__list ${projId}">
+						</ul>
+						
+					</section>
 
-				<section class="splide" id="${projId}" aria-label="Splide Basic HTML Example">
-					<div class="splide__track">
-					<ul class="splide__list ${projId}">
-					</ul>
-					</div>
-				</section>
+					
+					<h2 class="context-title">${proj.project_name}</h2>
+					<h3 class="context-subtitle">${proj.project_role}</h3>
+					<h5 class="context-tech">${proj.project_tech}</h5>
+					<p class="context-desc">${proj.project_desc}</p>
+				</div>
+				
 			`); 
             images.forEach(file =>{
                 if (file.foreign_id == proj.id && file.origin == 'projects') {
@@ -732,6 +758,7 @@ $(document).ready( function () {
 			$('#hiddenID').val(item_id);
 			$('#editInstitution').val(parentRow.find('.institution-name p').text().trim());
 			$('#editLevel').val(parentRow.find('.educ-level p').text().trim());
+			$('#editCourseName').val(parentRow.find('.course-name p').text().trim());
 			$('#editAcadYear').val(parentRow.find('.acad-year p').text().trim());
 			$('#editEducDescription').val(parentRow.find('.institution-desc p').text().trim());
 		}
@@ -830,10 +857,6 @@ $(document).ready( function () {
 			$('#editCompanyDesc').val(parentRow.find('.company-desc p').text().trim());
 		}
   });
-
-	$(document).on('click', '.welcome-contact', function (){
-
-	})
   
 	$(document).on('click', '.btn-edit-submit-educ', function () {
 		var formData = new FormData();
@@ -907,10 +930,59 @@ $(document).ready( function () {
 		formData.append("company_name", $("#editCompanyName").val());
 		formData.append("prof_year", $("#editCompanyYears").val());
 		formData.append("company_desc", $("#editCompanyDesc").val());
-		api.post('handle_exp', formData);
+		$.ajax({
+			url: orig_base_url + 'handle_login',
+			method: 'POST',
+			data: data,
+			processData: false,
+			contentType: false,
+			success: function (res) {
+				let response = JSON.parse(res);
+				if (response.success) {
+					console.log(response)
+					toastr.success('Login successful', 'Welcome');
+					window.location.href = response.redirect; 
+				} else {
+					location.reload();
+					toastr.error(response.message || 'Login failed', 'Error');
+				}
+			},
+			error: function () {
+				toastr.error('An error occurred', 'Error');
+			}
+		});
 	})
 
   //submit buttons forms
+
+	$('.btn-submit-login').on('click', function () {
+		var formData = new FormData();
+
+		formData.append("username", $('#inputUser').val());
+		formData.append("password", $('#inputPass').val());
+
+		$.ajax({
+			url: orig_base_url + 'handle_login',
+			method: 'POST',
+			data: formData,
+			processData: false,
+			contentType: false,
+			dataType: 'json',
+			success: function (res) {
+				if (res.success) {
+					toastr.success(res.message, 'Success');
+					window.location.href = res.redirect;
+				} else {
+					toastr.error(res.message, 'Error');
+					location.reload();
+				}
+			},
+			error: function () {
+				toastr.error('Something went wrong', 'Error');
+				location.reload();
+			}
+		});
+	});
 
 	$('.btn-submit-contact').on('click', function(){
 		var formData = new FormData();
@@ -1048,16 +1120,17 @@ $(document).ready( function () {
 		}
 	});
 
-  $('.snow-button').on('mousemove', function (e) {
-    let $snowflake = $('<div class="snowflake">❅</div>');
-    $snowflake.css({
-      left: e.pageX + (Math.random() * 20 - 10) + 'px',
-      top: e.pageY + 'px'
-    });
-    $('body').append($snowflake);
+	$('.snow-button').on('mousemove', function (e) {
+		let $snowflake = $('<div class="snowflake">❅</div>');
+		$snowflake.css({
+			left: e.pageX + (Math.random() * 20 - 10) + 'px',
+			top: e.pageY + 'px'
+		});
 
-    setTimeout(() => {
-      $snowflake.remove();
-    }, 2000);
-  });
+		$('body').append($snowflake);
+
+		setTimeout(() => {
+			$snowflake.remove();
+		}, 2000);
+	});
 });

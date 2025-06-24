@@ -31,15 +31,6 @@ body {
     font-size: 2vw;
 }
 
-.nav-left{
-}
-
-.nav-center{
-    
-}
-
-.nav-right{
-}
 
 #forms-container{
     background: rgba(255, 255, 255, 0.2);
@@ -164,8 +155,8 @@ body {
 
 .circular-progress{
     position: relative;
-    height: 25vh;
-    width: 25vh;
+    height: 20vh;
+    width: 20vh;
     border-radius: 50%;
     background: conic-gradient(#A5998D, 3.6deg, #ededed 0deg);  
     display: flex;
@@ -177,21 +168,21 @@ body {
 .circular-progress::before{
     content: "";
     position:absolute;
-    height: 24vh;
-    width: 24vh;
+    height: 19vh;
+    width: 19vh;
     border-radius: 50%;
     background-color: #DFD5CB;
 }
 
 .progress-value{
     position: relative;
-    font-size: 30px;
+    font-size: 1.2rem;
     font-weight: 600;
 }
 
 .progress-skill-name{
     position: relative;
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: 600;
 }
 
