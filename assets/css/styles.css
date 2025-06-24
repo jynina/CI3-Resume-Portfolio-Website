@@ -31,15 +31,6 @@ body {
     font-size: 2vw;
 }
 
-.nav-left{
-}
-
-.nav-center{
-    
-}
-
-.nav-right{
-}
 
 #forms-container{
     background: rgba(255, 255, 255, 0.2);
@@ -185,13 +176,13 @@ body {
 
 .progress-value{
     position: relative;
-    font-size: 30px;
+    font-size: 1.2rem;
     font-weight: 600;
 }
 
 .progress-skill-name{
     position: relative;
-    font-size: 20px;
+    font-size: 1.2rem;
     font-weight: 600;
 }
 
