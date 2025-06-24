@@ -583,7 +583,7 @@ $(document).ready( function () {
                     <div class="cd-timeline__content text-component">
                         <h2 data-aos="fade-up" data-aos-duration="900">${edu.institution_name}</h2>
                         <h3 class="context-subtitle" data-aos="fade-up" data-aos-duration="1000">${edu.education_level}</h3>
-						<h5 data-aos="fade-up" data-aos-duration="1200">${edu.course_name}</h5>
+						<h5 data-aos="fade-up" data-aos-duration="1200">${edu.course_namegig}</h5>
                         <div class="flex justify-between items-center">
                         <span class="cd-timeline__date">${edu.acad_year}</span>
                         </div>
