@@ -48,7 +48,7 @@
             </section> 
         </div>
         <hr>
-        <h1 class="circle-spacing text-center mt-5 div-client" id="experiences-page" data-aos="fade-up" data-aos-duration="800">Want to reach out?</h1>
+        <h1 class="circle-spacing text-center mt-5 div-client" id="div-btn-contact" data-aos="fade-up" data-aos-duration="800">Want to reach out?</h1>
         <div class="div-btn-contact text-center" id="btn-contact">
             <p data-aos="fade-up" data-aos-duration="1000" class="mb-3">Reach out to me with a simple click of a button!</p>
             <a data-aos="fade-up" data-aos-duration="1000" href="<?= base_url()?>welcome_contact" class="btn btn-transparent border rounded btn-lg welcome-contact" style="">Contact Me :D</a>

@@ -943,8 +943,8 @@ $(document).ready( function () {
 					toastr.success('Login successful', 'Welcome');
 					window.location.href = response.redirect; 
 				} else {
+					location.reload();
 					toastr.error(response.message || 'Login failed', 'Error');
-					window.location.href = response.redirect; 
 				}
 			},
 			error: function () {
