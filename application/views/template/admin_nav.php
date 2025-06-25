@@ -10,8 +10,8 @@
                 </button>
                 <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
                     <div class="navbar-nav mx-auto">
-                        <a class="snow-button nav-link nav-resume" href="<?= base_url() ?>resume_admin">Resume</a>
                         <a class="snow-button nav-link nav-about" href="<?= base_url() ?>about_admin">About</a>
+                        <a class="snow-button nav-link nav-resume" href="<?= base_url() ?>resume_admin">Resume</a>
                         <a class="snow-button nav-link nav-education" href="<?= base_url() ?>education_admin">Education</a>
                         <a class="snow-button nav-link nav-skills" href="<?= base_url() ?>skills_admin">Skills</a>
                         <a class="snow-button nav-link nav-experience" href="<?= base_url() ?>experience_admin">Experience</a>

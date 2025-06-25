@@ -25,7 +25,7 @@
             <i class="fas fa-gem"></i>Janina Kwenn Gacelos
           </h6>
           <p>
-            Thank you for taking the time to look at my portfolio. Do not hesistate to contact me! ( ദ്ദി ˙ᗜ˙ )
+            Thank you for taking the time to look at my portfolio. Do not hesistate to contact me for opportunities! ( ദ്ദി ˙ᗜ˙ )
           </p>
         </div>
         <!-- Grid column -->

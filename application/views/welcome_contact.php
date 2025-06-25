@@ -1,5 +1,5 @@
 <div class="div-contact-form">
-    <div class="container mt-5 w-50">
+    <div class="container mt-5 w-lg-50">
         <h1 class="text-center mb-5">Contact Me  :3</h1>
     <div>
     <form method="POST" action="<?= base_url()?>index.php/" id="form-contact">
@@ -19,6 +19,9 @@
             <label for="message" class="form-label">Message</label>
             <textarea class="form-control" id="inputMessage" rows="10"></textarea>
         </div>
-        <button type="button" class="btn btn-primary btn-submit-contact">Submit</button>
+        <div class="d-flex"style="justify-content: end;">
+            <button type="button" class="btn btn-primary btn-submit-contact">Submit</button>
+        </div>
+        
     </form>
 </div>

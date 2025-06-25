@@ -1,4 +1,4 @@
-<div class="container mt-5 w-50">
+<div class="container mt-5 w-lg-50">
         <h1 class="text-center mb-5">Admin Login</h1>
     <div>
         <form method="POST" action="<?= base_url()?>index.php/" id="form-contact">

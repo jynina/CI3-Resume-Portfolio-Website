@@ -5,9 +5,12 @@
         </div>
     
         <nav class="navbar navbar-main navbar-expand-lg navbar-light bg-transparent">
-            <div class="collapse navbar-collapse fixed-top justify-content-center mt-3" id="navbarNavDropdown">
-                <div class="d-flex">
-                    <ul class="navbar-nav">
+             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse " id="navbarNav">
+                <ul class="navbar-nav">
+                    <div class="d-flex fixed-top justify-content-center mt-3">
                         <li class="nav-item" data-nav="about">
                             <a class="nav-link" href="#about-page">About</a>
                         </li>
@@ -29,31 +32,24 @@
                         <li class="nav-item" data-nav="contact">
                             <a class="nav-link" href="<?= base_url()?>admin_dashboard">Edit</a>
                         </li>
+                    </div>
+                    <div class="d-flex text-end nav-right">
+                        <li class="nav-item" id="nav-email">
+                            <a href="mailto:jkg.janina@gmail.com" class="me-4 text-reset">
+                                <i class="fab fa-google"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="nav-linkedin">
+                            <a href="https://linkedin.com/in/janina-kwenn-gacelos" class="me-4 text-reset">
+                                <i class="fa-brands fa-linkedin"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item" id="nav-github">
+                            <a href="https://github.com/jynina" class="me-4 text-reset">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </li>
                     </ul>
-                </div>
-            </div>
-            <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="d-flex text-end nav-right">
-                
-                <ul class="navbar-nav">
-                    <li class="nav-item" id="nav-email">
-                        <a href="mailto:jkg.janina@gmail.com" class="me-4 text-reset">
-                            <i class="fab fa-google"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="nav-linkedin">
-                        <a href="https://linkedin.com/in/janina-kwenn-gacelos" class="me-4 text-reset">
-                            <i class="fa-brands fa-linkedin"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item" id="nav-github">
-                        <a href="https://github.com/jynina" class="me-4 text-reset">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </li>
-                </ul>
                 </div>
             </div>
         </div>

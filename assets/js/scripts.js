@@ -1,10 +1,19 @@
 //constants
 Dropzone.autoDiscover = false;
 // https://www.madebynf.com/journal/neutral-color-palette-inspiration
+//https://www.reddit.com/r/webdev/comments/143acrg/show_me_your_portfolios/
+
 $(document).ready( function () {
 
+
 	Splide.defaults = {
-		type: 'loop'
+		type: 'slide',
+        mediaQUery: "max",
+        breakpoint: {
+            576: {
+                fixedHeight: 20
+            }
+        }
 	}
 
 	var editDropzoneMultiple;
@@ -496,21 +505,21 @@ $(document).ready( function () {
 				$('.div-about-me').append(
 				`
                     <section class="testimonial position-relative z-index-1">
-                    <div class="container max-width-adaptive-sm">
+                    <div class="container-fluid max-width-adaptive-sm">
                         <figure class="flex justify-center margin-bottom-md reveal-fx reveal-fx--scale">
-                        <img class="profile-img block width-md height-md radius-50% border border-bg border-2 shadow-sm" src="${orig_base_url}${profile_img_path}" alt="Testimonial picture" style="height: 20rem;">
+                        <img class="profile-img block width-md height-md radius-50% border border-bg border-2 shadow-sm" src="${orig_base_url}${profile_img_path}" alt="Testimonial picture" style="width: 20rem;">
                         </figure>
                         <div class="text-center">
                         <p class="text-uppercase letter-spacing-md"><strong>${personal_info.name}</strong></p>
                         <p class="color-contrast-medium margin-top-xxxxs margin-bottom-xxs">${personal_info.professional_title}</p>
                         </div>
 
-                        <div class="testimonial__block-wrapper margin-bottom-lg">
-                        <blockquote class="text-lg text-center line-height-md ">${personal_info.introduction}</blockquote>
+                        <div class="testimonial__block-wrapper margin-bottom-lg ">
+                        <blockquote class="text-lg text-lg-center line-height-md " style="text-align: justify;">${personal_info.introduction}</blockquote>
 
                         <svg class="icon icon--xxl color-contrast-higher opacity-10%" aria-hidden="true" viewBox="0 0 64 64"><polygon fill="currentColor" points="2 36 17 2 26 2 15 36 26 36 26 62 2 62 2 36"/><polygon fill="currentColor" points="38 36 53 2 62 2 51 36 62 36 62 62 38 62 38 36"/></svg>
 
-                        <div class="text-end">
+                        <div class="text-end mt-5">
                             <a data-aos="fade-left" data-aos-duration="2000" href="${orig_base_url}${download_path}" class="btn btn-primary download-cv" id="download-cv" download> Download CV</a>
                         </div>
 
@@ -533,7 +542,7 @@ $(document).ready( function () {
 
 			skills.forEach(skill => {
 				$('.div-skills').append(`
-				<div class="skill-container d-flex col-xs-12 col-lg-3 col-md-3 my-5 text-center" data-aos="fade-up" >
+				<div class="skill-container d-flex col-sm-6 col-lg-3 col-md-4 my-5 text-center justify-content-center" data-aos="fade-up" >
 					<div class="circular-progress shadow">
 					<div class="d-block">
 						<span class="progress-skill-name">${skill.skill_name}</span>
@@ -553,7 +562,7 @@ $(document).ready( function () {
 						if (entry.isIntersecting) {
 							let progressStartValue = 0;
 							const progressEndValue = parseInt(progressValue.attr('data-progressvalue'));
-							const speed = 20;
+							const speed = 5;
 
 							// Save interval ID to container's data
 							const intervalId = setInterval(() => {
@@ -598,16 +607,16 @@ $(document).ready( function () {
                 $('.cd-timeline__container').append(
                     `
                     <div data-aos="fade-up" data-aos-duration="200" class="cd-timeline__block">
-                     <div data-aos="fade-up" data-aos-duration="500" class="cd-timeline__img cd-timeline__img--picture">
-                        <img data-aos="fade-up" data-aos-duration="700" src="${orig_base_url}assets/img/cd-icon-location.svg" alt="Picture">
+                     <div data-aos="fade-up" data-aos-duration="500" class="cd-timeline__img cd-timeline__img--picture" style="background: #F9F8F3;">
+                        <img data-aos="fade-up" data-aos-duration="700" src="https://cdn-icons-png.flaticon.com/512/535/535239.png" alt="Picture">
                     </div> <!-- cd-timeline__img -->
 
-                    <div class="cd-timeline__content text-component">
+                    <div class="cd-timeline__content text-component" style="box-shadow: 0 3px 10px rgb(0 0 0 /0.2);" >
                         <h2 data-aos="fade-up" data-aos-duration="900">${edu.institution_name}</h2>
                         <h3 class="context-subtitle" data-aos="fade-up" data-aos-duration="1000">${edu.education_level}</h3>
-						<h5 data-aos="fade-up" data-aos-duration="1200">${edu.course_namegig}</h5>
+						<h5 data-aos="fade-up" data-aos-duration="1200">${edu.course_name}</h5>
                         <div class="flex justify-between items-center">
-                        <span class="cd-timeline__date">${edu.acad_year}</span>
+                        <span data-aos="fade-up" data-aos-duration="1200" class="cd-timeline__date">${edu.acad_year}</span>
                         </div>
                         </div> <!-- cd-timeline__content -->
                         </div>
@@ -617,12 +626,12 @@ $(document).ready( function () {
 			experience.forEach(exp => {
 			$('.div-experience').append(
 			`
-				<div class="experience-item" data-aos="fade-up">
+				<div class="experience-item my-5" data-aos="fade-up">
 					<h2 class="context-title" data-aos="fade-up" data-aos-duration="1000">${exp.professional_title}</h2>
 					<h3 class="context-subtitle" data-aos="fade-up" data-aos-duration="1200">${exp.company_name}</h3>
 					<h5 data-aos="fade-up" data-aos-duration="1400">${exp.prof_year}</h5>
-					<div class="px-5">
-						<p data-aos="fade-up" data-aos-duration="1800"> ${exp.company_desc}</p>
+					<div class="px-lg-5 py-2 w-lg-75">
+						<p data-aos="fade-up" data-aos-duration="1800"  style="text-align: justify"> ${exp.company_desc}</p>
 					</div>
 				</div>
 			`
@@ -633,8 +642,8 @@ $(document).ready( function () {
 			$('.div-projects').append(
 				
 			`
-				<div class="project-item col-lg-6 col-xl-6 col-6 mt-5" data-aos="fade-up">
-					<section class="splide" id="${projId}" aria-label="Splide Basic HTML Example">
+				<div class="project-item col-lg-6 col-xl-6 col-sm-12 mt-5" data-aos="fade-up">
+					<section class="splide" id="${projId}">
 						<div class="splide__track">
 						<ul class="splide__list ${projId}">
 						</ul>
@@ -930,27 +939,7 @@ $(document).ready( function () {
 		formData.append("company_name", $("#editCompanyName").val());
 		formData.append("prof_year", $("#editCompanyYears").val());
 		formData.append("company_desc", $("#editCompanyDesc").val());
-		$.ajax({
-			url: orig_base_url + 'handle_login',
-			method: 'POST',
-			data: data,
-			processData: false,
-			contentType: false,
-			success: function (res) {
-				let response = JSON.parse(res);
-				if (response.success) {
-					console.log(response)
-					toastr.success('Login successful', 'Welcome');
-					window.location.href = response.redirect; 
-				} else {
-					location.reload();
-					toastr.error(response.message || 'Login failed', 'Error');
-				}
-			},
-			error: function () {
-				toastr.error('An error occurred', 'Error');
-			}
-		});
+        api.post('handle_exp', formData);
 	})
 
   //submit buttons forms
@@ -972,9 +961,11 @@ $(document).ready( function () {
 				if (res.success) {
 					toastr.success(res.message, 'Success');
 					window.location.href = res.redirect;
+                    console.log(res)
 				} else {
 					toastr.error(res.message, 'Error');
-					location.reload();
+                    console.log(res)
+					// window.location.href = res.redirect;
 				}
 			},
 			error: function () {
