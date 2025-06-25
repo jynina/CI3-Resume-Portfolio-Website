@@ -14,11 +14,6 @@ body {
     font-weight: 400;
     position: relative;
 }
-@media (max-width: 540px){
-.cd-timeline {
-    margin: -3rem !important;
-}
-}
 
 .cd-timeline__container::before {
     background-color: white !important;
@@ -34,7 +29,7 @@ body {
     color: #3A3A3A;
     font-family: "Lexend Giga", sans-serif;
     font-weight: 700;
-    font-size: 3vw;
+    font-size: 5vh;
 }
 
 

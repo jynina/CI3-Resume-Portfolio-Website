@@ -39,12 +39,21 @@
 	<script src=" https://cdn.jsdelivr.net/npm/animejs@4.0.2/lib/anime.umd.min.js "></script>
     <script src=" https://cdn.jsdelivr.net/npm/vertical-timeline@2.0.0/assets/js/main.min.js "></script>
     <link href=" https://cdn.jsdelivr.net/npm/vertical-timeline@2.0.0/assets/css/style.min.css " rel="stylesheet">
+    <script src="https://unpkg.com/@sidsbrmnn/scrollspy@1.x/dist/scrollspy.min.js"></script>
 </head>
-<body data-bs-spy="scroll" data-bs-target=".navbar-main" data-bs-offset="600" class="scrollspy" tabindex="0">
+<body>
 	<div class="container-fluid">
 <input type="text" value="<?= base_url()?>" id="base_url" hidden>
 <script>
 
+    const options = {
+        sectionSelector: 'section', 
+        targetSelector: '.nav-link', // Query selector to your elements that will be added `active` class
+        offset: 100                  // Menu item will active before scroll to a matched section 100px
+    }
+
+    // Shorter way
+    scrollSpy('#navMain', options)
 
 </script>
 

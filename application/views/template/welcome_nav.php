@@ -1,17 +1,17 @@
-<div class="container-fluid d-flex justify-content-between" style="overflow: auto;">
+<div class="container-fluid d-flex justify-content-between">
     
         <div>
             <span class="nav-logo">KWENN</span>
         </div>
     
-        <nav class="navbar navbar-main navbar-expand-lg navbar-light bg-transparent">
+        <nav class="navbar navbar-expand-lg navbar-light bg-transparent" id="navbar-main">
              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse " id="navbarNav">
                 <ul class="navbar-nav">
                     <div class="d-flex fixed-top justify-content-center mt-3">
-                        <li class="nav-item" data-nav="about">
+                        <li class="nav-item active" data-nav="about">
                             <a class="nav-link" href="#about-page">About</a>
                         </li>
                         <li class="nav-item" data-nav="skills">
@@ -33,7 +33,7 @@
                             <a class="nav-link" href="<?= base_url()?>admin_dashboard">Edit</a>
                         </li>
                     </div>
-                    <div class="d-flex text-end nav-right">
+                    <div class="d-flex text-end nav-right d-sm-none">
                         <li class="nav-item" id="nav-email">
                             <a href="mailto:jkg.janina@gmail.com" class="me-4 text-reset">
                                 <i class="fab fa-google"></i>
@@ -54,6 +54,8 @@
             </div>
         </div>
     </nav>
+
+
 </div>
 
 <!-- <div class="container-fluid d-flex sticky-top">

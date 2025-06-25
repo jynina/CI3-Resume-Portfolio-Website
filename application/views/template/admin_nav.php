@@ -16,7 +16,6 @@
                         <a class="snow-button nav-link nav-skills" href="<?= base_url() ?>skills_admin">Skills</a>
                         <a class="snow-button nav-link nav-experience" href="<?= base_url() ?>experience_admin">Experience</a>
                         <a class="snow-button nav-link nav-projects" href="<?= base_url() ?>projects_admin">Projects</a>
-                        <a class="snow-button nav-link nav-contact" href="<?= base_url() ?>contact_admin">Contact</a>
                         <a class="snow-button nav-link nav-index" href="<?= base_url() ?>inbox_admin">Inbox</a> 
                         <a class="snow-button nav-link nav-index text-danger" href="<?= base_url() ?>logout_admin">Logout</a> 
                     </div>

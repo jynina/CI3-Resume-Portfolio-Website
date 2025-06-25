@@ -2,9 +2,6 @@
 
 $(document).ready(() => {
 
-    const scrollSpy = new bootstrap.ScrollSpy(document.body, {
-    target: '#navbar-main'
-    })
 
     var typed = new Typed('#typed', {
         stringsElement: '.typed-strings',

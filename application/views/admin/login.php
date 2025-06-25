@@ -4,7 +4,7 @@
         <form method="POST" action="<?= base_url()?>index.php/" id="form-contact">
             <div class="mb-3">
                 <label for="name" class="form-label">Username</label>
-                <input type="text" class="form-control" id="inputUser" >
+                <input type="text" class="form-control" id="inputUser" required>
             </div>
             <div class="mb-3">
                 <label for="name" class="form-label">Password</label>

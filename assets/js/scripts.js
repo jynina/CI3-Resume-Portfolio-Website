@@ -426,33 +426,35 @@ $(document).ready( function () {
 				</div>
 				` 
 				} else if (fetch_url == 'contact'){
-				html +=
-				`
-				<div class="accordion-item">
-					<h2 class="accordion-header">
-					<button class="accordion-button px-5" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" >
-					<div class="row w-100">
-						<div class="col-4 col-md-4 my-2 text-truncate">
-							<span>${row.contact_name}</span>
-						</div>
-						<div class="col-6 col-md-4 my-2 text-truncate">
-							<span class="fw-bold d-flex">${row.contact_subject}</span>
-						</div>
-						<div class="col-2 col-md-4 my-2">
-							<span>${row.created_at}</span>
-						</div>
-					</div>
-					</button>
-					</h2>
-					<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-						<div class="accordion-body p-4">
-							<span class="fw-italic text-secondary">${row.contact_email}</span></br></br>
-							<span class="fw-bold">${row.contact_subject}</span>
-							<span> - ${row.contact_message}</span>
-						</div>
-					</div>
-				</div>
-				` 
+                    let contactId = `proj-${row.id}`;
+                    html +=
+                    `
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                        <button class="accordion-button px-5 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${contactId}">
+                        <div class="row w-100">
+                            <div class="col-4 col-md-4 my-2 text-truncate">
+                                <span>${row.contact_name}</span>
+                            </div>
+                            <div class="col-6 col-md-4 my-2 text-truncate">
+                                <span class="fw-bold d-flex">${row.contact_subject}</span>
+                            </div>
+                            <div class="col-2 col-md-4 my-2">
+                                <span>${row.created_at}</span>
+                            </div>
+                        </div>
+                        </button>
+                        </h2>
+                        <div id="${contactId}" class="accordion-collapse collapse">
+                            <div class="accordion-body p-4">
+                                <span class="fw-bold">${row.contact_subject}</span></br>
+                                <span class="fw-italic text-secondary">${row.contact_name} - ${row.contact_email}</span></br></br>
+                                
+                                <span>${row.contact_message}</span>
+                            </div>
+                        </div>
+                    </div>
+                    ` 
 				}
 			})
 			$(".div-logs").append(html)
@@ -510,7 +512,7 @@ $(document).ready( function () {
                         <img class="profile-img block width-md height-md radius-50% border border-bg border-2 shadow-sm" src="${orig_base_url}${profile_img_path}" alt="Testimonial picture" style="width: 20rem;">
                         </figure>
                         <div class="text-center">
-                        <p class="text-uppercase letter-spacing-md"><strong>${personal_info.name}</strong></p>
+                        <p class="text-uppercase letter-spacing-md" ><strong>${personal_info.name}</strong></p>
                         <p class="color-contrast-medium margin-top-xxxxs margin-bottom-xxs">${personal_info.professional_title}</p>
                         </div>
 
