@@ -1,13 +1,13 @@
 <div class="container-parent container mt-5" data-page="<?= $page?>">
     <div class="div-skills-forms">
-        <div class="p-5 my-3" id="forms-container">
+        <div class="p-5 my-3 " id="forms-container">
             <form>
                 <div class="row">
-                <div class="mb-3 col">
+                <div class="mb-3 col-xs-12 col-lg-6">
                     <label for="name" class="form-label">Skill</label>
                     <input type="text" class="form-control" id="inputSkillName" required>
                 </div>
-                <div class="mb-3 col"> 
+                <div class="mb-3 col-xs-12 col-lg-6"> 
                     <label for="name" class="form-label">Progress </label>
                     <input type="number" class="form-control" id="inputSkillProgress" min='0' max='100' required>
                 </div>

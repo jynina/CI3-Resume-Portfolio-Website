@@ -1,7 +1,26 @@
 
 
 $(document).ready(() => {
+     var sectionIds = $('a.nav-link');
 
+    $(document).scroll(function(){
+        sectionIds.each(function(){
+
+            var container = $(this).attr('href');
+            var containerOffset = $(container).offset().top;
+            var containerHeight = $(container).outerHeight();
+            var containerBottom = containerOffset + containerHeight;
+            var scrollPosition = $(document).scrollTop();
+    
+            if(scrollPosition < containerBottom - 100 && scrollPosition >= containerOffset - 100){
+                $(this).addClass('active');
+            } else{
+                $(this).removeClass('active');
+            }
+    
+    
+        });
+    });
 
     var typed = new Typed('#typed', {
         stringsElement: '.typed-strings',
@@ -10,7 +29,19 @@ $(document).ready(() => {
         loop: true
     });
 
+    $('.snow-button').on('mousemove', function (e) {
+		let $snowflake = $('<div class="snowflake">❅</div>');
+		$snowflake.css({
+			left: e.pageX + (Math.random() * 20 - 10) + 'px',
+			top: e.pageY + 'px'
+		});
 
+		$('body').append($snowflake);
+
+		setTimeout(() => {
+			$snowflake.remove();
+		}, 2000);
+	});
 
 
     $('.skill-container').on('load', function(){

@@ -1,5 +1,5 @@
 <div class="container-parent container mt-5" data-page="<?= $page?>">
-    <div class="p-5 my-3" id="forms-container">
+    <div class="px-lg-5 py-5 my-3" id="forms-container">
         <div class="row container d-flex">
             <div class="col-xl-9 col-lg-8 col-md-7 mb-3">
               <label for="name" class="form-label d-block">Name</label>

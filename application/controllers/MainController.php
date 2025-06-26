@@ -138,7 +138,7 @@ class MainController extends CI_Controller {
 
     public function handle_educ()
     {
-        $fields = ['institution_name', 'education_level', 'course_name', 'acad_year', 'institution_desc'];
+        $fields = ['educ_type','course_link','institution_name', 'education_level', 'course_name', 'acad_year', 'institution_desc'];
         if($this->input->post('id')){
             $this->handle_update($fields, 'tbl_education');
         }else{

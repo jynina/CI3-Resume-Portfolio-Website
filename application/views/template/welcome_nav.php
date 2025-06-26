@@ -5,12 +5,12 @@
         </div>
     
         <nav class="navbar navbar-expand-lg navbar-light bg-transparent" id="navbar-main">
-             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse " id="navbarNav">
+            </button> -->
+            <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
                 <ul class="navbar-nav">
-                    <div class="d-flex fixed-top justify-content-center mt-3">
+                    <div class="d-xl-flex d-sm-block fixed-top justify-content-center mt-3">
                         <li class="nav-item active" data-nav="about">
                             <a class="nav-link" href="#about-page">About</a>
                         </li>

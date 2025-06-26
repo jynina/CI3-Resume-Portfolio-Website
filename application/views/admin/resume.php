@@ -1,5 +1,5 @@
 <div class="container-parent container mt-5" data-page="<?= $page?>">
-    <div class="p-5 my-3" id="forms-container">
+    <div class="px-lg-5 py-5 my-3 my-3" id="forms-container">
         <div class="row container d-flex">
             <div class=" mb-3">
                 <label for="name" class="form-label d-block">Resume Name</label>
@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <div class="div-logs">
+        <div class="div-logs p-3">
         </div>
     </div>
 </div>

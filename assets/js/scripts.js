@@ -8,12 +8,7 @@ $(document).ready( function () {
 
 	Splide.defaults = {
 		type: 'slide',
-        mediaQUery: "max",
-        breakpoint: {
-            576: {
-                fixedHeight: 20
-            }
-        }
+        autoHeight: true
 	}
 
 	var editDropzoneMultiple;
@@ -79,10 +74,12 @@ $(document).ready( function () {
 		autoProcessQueue: false,
 		maxFiles: 1,
 		init: function () {
-			this.on("sending", function (file, xhr, formData) {
-			formData.append("foreign_id", this.options.params.foreign_id);
-			formData.append("origin", "personal_info");
-			});
+            this.on("addedfile", function (file, xhr, formData){
+                this.on("sending", function (file, xhr, formData) {
+                formData.append("foreign_id", this.options.params.foreign_id);
+                formData.append("origin", "personal_info");
+                });
+            })
 
 			this.on("removedfile", function (file) {
 				if (isResettingDropzone) return;
@@ -228,30 +225,39 @@ $(document).ready( function () {
 
 				}
 				if (fetch_url == 'education') {
+                    
 					html += `
 					<div class="log-row border border-grey rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
 						<div class="row my-3">
 							<div class="col-6 mx-3 institution-name">
 								<label class="fw-bold">Institution Name</label>
-								<p>${row.institution_name}</p>
+								<p>${row.institution_name}</p><br>
 							</div>
-							<div class="col-2 educ-level">
-								<label class="fw-bold">Education Level</label>
-								<p>${row.education_level}</p>
+                            <div class="col-lg-3 col-xs-12 mx-3 educ-type">
+								<label class="fw-bold">Type:</label>
+								<p>${row.educ_type}</p>
 							</div>
-                            <div class="col-2 course-name">
-								<label class="fw-bold">Course Name</label>
-								<p>${row.course_name}</p>
-							</div>
-							<div class="col-2 acad-year">
+                            <div class="col-lg-3 mx-3 acad-year">
 								<label class="fw-bold">Academic Year</label>
 								<p>${row.acad_year}</p>
 							</div>
-							<div class="col-11 mx-3 institution-desc" style="text-align: justify;">
+							<div class="col-lg-12 mx-3 educ-level">
+								<label class="fw-bold">Education Level</label>
+								<p>${row.education_level}</p>
+							</div>
+                            <div class="col-lg-12 mx-3 course-name">
+								<label class="fw-bold">Course Name</label>
+								<p>${row.course_name}</p><br>
+							</div>
+							<div class="col-lg-12 mx-3 course-link">
+								<label class="fw-bold">Course Link</label>
+								<p class="text-truncate">${row.course_link}</p><br>
+							</div>
+							<div class="col-lg-11 mx-3 institution-desc" style="text-align: justify;">
 								<label class="fw-bold">Institution Description</label>
 								<p>${row.institution_desc}</p>
 							</div>
-							<div class="col-11 mx-3 log-buttons" style="text-align: end;">
+							<div class="col-lg-11 mx-3 log-buttons" style="text-align: end;">
 								<button type="button" class='btn btn-secondary btn-edit' data-id= ${row.id} data-bs-toggle="modal" data-bs-target="#editModal">
 								Edit
 								</button>
@@ -270,7 +276,7 @@ $(document).ready( function () {
 					if (row.files && row.files.length > 0) {
 						filesHTML = row.files.map(file => `
 						<br>
-						<iframe src="${file.file_path}" class="embed-responsive-item" style="width: 40vw;height: 50vh;"></iframe>
+						<iframe src="${file.file_path}" class="embed-responsive-item" style="width:100%"></iframe>
 						`).join('');
 					} else {
 						filesHTML = '<p>No Files</p>';
@@ -278,24 +284,24 @@ $(document).ready( function () {
 					html += `
 					<div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
 						<div class="row my-3">
-							<div class="col-8 mx-3 resume-name">
+							<div class="col-lg-8 col-xs-12 mx-3 resume-name">
 								<label class="fw-bold">Resume Name</label>
 								<p>${row.resume_name}</p>
 							</div>
-							<div class="col-2 resume-date">
+							<div class="col-lg-2 col-xs-12 mx-3 resume-date">
 								<label class="fw-bold">Created At</label>
 								<p>${row.created_at}</p>
 							</div>
 							</div>
-							<div class="col-11 mx-3 resume-desc" style="text-align: justify;">
+							<div class="col-lg-11 col-xs-12 mx-3 resume-desc" style="text-align: justify;">
 							<label class="fw-bold">Resume Description</label>
 								<p>${row.resume_desc}</p>
 							</div>
-							<div class="col-11 mx-3 resume-file d-block gap-2 embed-responsive embed-responsive-4by3" style="">
+							<div class="col-lg-11 col-xs-12 mx-3 resume-file d-block gap-2 embed-responsive embed-responsive-4by3" style="">
 								<label for="resume-file" class="fw-bold">Resume File</label>
 								${filesHTML}
 							</div>
-							<div class="col-11 mx-3 mb-3 log-buttons" style="text-align: end;">
+							<div class="col-lg-11 mx-3 col-xs-12 mb-3 log-buttons" style="text-align: end;">
 								<button type="button" class='btn btn-danger btn-delete' data-id= ${row.id}>
 								Delete
 								</button>
@@ -306,40 +312,40 @@ $(document).ready( function () {
 						</div>
 					</div>`
 				} else if (fetch_url == 'skills') {
-				html +=
-				`
-				<div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
-					<div class="row my-3">
-						<div class="col-6 mx-3 skill-name">
-							<label class="fw-bold">Skill Name</label>
-							<p>${row.skill_name}</p>
-						</div>
-						<div class="col-3 skill-progress">
-							<label class="fw-bold">Skill Progress</label>
-							<p>${row.skill_progress}</p>
-						</div>
-						<div class="col-2 skill-createdat">
-							<label class="fw-bold">Date Created</label>
-							<p>${row.created_at}</p>
-						</div>
-						<div class="col-11 mx-3 skill-desc" style="text-align: justify;">
-							<label class="fw-bold">Skill Description</label>
-							<p>${row.skill_desc}</p>
-						</div>
-						<div class="col-11 mx-3 log-buttons" style="text-align: end;">
-							<button type="button" class='btn btn-secondary btn-edit' data-id= ${row.id} data-bs-toggle="modal" data-bs-target="#editModal">
-							Edit
-							</button>
-							<button type="button" class='btn btn-danger btn-delete' data-id= ${row.id}>
-							Delete
-							</button>
-							<button type="button" class='btn btn-success btn-activate' data-id= ${row.id}>
-								Activate
-							</button>
-						</div>
-					</div>
-				</div>
-				`
+                    html +=
+                    `
+                    <div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
+                        <div class="row my-3">
+                            <div class="col-6 mx-3 skill-name">
+                                <label class="fw-bold">Skill Name</label>
+                                <p>${row.skill_name}</p>
+                            </div>
+                            <div class="col-3 skill-progress">
+                                <label class="fw-bold">Skill Progress</label>
+                                <p>${row.skill_progress}</p>
+                            </div>
+                            <div class="col-2 skill-createdat">
+                                <label class="fw-bold">Date Created</label>
+                                <p>${row.created_at}</p>
+                            </div>
+                            <div class="col-11 mx-3 skill-desc" style="text-align: justify;">
+                                <label class="fw-bold">Skill Description</label>
+                                <p>${row.skill_desc}</p>
+                            </div>
+                            <div class="col-11 mx-3 log-buttons" style="text-align: end;">
+                                <button type="button" class='btn btn-secondary btn-edit' data-id= ${row.id} data-bs-toggle="modal" data-bs-target="#editModal">
+                                Edit
+                                </button>
+                                <button type="button" class='btn btn-danger btn-delete' data-id= ${row.id}>
+                                Delete
+                                </button>
+                                <button type="button" class='btn btn-success btn-activate' data-id= ${row.id}>
+                                    Activate
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    `
 				} else if (fetch_url == 'projects') {
 					let imageHTML = '';
 					if (row.images && row.images.length > 0) {
@@ -389,42 +395,42 @@ $(document).ready( function () {
 					</div>
 					`;
 				} else if (fetch_url == 'exp') {
-				html +=
-				`
-				<div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
-					<div class="row my-3">
-						<div class="col-6 mx-3 exp-title">
-							<label class="fw-bold">Professional Title</label>
-							<p>${row.professional_title}</p>
-						</div>
-						<div class="col-3 company-name">
-							<label class="fw-bold">Company Name</label>
-							<p>${row.company_name}</p>
-						</div>
-						<div class="col-2 prof-year">
-							<label class="fw-bold">Professional Year</label>
-							<p>${row.prof_year}</p>
-						</div>
-						<div class="col-11 mx-3 company-desc" style="text-align: justify;">
-							<label class="fw-bold">Company Description</label>
-							<p>
-							${row.company_desc}
-							</p>
-						</div>
-						<div class="col-11 mx-3 log-buttons" style="text-align: end;">
-							<button type="button" class='btn btn-secondary btn-edit' data-id= ${row.id} data-bs-toggle="modal" data-bs-target="#editModal">
-							Edit
-							</button>
-							<button type="button" class='btn btn-danger btn-delete' data-id= ${row.id}>
-							Delete
-							</button>
-							<button type="button" class='btn btn-success btn-activate' data-id= ${row.id}>
-								Activate
-							</button>
-						</div>
-					</div>
-				</div>
-				` 
+                    html +=
+                    `
+                    <div class="log-row border border-white rounded my-3" data-id= ${row.id} data-isactive=${row.is_active}>
+                        <div class="row my-3">
+                            <div class="col-6 mx-3 exp-title">
+                                <label class="fw-bold">Professional Title</label>
+                                <p>${row.professional_title}</p>
+                            </div>
+                            <div class="col-3 company-name">
+                                <label class="fw-bold">Company Name</label>
+                                <p>${row.company_name}</p>
+                            </div>
+                            <div class="col-2 prof-year">
+                                <label class="fw-bold">Professional Year</label>
+                                <p>${row.prof_year}</p>
+                            </div>
+                            <div class="col-11 mx-3 company-desc" style="text-align: justify;">
+                                <label class="fw-bold">Company Description</label>
+                                <p>
+                                ${row.company_desc}
+                                </p>
+                            </div>
+                            <div class="col-11 mx-3 log-buttons" style="text-align: end;">
+                                <button type="button" class='btn btn-secondary btn-edit' data-id= ${row.id} data-bs-toggle="modal" data-bs-target="#editModal">
+                                Edit
+                                </button>
+                                <button type="button" class='btn btn-danger btn-delete' data-id= ${row.id}>
+                                Delete
+                                </button>
+                                <button type="button" class='btn btn-success btn-activate' data-id= ${row.id}>
+                                    Activate
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    ` 
 				} else if (fetch_url == 'contact'){
                     let contactId = `proj-${row.id}`;
                     html +=
@@ -497,7 +503,7 @@ $(document).ready( function () {
 					download_path = file.file_path;
 				}
 
-                if (file.origin == 'personal_info' && file.foreign_id == personal_info.id){
+                if (file.origin == 'personal_info' && file.foreign_id >= personal_info.id){
                     profile_img_path = file.file_path;
                 }
 
@@ -512,7 +518,7 @@ $(document).ready( function () {
                         <img class="profile-img block width-md height-md radius-50% border border-bg border-2 shadow-sm" src="${orig_base_url}${profile_img_path}" alt="Testimonial picture" style="width: 20rem;">
                         </figure>
                         <div class="text-center">
-                        <p class="text-uppercase letter-spacing-md" ><strong>${personal_info.name}</strong></p>
+                        <p class="text-uppercase letter-spacing-md fs-1"><strong>${personal_info.name}</strong></p>
                         <p class="color-contrast-medium margin-top-xxxxs margin-bottom-xxs">${personal_info.professional_title}</p>
                         </div>
 
@@ -605,25 +611,34 @@ $(document).ready( function () {
                     // <h5 data-aos="fade-up" data-aos-duration="1200">${edu.acad_year}</h5>
 				// 	</div>
 				// `)
+                let logo_img
+                let course_link
+                if (edu.educ_type == "Institution"){
+                    logo_img = "https://cdn-icons-png.flaticon.com/512/535/535239.png";
+                }
 
-                $('.cd-timeline__container').append(
-                    `
-                    <div data-aos="fade-up" data-aos-duration="200" class="cd-timeline__block">
-                     <div data-aos="fade-up" data-aos-duration="500" class="cd-timeline__img cd-timeline__img--picture" style="background: #F9F8F3;">
-                        <img data-aos="fade-up" data-aos-duration="700" src="https://cdn-icons-png.flaticon.com/512/535/535239.png" alt="Picture">
-                    </div> <!-- cd-timeline__img -->
+                if (edu.educ_type == "Certificate"){
+                    logo_img = "https://cdn-icons-png.flaticon.com/512/1021/1021129.png";
+                    course_link = edu.course_link
+                }
+                 $('.cd-timeline__container').append(
+                        `
+                        <div data-aos="fade-up" data-aos-duration="200" class="cd-timeline__block">
+                        <div data-aos="fade-up" data-aos-duration="500" class="cd-timeline__img cd-timeline__img--picture" style="background: #F9F8F3;">
+                            <img data-aos="fade-up" data-aos-duration="700" src="${logo_img}" alt="Picture">
+                        </div> <!-- cd-timeline__img -->
 
-                    <div class="cd-timeline__content text-component" style="box-shadow: 0 3px 10px rgb(0 0 0 /0.2);" >
-                        <h2 data-aos="fade-up" data-aos-duration="900">${edu.institution_name}</h2>
-                        <h3 class="context-subtitle" data-aos="fade-up" data-aos-duration="1000">${edu.education_level}</h3>
-						<h5 data-aos="fade-up" data-aos-duration="1200">${edu.course_name}</h5>
-                        <div class="flex justify-between items-center">
-                        <span data-aos="fade-up" data-aos-duration="1200" class="cd-timeline__date">${edu.acad_year}</span>
-                        </div>
-                        </div> <!-- cd-timeline__content -->
-                        </div>
-                    `
-                )
+                        <div class="cd-timeline__content text-component" style="box-shadow: 0 3px 10px rgb(0 0 0 /0.2);" >
+                            <a style="text-decoration: none;"href="${course_link}"><h2 data-aos="fade-up" data-aos-duration="900">${edu.institution_name}</h2></a>
+                            <h3 class="context-subtitle" data-aos="fade-up" data-aos-duration="1000">${edu.education_level}</h3>
+                            <h5 data-aos="fade-up" data-aos-duration="1200">${edu.course_name}</h5>
+                            <div class="flex justify-between items-center">
+                            <span data-aos="fade-up" data-aos-duration="1200" class="cd-timeline__date">${edu.acad_year}</span>
+                            </div>
+                            </div> <!-- cd-timeline__content -->
+                            </div>
+                        `
+                    )
 			})
 			experience.forEach(exp => {
 			$('.div-experience').append(
@@ -641,25 +656,49 @@ $(document).ready( function () {
 			});
 			project.forEach(proj => {
 			let projId = `proj-${proj.id}`;
-			$('.div-projects').append(
+			// $('.div-projects').append(
 				
-			`
-				<div class="project-item col-lg-6 col-xl-6 col-sm-12 mt-5" data-aos="fade-up">
-					<section class="splide" id="${projId}">
-						<div class="splide__track">
-						<ul class="splide__list ${projId}">
-						</ul>
+			// `
+				// <div class="project-item col-lg-6 col-xl-6 col-sm-12 mt-5" data-aos="fade-up">
+				// 	<section class="splide" id="${projId}">
+				// 		<div class="splide__track">
+				// 		<ul class="splide__list ${projId}">
+				// 		</ul>
 						
-					</section>
+				// 	</section>
 
 					
-					<h2 class="context-title">${proj.project_name}</h2>
-					<h3 class="context-subtitle">${proj.project_role}</h3>
-					<h5 class="context-tech">${proj.project_tech}</h5>
-					<p class="context-desc">${proj.project_desc}</p>
-				</div>
+			// 		<h2 class="context-title">${proj.project_name}</h2>
+			// 		<h3 class="context-subtitle">${proj.project_role}</h3>
+			// 		<h5 class="context-tech">${proj.project_tech}</h5>
+			// 		<p class="context-desc">${proj.project_desc}</p>
+			// 	</div>
 				
-			`); 
+			// `); 
+            $('.articles-v3__list-grid').append(
+            `
+                <div class="project-item" data-aos="fade-up">
+                    <li class="articles-v3__item-grid">
+                        <a href="#0" class="articles-v3__img-wrapper">
+                        <section class="splide" id="${projId}">
+                            <div class="splide__track">
+                            <ul class="splide__list ${projId}">
+                            </ul>
+                            
+                        </section>
+                        </a>
+                
+                        <div>
+                            <h2 class="articles-v3__headline context-title">${proj.project_name}</h2>
+                            <h3 class="context-subtitle">${proj.project_role}</h3>
+			                <h5 class="context-tech">${proj.project_tech}</h5>
+                            <p class="articles-v3__description">${proj.project_desc}</p>
+                        </div>
+                    </li>
+                </div>
+            `
+
+            )
             images.forEach(file =>{
                 if (file.foreign_id == proj.id && file.origin == 'projects') {
 					$(`.${projId}`).append(`
@@ -766,10 +805,21 @@ $(document).ready( function () {
 		let parentRow = button.closest('.log-row');
 
 		if (fetch_url === 'education') {
+            if (parentRow.find('.educ-type p').text().trim() == "Institution"){
+                $('#editinstitution_type').prop('checked', true);
+            }
+
+            if (parentRow.find('.educ-type p').text().trim() == "Certificate"){
+                $('#editcertificate_type').prop('checked', true);
+            }
+            
+            
 			$('#hiddenID').val(item_id);
+            
 			$('#editInstitution').val(parentRow.find('.institution-name p').text().trim());
 			$('#editLevel').val(parentRow.find('.educ-level p').text().trim());
 			$('#editCourseName').val(parentRow.find('.course-name p').text().trim());
+            $('#editCourseLink').val(parentRow.find('.course-link p').text().trim())
 			$('#editAcadYear').val(parentRow.find('.acad-year p').text().trim());
 			$('#editEducDescription').val(parentRow.find('.institution-desc p').text().trim());
 		}
@@ -812,7 +862,7 @@ $(document).ready( function () {
 						editDropzoneProfile.files.push(mockFile);
 						editDropzoneProfile.emit("addedfile", mockFile);
 						editDropzoneProfile.emit("thumbnail", mockFile, file.file_path);
-						editDropzoneProfile.emit("complete", mockFile);
+                        editDropzoneProfile.emit("completed", mockFile);
 					});
 				},
 				error: function (xhr, status, error) {
@@ -867,12 +917,17 @@ $(document).ready( function () {
 			$('#editCompanyYears').val(parentRow.find('.prof-year p').text().trim());
 			$('#editCompanyDesc').val(parentRow.find('.company-desc p').text().trim());
 		}
-  });
+    });
   
 	$(document).on('click', '.btn-edit-submit-educ', function () {
 		var formData = new FormData();
 
+        var selectedValue = $('input[name="editeduc_type"]:checked').val();
+
+        formData.append('educ_type', selectedValue);
+
 		formData.append('id', $('#hiddenID').val());
+        formData.append('course_link', $('#editCourseLink').val())
 		formData.append('institution_name', $('#editInstitution').val());
 		formData.append('education_level', $('#editLevel').val());
 		formData.append('acad_year', $('#editAcadYear').val());
@@ -994,6 +1049,7 @@ $(document).ready( function () {
 			toastr.error("Please input all of the fields", "Incomplete fields");
 		} else {
 			var formData = new FormData();
+            formData.append("id",$('#hiddenprofileid').val()),
 			formData.append("name", $("#editName").val());
 			formData.append("professional_title", $("#editTitle").val());
 			formData.append("introduction", $("#editDesc").val());
@@ -1052,11 +1108,16 @@ $(document).ready( function () {
 	$('.btn-submit-educ').on('click', function () {
 		var formData = new FormData();
 
+        var selectedValue = $('input[name="educ_type"]:checked').val();
+
+        formData.append('educ_type', selectedValue);
+        formData.append('course_link', $('#inputCourseLink').val())
 		formData.append('institution_name', $('#inputInstitution').val());
 		formData.append('education_level', $('#inputLevel').val());
 		formData.append('acad_year', $('#inputAcadYear').val());
         formData.append('course_name', $('#inputCourseName').val());
 		formData.append('institution_desc', $('#inputEducDescription').val());
+
 		api.post('handle_educ', formData) 
 	});
 
@@ -1113,17 +1174,5 @@ $(document).ready( function () {
 		}
 	});
 
-	$('.snow-button').on('mousemove', function (e) {
-		let $snowflake = $('<div class="snowflake">❅</div>');
-		$snowflake.css({
-			left: e.pageX + (Math.random() * 20 - 10) + 'px',
-			top: e.pageY + 'px'
-		});
-
-		$('body').append($snowflake);
-
-		setTimeout(() => {
-			$snowflake.remove();
-		}, 2000);
-	});
+	
 });

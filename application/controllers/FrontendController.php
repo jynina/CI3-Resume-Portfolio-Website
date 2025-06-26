@@ -123,13 +123,12 @@ class FrontendController extends CI_Controller{
 
     public function welcome_contact()
     {
-        if (!$this->session->userdata('logged_in')) {
-            redirect('admin_dashboard');
-        } else {
-            $this->load->view('template/header');
-            $this->load->view('welcome_contact');
 
-        }
+        $this->load->view('template/header');
+        $this->load->view('welcome_contact');
+        $this->load->view('template/footer');
+
+
     }
 
 }

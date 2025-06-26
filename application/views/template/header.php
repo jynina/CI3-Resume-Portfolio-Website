@@ -41,7 +41,7 @@
     <link href=" https://cdn.jsdelivr.net/npm/vertical-timeline@2.0.0/assets/css/style.min.css " rel="stylesheet">
     <script src="https://unpkg.com/@sidsbrmnn/scrollspy@1.x/dist/scrollspy.min.js"></script>
 </head>
-<body>
+<body >
 	<div class="container-fluid">
 <input type="text" value="<?= base_url()?>" id="base_url" hidden>
 <script>
