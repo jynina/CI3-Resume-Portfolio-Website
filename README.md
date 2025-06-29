@@ -1,7 +1,7 @@
 
 # 🧾 Resume Website with CMS
 
-This is a personal resume website built with **CodeIgniter 3** featuring a secure **admin dashboard**, dynamic content management system, and responsive front-end. You can update your information (about, skills, education, experience, and projects) without touching the code. It also features file/image uploads and login-based admin access.
+This is a personal resume website built with **CodeIgniter 3** featuring an **admin dashboard**, dynamic content management system, and responsive front-end. You can update your information (about, skills, education, experience, and projects) without touching the code. It also features file/image uploads and login-based admin access.
 
 ---
 
