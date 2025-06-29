@@ -38,8 +38,8 @@ This is a personal resume website built with **CodeIgniter 3** featuring an **ad
 - models/
 - views/
 - assets/
-- css/
-- js/
+	- css/
+	- js/
 - uploads/
 - system/
 
