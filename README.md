@@ -49,8 +49,8 @@ This is a personal resume website built with **CodeIgniter 3** featuring an **ad
 
 ### 1. Clone the Repo
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/jynina/CI3-Resume-Portfolio-Website.git
+cd CI3-Resume-Portfolio-Website
 
 ```
 
