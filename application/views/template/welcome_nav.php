@@ -1,16 +1,16 @@
-<div class="container-fluid d-flex justify-content-between">
+<div class="container-fluid d-flex justify-content-between" >
     
         <div>
-            <span class="nav-logo">KWENN</span>
+            <span class="nav-logo" style="position:absolute; z-index: 10000;">KWENN</span>
         </div>
     
-        <nav class="navbar navbar-expand-lg navbar-light bg-transparent" id="navbar-main">
+        <nav class="navbar navbar-expand-lg navbar-light"  id="navbar-main">
             <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button> -->
             <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
                 <ul class="navbar-nav">
-                    <div class="d-xl-flex d-sm-block fixed-top justify-content-center mt-3">
+                    <div class="d-xl-flex d-sm-block fixed-top justify-content-center pt-2" style="background-color: #ffffff !important">
                         <li class="nav-item active" data-nav="about">
                             <a class="nav-link" href="#about-page">About</a>
                         </li>

@@ -38,11 +38,11 @@ $(document).ready( function () {
 			processData: false,
 			contentType: false,
 			success: function(){
-				toastr.success('Info has been sent', 'Nice');
-				location.reload();
+				toastr.success("Data has been sent.", "Success");
+				// location.reload();
 			},
 			error: function(){
-				toastr.error('May mali', 'Irror')
+				toastr.error("Data has not been sent. Contact the developer 	", 'Error')
 			}
 		});
 	}
@@ -112,11 +112,11 @@ $(document).ready( function () {
 			},
 			success: function()
 			{
-				toastr.success('Check mo parin network tho','ANG GALING MONG MAGCODE');
+				toastr.success('Images has been saved successfully.','Success');
 			},
 			error: function()
 			{
-				toastr.error('Tignan mo ulit code mo pls', 'BOBO MO MAGCODE')
+				toastr.error('Images in the', 'Error')
 			}
 		});
 	}
@@ -276,7 +276,7 @@ $(document).ready( function () {
 					if (row.files && row.files.length > 0) {
 						filesHTML = row.files.map(file => `
 						<br>
-						<iframe src="${file.file_path}" class="embed-responsive-item" style="width:100%"></iframe>
+						<iframe src="${file.file_path}" class="embed-responsive-item" style="width:100%; min-height:500px"></iframe>
 						`).join('');
 					} else {
 						filesHTML = '<p>No Files</p>';
@@ -611,17 +611,18 @@ $(document).ready( function () {
                     // <h5 data-aos="fade-up" data-aos-duration="1200">${edu.acad_year}</h5>
 				// 	</div>
 				// `)
-                let logo_img
-                let course_link
+                let logo_img;
+                let course_link = "#";
                 if (edu.educ_type == "Institution"){
                     logo_img = "https://cdn-icons-png.flaticon.com/512/535/535239.png";
-                }
+                };
 
                 if (edu.educ_type == "Certificate"){
                     logo_img = "https://cdn-icons-png.flaticon.com/512/1021/1021129.png";
                     course_link = edu.course_link
-                }
-                 $('.cd-timeline__container').append(
+                };
+
+                $('.cd-timeline__container').append(
                         `
                         <div data-aos="fade-up" data-aos-duration="200" class="cd-timeline__block">
                         <div data-aos="fade-up" data-aos-duration="500" class="cd-timeline__img cd-timeline__img--picture" style="background: #F9F8F3;">
@@ -790,7 +791,7 @@ $(document).ready( function () {
 						rowActivation(item_id, parentRow, currentStatus);
 					}
 
-					toastr.error('only one resume can be active', 'nononononon');
+					toastr.error('Only one resume can be active', 'Error');
 					return
 				}
 				rowActivation(item_id, parentRow, currentStatus)

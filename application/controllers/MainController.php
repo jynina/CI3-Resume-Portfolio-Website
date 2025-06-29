@@ -70,8 +70,13 @@ class MainController extends CI_Controller {
         if ($id) {
             $this->Main_Model->update_data($table_name, $id, $data);
         }
-    
-        return $data;
+
+        if ($data){
+            echo json_encode(['status' => 'Success', 'message' => 'Updated Successfully']);
+        }
+        else{
+            echo json_encode(['status' => 'Error', 'message' => error_reporting(E_ALL)]);
+        }
     
     }
 
@@ -84,7 +89,12 @@ class MainController extends CI_Controller {
         }
 
         $this->Main_Model->insert_data($data, $table_name);
-        return $data;
+        if ($data){
+            echo json_encode(['status' => 'Success', 'message' => 'Updated Successfully']);
+        }
+        else{
+            echo json_encode(['status' => 'Error', 'message' => error_reporting(E_ALL)]);
+        }
     }
 
     private function handle_insert_with_id($fields, $table_name){
@@ -104,10 +114,60 @@ class MainController extends CI_Controller {
     //insertion
     public function handle_contact() 
     {
-        $fields = ['contact_name', 'contact_email', 'contact_subject', 'contact_message'];
-        $contact_data = $this->handle_insert($fields, 'tbl_contact');
+        // $fields = ['contact_name', 'contact_email', 'contact_subject', 'contact_message'];
 
-        $this->contact_send_email($contact_data);
+        $data = array (
+            'contact_name' => $this->input->post('contact_name'),
+            'contact_email' => $this->input->post('contact_email'),
+            'contact_subject' => $this->input->post('contact_subject'),
+            'contact_message' => $this->input->post('contact_message'),
+        );
+
+        // $this->contact_send_email($data);
+        $this->Main_Model->insert_data($data, 'tbl_contact');
+
+        $this->load->library('email');
+        // $config = array(
+        //     'protocol'  => 'smtp',
+        //     'smtp_host' => 'smtp.gmail.com',
+        //     'smtp_port' => 587,
+        //     'smtp_user' => 'hannin.arts@gmail.com',
+        //     'smtp_pass' => 'smkgnrwsujhttbna', 
+        //     'mailtype'  => 'html',
+        //     'charset'   => 'utf-8',
+        //     'newline'   => "\r\n",
+        //     'smtp_crypto' => 'tls',
+        //     'wordwrap' => false 
+        // );
+
+        $config = array(
+            'protocol'  => 'smtp',
+            'smtp_host' => 'smtp.gmail.com',
+            'smtp_port' => 587,
+            'smtp_user' => '',
+            'smtp_pass' => '', 
+            'mailtype'  => 'html',
+            'charset'   => 'utf-8',
+            'newline'   => "\r\n",
+            'smtp_crypto' => 'tls',
+            'wordwrap' => false,
+            'newline' => "\r\n"
+        );
+        $this->email->initialize($config); 
+
+
+        $this->email->from($data['contact_email'], $data['contact_name']);
+        $this->email->to('');
+        $this->email->subject($data['contact_subject']);
+        $this->email->message($data['contact_message']);
+
+        if ($this->email->send()) {
+            // Email sent successfully
+        } else {
+            // Email sending failed, handle the error (e.g., show an error message)
+            show_error($this->email->print_debugger());
+        } 
+        
     }
 
     public function handle_about()
@@ -249,30 +309,6 @@ class MainController extends CI_Controller {
                 }
             }
         }
-    }
-
-    public function contact_send_email($data) {
-
-        $this->load->library('email');
-        $config = array(
-            'protocol'  => 'smtp',
-            'smtp_host' => 'smtp.gmail.com',
-            'smtp_port' => 587,
-            'smtp_user' => 'hannin.arts@gmail.com',
-            'smtp_pass' => 'ucvyuzibcfhjrjwh ', 
-            'mailtype'  => 'html',
-            'charset'   => 'utf-8',
-            'newline'   => "\r\n",
-            'smtp_crypto' => 'tls',
-            'wordwrap' => TRUE
-        );
-        $this->email->initialize($config); 
-
-
-        $this->email->from($data['contact_email'], $data['contact_name']);
-        $this->email->to('hannin.arts@gmail.com');
-        $this->email->subject($data['contact_subject']);
-        $this->email->message($data['contact_message']);
     }
 
     public function handle_login() {

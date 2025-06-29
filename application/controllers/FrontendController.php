@@ -14,7 +14,6 @@ class FrontendController extends CI_Controller{
     public function admin_dashboard()
     {
         $this->load->view('template/header', ['page' => '#']);
-        $this->load->view('template/welcome_nav');
 		$this->load->view('admin/login');
 
     }
