@@ -3,9 +3,9 @@
         <div class="row container d-flex">
             <div class="col-xl-9 col-lg-8 col-md-7 mb-3">
               <label for="name" class="form-label d-block">Name</label>
-              <input type="text" class="form-control" id="inputName" placeholder="Kwenn" disabled>
+              <input type="text" class="form-control" id="inputName" disabled>
               <label for="prof-name" class="form-label mt-lg-3">Professional Title</label>
-              <input type="text" class="form-control" id="inputTitle" placeholder="Taong Bahay" disabled>
+              <input type="text" class="form-control" id="inputTitle" disabled>
               <label for="exampleFormControlTextarea1" class="form-label mt-lg-3">Brief Description</label>
               <textarea class="form-control" id="inputDesc" rows="3" disabled></textarea>
             </div>
@@ -33,9 +33,9 @@
                     <div class="">
                     <input type="text" id="hiddenprofileid" hidden>
                     <label for="name" class="form-label d-block">Name</label>
-                    <input type="text" class="form-control" id="editName" placeholder="Kwenn">
+                    <input type="text" class="form-control" id="editName">
                     <label for="prof-name" class="form-label mt-lg-3">Professional Title</label>
-                    <input type="text" class="form-control" id="editTitle" placeholder="Taong Bahay">
+                    <input type="text" class="form-control" id="editTitle">
                     <label for="exampleFormControlTextarea1" class="form-label mt-lg-3">Introduction</label>
                     <textarea class="form-control" id="editDesc" rows="3"></textarea>
                     </div>

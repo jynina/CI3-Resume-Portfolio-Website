@@ -485,9 +485,9 @@ $(document).ready( function () {
 		method: 'GET',
 		dataType: 'json',
 		success: function (data) {
-			toastr.success('Ngaleng', 'Data successfully loaded')
+			toastr.success('Data successfully loaded', 'Success')
 			var download_path;
-            var profile_img_path = 'upload/pedro.png'
+            var profile_img_path;
 			var resume = data.resume[0];
 			var personal_info = data.personal_info[0];
 			var skills = data.skills;
