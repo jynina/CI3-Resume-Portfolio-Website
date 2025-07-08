@@ -1,7 +1,7 @@
 
 # 🧾 Resume Website with CMS
 
-This is a personal resume website built with **CodeIgniter 3** featuring a secure **admin dashboard**, dynamic content management system, and responsive front-end. You can update your information (about, skills, education, experience, and projects) without touching the code. It also features file/image uploads and login-based admin access.
+This is a personal resume website built with **CodeIgniter 3** featuring an **admin dashboard**, dynamic content management system, and responsive front-end. You can update your information (about, skills, education, experience, and projects) without touching the code. It also features file/image uploads and login-based admin access.
 
 ---
 
@@ -38,8 +38,8 @@ This is a personal resume website built with **CodeIgniter 3** featuring a secur
 - models/
 - views/
 - assets/
-- css/
-- js/
+	- css/
+	- js/
 - uploads/
 - system/
 
@@ -49,8 +49,8 @@ This is a personal resume website built with **CodeIgniter 3** featuring a secur
 
 ### 1. Clone the Repo
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/jynina/CI3-Resume-Portfolio-Website.git
+cd CI3-Resume-Portfolio-Website
 
 ```
 
