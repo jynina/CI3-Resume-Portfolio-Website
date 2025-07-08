@@ -45,6 +45,20 @@ This is a personal resume website built with **CodeIgniter 3** featuring an **ad
 
 ---
 
+## 📺 Code Showcase
+- Youtube link: https://youtu.be/SPkSxsMsbXA
+
+---
+
+## ❗ IMPORTANT
+- Add your gmail and your app password on: controllers/MainController/send_email
+	- This is for the contact form to work, since it will send an email once a user inputs on the contact form.
+- This is a blank slate, so click on the edit and type these credentials:
+	- username: admin
+ 	- password: admin123
+
+---
+
 ## 🚀 Setup Instructions
 
 ### 1. Clone the Repo
